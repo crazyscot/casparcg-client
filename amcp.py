@@ -6,6 +6,44 @@
 import socket
 import configparser
 
+def code_lookup(c):
+    if c==400:
+        return 'Unspecified client error'
+    elif c==401:
+        return 'Illegal video channel'
+    elif c==402:
+        return 'Parameter missing'
+    elif c==403:
+        return 'Illegal parameter'
+    elif c==404:
+        return 'Media file not found'
+    elif c>=400 and c<500:
+        return 'Unknown client error code'
+    elif c==500:
+        return 'Unspecified internal server error'
+    elif c==501:
+        return 'Internal server error'
+    elif c==502:
+        return 'Media file unreadable'
+    elif c==503:
+        return 'Access error'
+    elif c>=500 and c<600:
+        return 'Unknown server error code'
+    else:
+        return 'Unknown error code'
+
+class AMCPException(Exception):
+    def __init__(self, code, info):
+        self.code = code
+        self.info = info
+    def __str__(self):
+        return 'Status %s (%s): %s' %(self.code, code_lookup(self.code), self.info)
+
+class ClientError(AMCPException):
+    pass
+class ServerError(AMCPException):
+    pass
+
 class Connection(object):
     def __init__(self, server='127.0.0.1', port=5250):
         self.server = server
