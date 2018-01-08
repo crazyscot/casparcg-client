@@ -178,6 +178,10 @@ class MainWindow:
             traceback.print_exc()
             self.status('ERROR: %s' % e)
 
+    def rewrite_config(self):
+        with open(self.cfilename, 'w') as cf:
+            self.config.write(cf)
+
 if __name__=='__main__':
     # TODO specify name of config file on command line
     MainWindow().mainloop()
