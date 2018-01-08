@@ -75,13 +75,16 @@ class LowerThird(LabelFrame,object):
     SECTION='lowerthird'
     OPTION_FG='fg'
     OPTION_BG='bg'
+    OPTION_TEMPLATE='template'
+    OPTION_CHANNEL='channel'
+    OPTION_LAYER='layer'
 
-    def __init__(self, parent, channel, layer, template, config, text='Lower Third', *args, **kwargs):
+    def __init__(self, parent, config, text='Lower Third', *args, **kwargs):
         super(LowerThird, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
-        self.channel = channel
-        self.layer = layer
-        self.template = template
+        self.channel = int(config.get(LowerThird.SECTION, LowerThird.OPTION_CHANNEL))
+        self.layer = int(config.get(LowerThird.SECTION, LowerThird.OPTION_LAYER))
+        self.template = config.get(LowerThird.SECTION, LowerThird.OPTION_TEMPLATE)
         self.config = config
 
         newlabel(self, 'Line 1: ', 0, 0)
@@ -157,8 +160,7 @@ class MainWindow:
         self.wStatus = StatusWidget(self, 1) # TODO config - channel
         self.wStatus.pack()
 
-        self.lt = LowerThird(self, 1, 10, 'hello-world/INDEX', self.config)
-        # TODO config options: channel, layer, template
+        self.lt = LowerThird(self, self.config)
         self.lt.pack()
 
     def newbutton(self, parent, targetfunc, col=None, row=None, **kwargs):
