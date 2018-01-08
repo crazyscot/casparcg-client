@@ -4,6 +4,7 @@ import amcp
 import configparser
 import traceback
 import config
+import globalwidget
 import wx # wxPython 4.0:
 # on Windows, pip install -U wxPython
 # on Linux, refer to Linux Wheels on https://www.wxpython.org/pages/downloads/
@@ -42,15 +43,36 @@ class MainWindow(wx.Frame):
         self.config = config.config(configfile)
         self.server = amcp.Connection(self.config, self)
 
-        self.layer = int(self.config.get(SECTION_MAIN, OPTION_CHANNEL))
+        self.panel = MainPanel(self)
+        self.Show()
 
-        #self.wStatus = StatusWidget(self, self.layer)
-        #self.wStatus.pack()
+    def status(self, msg):
+        ''' If you are going to not return to the main loop for a while,
+            you ought to call update() to force a redraw. '''
+        self.statusbar.SetStatusText(msg)
 
+    def update(self):
+        ''' Redraw. Rarely needed. '''
+        self.Update()
+
+class MainPanel(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent)
+        self.parent = parent
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        self.SetSizer(sizer)
+
+        gw = globalwidget.GlobalWidget(self)
+        sizer.Add(gw, 0, wx.EXPAND)
+
+        # TODO make the set of visible widgets configurable
         #self.lt = LowerThird(self, self.config)
         #self.lt.pack()
 
-        self.Show()
+    def channel(self):
+        ''' For convenient access to our Caspar channel id, which is a configured global '''
+        return self.parent.config.channel()
 
     def status(self, msg):
         ''' If you are going to not return to the main loop for a while,
