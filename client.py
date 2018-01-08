@@ -47,10 +47,10 @@ class LowerThird(LabelFrame,object):
 
         newlabel(self, 'Line 1: ', 0, 0)
         newlabel(self, 'Line 2: ', 0, 1)
-        eTopLine=Entry(self, width=50)
-        eTopLine.grid(column=1, row=0)
-        eBottomLine=Entry(self, width=50)
-        eBottomLine.grid(column=1, row=1)
+        self.eTopLine=Entry(self, width=50)
+        self.eTopLine.grid(column=1, row=0)
+        self.eBottomLine=Entry(self, width=50)
+        self.eBottomLine.grid(column=1, row=1)
 
         bUpdate=self.parent.newbutton(self, self.do_update, text='Update', col=1, row=2)
         # TODO colour choosers / pickers
@@ -59,6 +59,12 @@ class LowerThird(LabelFrame,object):
         bFadeOn=self.parent.newbutton(self, self.fadeOn, col=3, row=0, text='Fade on')
         bFadeOff=self.parent.newbutton(self, self.fadeOff, col=3, row=1, text='Fade off')
         self.pack()
+
+    def templateData(self):
+        return amcp.jsondata({
+            'f0': self.eTopLine.get(),
+            'f1': self.eBottomLine.get(),
+            })
 
     def fadeOn(self,e):
         # XXX HERE
