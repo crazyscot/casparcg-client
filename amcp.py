@@ -118,3 +118,35 @@ class Connection(object):
             raise ServerError(status, info)
         # That's interesting, we didn't recognise the status code.
         raise AMCPException(status, info)
+
+def quote(s):
+    '''
+        Quotes a parameter for transit over AMCP
+        Rules:
+            \ -> \\
+            Newline -> \n
+            " -> \"
+            Then, if there's a space, put double quotes around the whole thing.
+    '''
+    s=s.replace('\\','\\\\')
+    s=s.replace('\r\n', '\n')
+    s=s.replace('\n\r', '\n')
+    s=s.replace('\n', '\\n')
+    s=s.replace('"', '\\"')
+    if '"' in s:
+        s="\"%s\""%s
+    return s
+
+def unquote(s):
+    ''' Reverse of quote() '''
+    if s[0]=='"' and s[-1]=='"':
+        s = s[1:-1]
+    s=s.replace('\\"','"')
+    s=s.replace('\\n', '\n')
+    s=s.replace('\\\\','\\')
+    return s
+
+
+if __name__=='__main__':
+    for s in ['abc', 'abc"', 'a b', 'a "b c"', 'a\\b', 'a\nb', 'a\n"b \\c"']:
+        assert unquote(quote(s)) == s, 'quote unquote test: %s'%s
