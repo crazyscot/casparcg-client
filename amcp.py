@@ -6,6 +6,7 @@
 import socket
 import configparser
 import json
+import Tkinter
 
 def code_lookup(c):
     if c==400:
@@ -61,9 +62,7 @@ class Connection(object):
             pass
 
     def connect(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((self.server, self.port))
-        self.socket = s
+        self.socket = socket.create_connection((self.server, self.port), 5)
 
     def transact_raw(self, command):
         ''' Sends command, returns raw response '''
