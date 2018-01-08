@@ -47,6 +47,7 @@ class PairedColourPicker(Frame, object):
 class StatusWidget(LabelFrame, object):
     '''
         A composite widget containing a Status field and a red 'ALL GFX OFF' button
+        'channel' specifies the Caspar channel to kill when the button is pressed.
     '''
     def __init__(self, parent, channel, text='Status', *args, **kwargs):
         super(StatusWidget, self).__init__(*args, text=text, **kwargs)
@@ -70,19 +71,18 @@ class StatusWidget(LabelFrame, object):
 class LowerThird(LabelFrame,object):
     '''
         Lower Third composite UI widget
-        Required params: parent (MainWindow), Caspar channel, Caspar layer, Template name, ConfigParser object to use
+        Required params: parent (MainWindow), ConfigParser object to use.
     '''
     SECTION='lowerthird'
     OPTION_FG='fg'
     OPTION_BG='bg'
     OPTION_TEMPLATE='template'
-    OPTION_CHANNEL='channel'
     OPTION_LAYER='layer'
 
     def __init__(self, parent, config, text='Lower Third', *args, **kwargs):
         super(LowerThird, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
-        self.channel = int(config.get(LowerThird.SECTION, LowerThird.OPTION_CHANNEL))
+        self.channel = int(config.get(SECTION_MAIN, OPTION_CHANNEL))
         self.layer = int(config.get(LowerThird.SECTION, LowerThird.OPTION_LAYER))
         self.template = config.get(LowerThird.SECTION, LowerThird.OPTION_TEMPLATE)
         self.config = config
@@ -146,6 +146,9 @@ class LowerThird(LabelFrame,object):
     # TODO configure fade speed (ms)
 
 
+SECTION_MAIN='main'
+OPTION_CHANNEL='channel'
+
 class MainWindow:
     def __init__(self, configfile='config.ini'):
         root=Tk()
@@ -157,7 +160,9 @@ class MainWindow:
 
         self.server = amcp.Connection(self.config, self)
 
-        self.wStatus = StatusWidget(self, 1) # TODO config - channel
+        self.layer = int(self.config.get(SECTION_MAIN, OPTION_CHANNEL))
+
+        self.wStatus = StatusWidget(self, self.layer)
         self.wStatus.pack()
 
         self.lt = LowerThird(self, self.config)
