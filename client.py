@@ -16,8 +16,7 @@ class StatusWidget(LabelFrame, object):
         super(StatusWidget, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
         self.channel=channel
-        self.fStatus = Label(self, width=100, justify=LEFT)
-        # TODO text alignment
+        self.fStatus = Label(self, width=60, anchor=W)
         self.update('nothing happening')
         self.fStatus.grid(column=1,row=0)
         self.AllOff = parent.newbutton(self, self.allGfxOff, col=2, row=0, text='ALL GFX OFF', bg='#f88', activebackground='#f44')
@@ -108,8 +107,8 @@ class MainWindow:
             Exception-safe server transaction
             Updates the status line suitably
         '''
-        if len(command)>20:
-            gist = '%s...'%command[0:17]
+        if len(command)>30:
+            gist = '%s...'%command[0:27]
         else:
             gist = command
         try:
