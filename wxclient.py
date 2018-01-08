@@ -3,6 +3,7 @@
 import amcp
 import configparser
 import traceback
+import config
 import wx # wxPython 4.0:
 # on Windows, pip install -U wxPython
 # on Linux, refer to Linux Wheels on https://www.wxpython.org/pages/downloads/
@@ -32,19 +33,13 @@ To make this work:
             port = 1234 # default 5250
 '''
 
-SECTION_MAIN='main'
-OPTION_CHANNEL='channel'
-
 class MainWindow(wx.Frame):
     def __init__(self, parent, title='Hello, Caspar World!', configfile='config.ini'):
-        wx.Frame.__init__(self, parent, title=title) # size ? TODO
+        wx.Frame.__init__(self, parent, title=title)
         self.statusbar = self.CreateStatusBar(1)
         self.status('nothing happening')
 
-        self.cfilename = configfile
-        self.config = configparser.ConfigParser()
-        self.config.read(configfile)
-
+        self.config = config.config(configfile)
         self.server = amcp.Connection(self.config, self)
 
         self.layer = int(self.config.get(SECTION_MAIN, OPTION_CHANNEL))
@@ -92,7 +87,6 @@ class MainWindow(wx.Frame):
             self.config.write(cf)
 
 if __name__=='__main__':
-    # TODO specify name of config file on command line
     app = wx.App(False)
     frame = MainWindow(None)
     app.MainLoop()
