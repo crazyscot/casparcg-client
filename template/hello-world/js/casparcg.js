@@ -16,7 +16,6 @@ function update(arg) { //the key/value pairs configured in CasparCG client are p
 	
 	if (json.bgcol !== undefined) {
 		$(".textbox").css('background-color', json.bgcol);
-		console.warn('got '+json.bgcol);
 	}
 	if (json.fgcol !== undefined) {
 		$('.textbox').css('color', json.fgcol);

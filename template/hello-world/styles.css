@@ -10,7 +10,6 @@ We style the div to be blue, but don't assign the body a background color. In no
     background-color:navy;
     color: white;
 	margin: -10px;
-	xmargin-right: 20vw;
     padding: 10px 15%;
 	display: block;
 	position: absolute;
