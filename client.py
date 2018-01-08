@@ -85,14 +85,20 @@ class LowerThird(LabelFrame,object):
         # TODO colour choosers / pickers
 
         newlabel(self, '', 2, 0, width=10) # empty, put some space between the buttons
-        bFadeOn=self.parent.newbutton(self, self.fadeOn, col=3, row=0, text='Fade on')
-        bFadeOff=self.parent.newbutton(self, self.fadeOff, col=3, row=1, text='Fade off')
+        self.textcol = PairedColourPicker(self, '#d0d0d0', '#000000') # TODO config, and remember last used
+        self.textcol.grid(column=3, row=0, rowspan=2)
+
+        newlabel(self, '', 4, 0, width=10) # empty, put some space between the buttons
+        bFadeOn=self.parent.newbutton(self, self.fadeOn, col=5, row=0, text='Fade on')
+        bFadeOff=self.parent.newbutton(self, self.fadeOff, col=5, row=1, text='Fade off')
         self.pack()
 
     def templateData(self):
         return amcp.jsondata({
             'f0': self.eTopLine.get(),
             'f1': self.eBottomLine.get(),
+            'fgcol' : self.textcol.fg.my_colour,
+            'bgcol' : self.textcol.bg.my_colour,
             })
 
     def fadeOn(self,e):
