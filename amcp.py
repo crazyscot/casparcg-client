@@ -46,22 +46,18 @@ class ServerError(AMCPException):
     pass
 
 class Connection(object):
-    def __init__(self, server='127.0.0.1', port=5250):
-        self.server = server
-        self.port = port
+    def __init__(self, config):
+        self.server = '127.0.0.1'
+        self.port = 5250
         self.socket = None # we'll connect on demand
-        self.read_config() # INI file overrides parameters
-
-    def read_config(self):
-        cp = configparser.ConfigParser()
-        cp.read('amcp.ini')
+        # INI file overrides default parameters
         try:
-            self.server = cp.get('server','host')
-        except configparser.ConfigParser.Error:
+            self.server = config.get('server','host')
+        except configparser.Error:
             pass
         try:
-            self.port = int(cp.get('server','port'))
-        except configparser.ConfigParser.Error:
+            self.port = int(config.get('server','port'))
+        except configparser.Error:
             pass
 
     def connect(self):

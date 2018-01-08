@@ -130,7 +130,7 @@ class MainWindow:
         self.config = configparser.ConfigParser()
         self.config.read(configfile)
 
-        self.server = amcp.Connection()
+        self.server = amcp.Connection(self.config)
         # TODO If we need configuration in here, merge AMCP to use the same file
 
         self.wStatus = StatusWidget(self, 1) # TODO config - channel
