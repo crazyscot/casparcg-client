@@ -4,6 +4,7 @@ from Tkinter import * # python-tk package
 import tkColorChooser
 import amcp
 import configparser
+import traceback
 
 def stopProg(e):
     root.destroy()
@@ -173,6 +174,8 @@ class MainWindow:
             self.status('ERROR: %s from %s' % (e, gist))
             return None
         except Exception as e:
+            print e
+            traceback.print_exc()
             self.status('ERROR: %s' % e)
 
 if __name__=='__main__':
