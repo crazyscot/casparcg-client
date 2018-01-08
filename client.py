@@ -28,10 +28,7 @@ class StatusWidget(LabelFrame, object):
         self.fStatus.configure(text=msg)
 
     def allGfxOff(self, e):
-        self.parent.server.transact('CLEAR %d'%(self.channel))
-        self.parent.wStatus.update('OK')
-
-        # TODO Handle transact errors - use a wrapper fn self.parent.transact(...) which traps and sends to the status widget. If all good then set status to 'OK <gist of command>' instead.
+        self.parent.transact('CLEAR %d'%(self.channel))
 
 class LowerThird(LabelFrame,object):
     '''
@@ -68,16 +65,15 @@ class LowerThird(LabelFrame,object):
 
     def fadeOn(self,e):
         # CG channel ADD layer template 1 data
-        self.parent.server.transact('CG %d ADD %d %s 1 %s'%(self.channel, self.layer, amcp.quote(self.template), self.templateData()))
-        self.parent.wStatus.update('OK')
+        self.parent.transact('CG %d ADD %d %s 1 %s'%(self.channel, self.layer, amcp.quote(self.template), self.templateData()))
 
     def fadeOff(self,e):
         # CG channel STOP layer
-        self.parent.server.transact('CG %d STOP %d'%(self.channel, self.layer))
-        self.parent.wStatus.update('OK')
+        self.parent.transact('CG %d STOP %d'%(self.channel, self.layer))
 
     def do_update(self,e):
-        self.parent.server.transact('CG %d UPDATE %d %s'%(self.channel, self.layer, self.templateData()))
+        # CG channel UPDATE layer data
+        self.parent.transact('CG %d UPDATE %d %s'%(self.channel, self.layer, self.templateData()))
 
     # TODO: CG NEXT (where anims have multiple steps)
     # TODO configure fade speed (ms)
