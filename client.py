@@ -30,11 +30,11 @@ class StatusWidget(Frame, object):
         self.parent.wStatus.update('Not yet implemented')
 
 class LowerThird(Frame,object):
-    def __init__(self, parent, container, *args, **kwargs):
+    def __init__(self, parent, container, text='Lower Third', *args, **kwargs):
         super(LowerThird, self).__init__(*args, **kwargs)
         self.parent = parent
 
-        fr = Frame(container, bd=10)
+        fr = LabelFrame(container, text=text)
         newlabel(fr, 'Line 1: ', 0, 0)
         newlabel(fr, 'Line 2: ', 0, 1)
         eTopLine=Entry(fr, width=50)
