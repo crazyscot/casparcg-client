@@ -1,0 +1,29 @@
+body {
+    overflow: hidden;
+}
+
+/*
+We style the div to be blue, but don't assign the body a background color. In normal web development this just defaults to white, however in CasparCG no color means transparent.
+*/
+.textbox {
+	font-family: 'Myriad Pro';
+    background-color:navy;
+    color: white;
+	margin: -10px;
+	xmargin-right: 20vw;
+    padding: 10px 15%;
+	display: block;
+	position: absolute;
+	top: 66vh;
+	width: 80%;
+}
+
+.fadeon {
+    opacity:0; // Start invisible, we'll animate this on.
+}
+
+hr {
+	border: 0px;
+	height: 3px;
+	background-image: linear-gradient(to right, rgba(255,255,255,1), rgba(255, 255, 255, 0.75), rgba(255,255,255,0.1));
+}
