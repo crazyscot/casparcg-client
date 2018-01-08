@@ -67,14 +67,20 @@ class LowerThird(LabelFrame,object):
             })
 
     def fadeOn(self,e):
-        # XXX HERE
-        self.parent.wStatus.update('Would fade on - Not yet implemented')
+        # CG channel ADD layer template 1 data
+        self.parent.server.transact('CG %d ADD %d %s 1 %s'%(self.channel, self.layer, amcp.quote(self.template), self.templateData()))
+        self.parent.wStatus.update('OK')
+
     def fadeOff(self,e):
-        # XXX HERE
-        self.parent.wStatus.update('Would fade off - Not yet implemented')
+        # CG channel STOP layer
+        self.parent.server.transact('CG %d STOP %d'%(self.channel, self.layer))
+        self.parent.wStatus.update('OK')
 
     def do_update(self,e):
-        self.parent.wStatus.update('Would Update - Not yet implemented')
+        self.parent.server.transact('CG %d UPDATE %d %s'%(self.channel, self.layer, self.templateData()))
+
+    # TODO: CG NEXT (where anims have multiple steps)
+    # TODO configure fade speed (ms)
 
 
 class MainWindow:
