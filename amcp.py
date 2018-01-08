@@ -106,7 +106,11 @@ class Connection(object):
         # Read until we see a \r\n
         response = ''
         while not response.endswith('\r\n'):
-            response += self.socket.recv(4096).decode('utf-8')
+            tmp = self.socket.recv(4096).decode('utf-8')
+            if len(tmp) is 0: # socket closed
+                self.socket=None
+                raise Exception('server connection lost')
+            response += tmp
 
         raw = response.strip().split('\r\n')
         (status, info) = raw[0].split(' ',1)
