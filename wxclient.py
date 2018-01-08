@@ -77,11 +77,11 @@ class MainPanel(wx.Panel):
     def status(self, msg):
         ''' If you are going to not return to the main loop for a while,
             you ought to call update() to force a redraw. '''
-        self.statusbar.SetStatusText(msg)
+        self.parent.status(msg)
 
     def update(self):
         ''' Redraw. Rarely needed. '''
-        self.Update()
+        self.parent.update()
 
     def transact(self, command):
         '''
@@ -93,7 +93,7 @@ class MainPanel(wx.Panel):
         else:
             gist = command
         try:
-            rv = self.server.transact(command)
+            rv = self.parent.server.transact(command)
             self.status('OK: %s' % gist)
             return rv
         except amcp.AMCPException as e:
