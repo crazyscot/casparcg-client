@@ -28,26 +28,25 @@ class StatusWidget(LabelFrame, object):
     def allGfxOff(self, e):
         self.parent.wStatus.update('Not yet implemented')
 
-class LowerThird(Frame,object):
-    def __init__(self, parent, container, text='Lower Third', *args, **kwargs):
-        super(LowerThird, self).__init__(*args, **kwargs)
+class LowerThird(LabelFrame,object):
+    def __init__(self, parent, text='Lower Third', *args, **kwargs):
+        super(LowerThird, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
 
-        fr = LabelFrame(container, text=text)
-        newlabel(fr, 'Line 1: ', 0, 0)
-        newlabel(fr, 'Line 2: ', 0, 1)
-        eTopLine=Entry(fr, width=50)
+        newlabel(self, 'Line 1: ', 0, 0)
+        newlabel(self, 'Line 2: ', 0, 1)
+        eTopLine=Entry(self, width=50)
         eTopLine.grid(column=1, row=0)
-        eBottomLine=Entry(fr, width=50)
+        eBottomLine=Entry(self, width=50)
         eBottomLine.grid(column=1, row=1)
 
-        bUpdate=self.parent.newbutton(fr, self.do_update, text='Update', col=1, row=2)
+        bUpdate=self.parent.newbutton(self, self.do_update, text='Update', col=1, row=2)
         # TODO colour choosers / pickers
 
-        newlabel(fr, '', 2, 0, width=10) # empty, put some space between the buttons
-        bFadeOn=self.parent.newbutton(fr, self.fadeOn, col=3, row=0, text='Fade on')
-        bFadeOff=self.parent.newbutton(fr, self.fadeOff, col=3, row=1, text='Fade off')
-        fr.pack()
+        newlabel(self, '', 2, 0, width=10) # empty, put some space between the buttons
+        bFadeOn=self.parent.newbutton(self, self.fadeOn, col=3, row=0, text='Fade on')
+        bFadeOff=self.parent.newbutton(self, self.fadeOff, col=3, row=1, text='Fade off')
+        self.pack()
 
     def fadeOn(self,e):
         # XXX HERE
@@ -69,7 +68,8 @@ class MainWindow:
         self.wStatus = StatusWidget(self)
         self.wStatus.pack()
 
-        self.lt = LowerThird(self, root)
+        self.lt = LowerThird(self)
+        self.lt.pack()
 
     def newbutton(self, parent, targetfunc, col=None, row=None, **kwargs):
         b = Button(parent, **kwargs)
