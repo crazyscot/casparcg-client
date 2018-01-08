@@ -72,12 +72,17 @@ class LowerThird(LabelFrame,object):
         Lower Third composite UI widget
         Required params: parent (MainWindow), Caspar channel, Caspar layer, Template name, ConfigParser object to use
     '''
+    SECTION='lowerthird'
+    OPTION_FG='fg'
+    OPTION_BG='bg'
+
     def __init__(self, parent, channel, layer, template, config, text='Lower Third', *args, **kwargs):
         super(LowerThird, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
         self.channel = channel
         self.layer = layer
         self.template = template
+        self.config = config
 
         newlabel(self, 'Line 1: ', 0, 0)
         newlabel(self, 'Line 2: ', 0, 1)
@@ -89,7 +94,17 @@ class LowerThird(LabelFrame,object):
         bUpdate=self.parent.newbutton(self, self.do_update, text='Update', col=1, row=2)
 
         newlabel(self, '', 2, 0, width=10) # empty, put some space between the buttons
-        self.textcol = PairedColourPicker(self, '#d0d0d0', '#000000') # TODO config, and remember last used
+        fgInit='#d0d0d0'
+        bgInit='#000000'
+        try:
+            bgInit = config.get(LowerThird.SECTION, LowerThird.OPTION_BG)
+        except configparser.Error:
+            pass
+        try:
+            fgInit = config.get(LowerThird.SECTION, LowerThird.OPTION_FG)
+        except configparser.Error:
+            pass
+        self.textcol = PairedColourPicker(self, fgInit, bgInit)
         self.textcol.grid(column=3, row=0, rowspan=2)
 
         newlabel(self, '', 4, 0, width=10) # empty, put some space between the buttons
@@ -116,6 +131,13 @@ class LowerThird(LabelFrame,object):
     def do_update(self,e):
         # CG channel UPDATE layer data
         self.parent.transact('CG %d UPDATE %d %s'%(self.channel, self.layer, self.templateData()))
+        try:
+            self.config.add_section(LowerThird.SECTION)
+        except configparser.DuplicateSectionError:
+            pass
+        self.config.set(LowerThird.SECTION, LowerThird.OPTION_FG, self.textcol.fg.my_colour)
+        self.config.set(LowerThird.SECTION, LowerThird.OPTION_BG, self.textcol.bg.my_colour)
+        self.parent.rewrite_config()
 
     # TODO: CG NEXT (where anims have multiple steps)
     # TODO configure fade speed (ms)
