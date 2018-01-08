@@ -43,14 +43,11 @@ class LowerThird(Frame,object):
         eBottomLine.grid(column=1, row=1)
 
         bUpdate=self.parent.newbutton(fr, self.do_update, text='Update', col=1, row=2)
-        fr.pack()
-
         # TODO colour choosers / pickers
 
-
-        fr = Frame(container, bd=20)
-        bFadeOn=self.parent.newbutton(fr, self.fadeOn, text='Fade on')
-        bFadeOff=self.parent.newbutton(fr, self.fadeOff, text='Fade off')
+        newlabel(fr, '', 2, 0, width=10) # empty, put some space between the buttons
+        bFadeOn=self.parent.newbutton(fr, self.fadeOn, col=3, row=0, text='Fade on')
+        bFadeOff=self.parent.newbutton(fr, self.fadeOff, col=3, row=1, text='Fade off')
         fr.pack()
 
     def fadeOn(self,e):
