@@ -47,10 +47,18 @@ class ServerError(AMCPException):
     pass
 
 class Connection(object):
-    def __init__(self, config):
+    def __init__(self, config, reporter=None):
+        '''
+        Initialise a connection wrapping object.
+        Doesn't actually connect until we need to.
+
+        If reporter is not None, its status() method may be called
+        at any time with a human-readable text string.
+        '''
         self.server = '127.0.0.1'
         self.port = 5250
         self.socket = None # we'll connect on demand
+        self.reporter = reporter
         # INI file overrides default parameters
         try:
             self.server = config.get('server','host')
@@ -81,6 +89,11 @@ class Connection(object):
     def version(self, what=''):
         ''' VERSION command/subcommand '''
         return self.transact('VERSION '+what)
+
+    def report(self,msg):
+        if self.reporter is not None:
+            self.reporter.status(msg)
+            self.reporter.update()
 
     def transact(self, command):
         '''
