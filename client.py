@@ -6,6 +6,31 @@ import amcp
 import configparser
 import traceback
 
+'''
+Simple Caspar client.
+To make this work:
+    * You MUST be using Caspar 2.1.0beta or later, 2.0 isn't good enough
+    * Install the template to the caspar template directory
+    * Write config.ini in the same directory as this script:
+
+        Mandatory config:
+            [lowerthird]
+            template = TemplateToUse # including directory, e.g. hello-world/lowerthird
+            layer = CasparLayerToUse # e.g. 10
+
+            [main]
+            channel = CasparChannelToUse # e.g. 1, also used by other widgets
+
+        Optional config:
+            [lowerthird]
+            fg = #0000ff # Foreground colour - text & ruler - specify as #RRGGBB (hex)
+            bg = #ffff00 # Background for the box - #RRGGBB (hex)
+
+            [server]
+            host = hostname or IP address # default 127.0.0.1
+            port = 1234 # default 5250
+'''
+
 def stopProg(e):
     root.destroy()
 
