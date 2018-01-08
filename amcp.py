@@ -38,7 +38,7 @@ class AMCPException(Exception):
         self.code = code
         self.info = info
     def __str__(self):
-        return 'Status %s (%s): %s' %(self.code, code_lookup(self.code), self.info)
+        return '%s (%s): %s' %(self.code, code_lookup(self.code), self.info)
 
 class ClientError(AMCPException):
     pass
