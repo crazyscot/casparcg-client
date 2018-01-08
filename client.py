@@ -43,6 +43,9 @@ class PairedColourPicker(Frame, object):
         self.patch.config(bg=self.bg.my_colour, fg=self.fg.my_colour)
 
 class StatusWidget(LabelFrame, object):
+    '''
+        A composite widget containing a Status field and a red 'ALL GFX OFF' button
+    '''
     def __init__(self, parent, channel, text='Status', *args, **kwargs):
         super(StatusWidget, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
@@ -62,9 +65,10 @@ class StatusWidget(LabelFrame, object):
     def allGfxOff(self, e):
         self.parent.transact('CLEAR %d'%(self.channel))
 
+
 class LowerThird(LabelFrame,object):
     '''
-        Configuration of a Lower Third
+        Lower Third composite UI widget
         Required params: parent (MainWindow), Caspar channel, Caspar layer, Template name
     '''
     def __init__(self, parent, channel, layer, template, text='Lower Third', *args, **kwargs):
