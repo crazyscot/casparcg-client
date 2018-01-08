@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from Tkinter import * # python-tk package
+import tkColorChooser
 import amcp
 
 def stopProg(e):
@@ -10,6 +11,36 @@ def newlabel(parent, text, col=None, row=None, **kwargs):
     l = Label(parent, text=text, **kwargs)
     l.grid(row=row, column=col)
     return l
+
+class ColourPicker(Button, object):
+    def __init__(self, parent, text, initial):
+        super(ColourPicker, self).__init__(parent, text=text)
+        self.parent = parent
+        self.my_colour = initial
+        self.bind('<Button-1>', lambda e: self.pick_colour(e))
+
+    def pick_colour(self, e):
+        rv = tkColorChooser.askcolor(self.my_colour)[1]
+        if rv is not None:
+            self.my_colour = rv
+            self.parent.update_colour()
+
+# TODO: Could try https://github.com/j4321/tkColorPicker if I wanted a nicer colour picker.
+
+class PairedColourPicker(Frame, object):
+    def __init__(self, parent, fg, bg):
+        super(PairedColourPicker, self).__init__(parent)
+        self.fg = ColourPicker(self, 'Text colour', fg)
+        self.fg.grid()
+        self.bg = ColourPicker(self, 'Background', bg)
+        self.bg.grid()
+        # Sample patch
+        self.patch = Label(self, text='\nSample\n')
+        self.patch.grid(column=1, row=0, rowspan=2)
+        self.update_colour()
+
+    def update_colour(self):
+        self.patch.config(bg=self.bg.my_colour, fg=self.fg.my_colour)
 
 class StatusWidget(LabelFrame, object):
     def __init__(self, parent, channel, text='Status', *args, **kwargs):
