@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from Tkinter import * # python-tk package
+import amcp
 
 def stopProg(e):
     root.destroy()
@@ -72,6 +73,9 @@ class MainWindow:
         root=Tk()
         self.root = root
         root.title('Hello, Caspar World!')
+
+        self.server = amcp.Connection()
+        # TODO If we need configuration in here, merge AMCP to use the same file
 
         self.wStatus = StatusWidget(self, 1) # TODO config - channel
         self.wStatus.pack()
