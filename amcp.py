@@ -82,3 +82,6 @@ class Connection(object):
     def info(self, what=''):
         ''' INFO command/subcommand '''
         return self.transact('INFO '+what)
+    def version(self, what=''):
+        ''' VERSION command/subcommand '''
+        return self.transact('VERSION '+what)
