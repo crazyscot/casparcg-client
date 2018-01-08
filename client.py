@@ -161,6 +161,8 @@ class MainWindow:
         except amcp.AMCPException as e:
             self.wStatus.update('ERROR: %s from %s' % (e, gist))
             return None
+        except Exception as e:
+            self.wStatus.update('ERROR: %s' % e)
 
 if __name__=='__main__':
     MainWindow().mainloop()
