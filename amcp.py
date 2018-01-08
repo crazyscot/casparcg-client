@@ -72,17 +72,6 @@ class Connection(object):
     def connect(self):
         self.socket = socket.create_connection((self.server, self.port), 5)
 
-    def transact_raw(self, command):
-        ''' Sends command, returns raw response '''
-        if self.socket is None:
-            self.connect()
-        self.socket.send( (command+'\r\n').encode('utf-8') )
-        response = ''
-        while not response.endswith('\r\n'):
-            response += self.socket.recv(4096).decode('utf-8')
-            # N.B. This may not read all the response, if you're unlucky.
-        return response
-
     def info(self, what=''):
         ''' INFO command/subcommand '''
         return self.transact('INFO '+what)
