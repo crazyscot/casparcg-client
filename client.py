@@ -60,7 +60,6 @@ class StatusWidget(LabelFrame, object):
         self.grid_rowconfigure(0, pad=30)
 
     def update(self, msg):
-        #self.status.set(msg)
         self.fStatus.configure(text=msg)
 
     def allGfxOff(self, e):
@@ -148,6 +147,15 @@ class MainWindow:
     def mainloop(self):
         self.root.mainloop()
 
+    def status(self, msg):
+        ''' If you are going to not return to the main loop for a while,
+            you ought to call update() to force a redraw. '''
+        self.wStatus.update(msg)
+
+    def update(self):
+        ''' Redraw. Rarely needed. '''
+        Tk.update(self.root)
+
     def transact(self, command):
         '''
             Exception-safe server transaction
@@ -159,13 +167,13 @@ class MainWindow:
             gist = command
         try:
             rv = self.server.transact(command)
-            self.wStatus.update('OK: %s' % gist)
+            self.status('OK: %s' % gist)
             return rv
         except amcp.AMCPException as e:
-            self.wStatus.update('ERROR: %s from %s' % (e, gist))
+            self.status('ERROR: %s from %s' % (e, gist))
             return None
         except Exception as e:
-            self.wStatus.update('ERROR: %s' % e)
+            self.status('ERROR: %s' % e)
 
 if __name__=='__main__':
     # TODO specify name of config file on command line
