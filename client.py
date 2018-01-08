@@ -107,5 +107,22 @@ class MainWindow:
     def mainloop(self):
         self.root.mainloop()
 
+    def transact(self, command):
+        '''
+            Exception-safe server transaction
+            Updates the status line suitably
+        '''
+        if len(command)>20:
+            gist = '%s...'%command[0:17]
+        else:
+            gist = command
+        try:
+            rv = self.server.transact(command)
+            self.wStatus.update('OK: %s' % gist)
+            return rv
+        except amcp.AMCPException as e:
+            self.wStatus.update('ERROR: %s from %s' % (e, gist))
+            return None
+
 if __name__=='__main__':
     MainWindow().mainloop()
