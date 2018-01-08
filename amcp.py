@@ -68,15 +68,15 @@ class Connection(object):
         s.connect((self.server, self.port))
         self.socket = s
 
-    def transact(self, command):
+    def transact_raw(self, command):
         ''' Sends command, returns raw response '''
         if self.socket is None:
             self.connect()
         self.socket.send( (command+'\r\n').encode('utf-8') )
-        # Read until we see a \r\n
         response = ''
-        while not response.endswith('\r\n\r\n'):
+        while not response.endswith('\r\n'):
             response += self.socket.recv(4096).decode('utf-8')
+            # N.B. This may not read all the response, if you're unlucky.
         return response
 
     def info(self, what=''):
@@ -85,3 +85,36 @@ class Connection(object):
     def version(self, what=''):
         ''' VERSION command/subcommand '''
         return self.transact('VERSION '+what)
+
+    def transact(self, command):
+        '''
+        Error-checking transaction
+        '''
+        if self.socket is None:
+            self.connect()
+        self.socket.send( (command+'\r\n').encode('utf-8') )
+        # Read until we see a \r\n
+        response = ''
+        while not response.endswith('\r\n'):
+            response += self.socket.recv(4096).decode('utf-8')
+
+        raw = response.strip().split('\r\n')
+        (status, info) = raw[0].split(' ',1)
+        status=int(status)
+        if status==202:
+            # OK, no data beyond the status line
+            return info
+        elif status==201:
+            # OK, one line data
+            return raw[1]
+        elif status==200:
+            # OK, multiline data, make sure we've got it all
+            while not response.endswith('\r\n\r\n'):
+                response += self.socket.recv(4096).decode('utf-8')
+            return response.strip().split('\r\n')[1:]
+        elif status>=400 and status<500:
+            raise ClientError(status, info)
+        elif status>=500 and status<600:
+            raise ServerError(status, info)
+        # That's interesting, we didn't recognise the status code.
+        raise AMCPException(status, info)
