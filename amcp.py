@@ -5,6 +5,7 @@
 
 import socket
 import configparser
+import json
 
 def code_lookup(c):
     if c==400:
@@ -146,6 +147,11 @@ def unquote(s):
     s=s.replace('\\\\','\\')
     return s
 
+def jsondata(obj):
+    '''
+        Serialises an object (dictionary) as JSON, quoted for Caspar/AMCP
+    '''
+    return quote(json.dumps(obj))
 
 if __name__=='__main__':
     for s in ['abc', 'abc"', 'a b', 'a "b c"', 'a\\b', 'a\nb', 'a\n"b \\c"']:
