@@ -70,9 +70,9 @@ class StatusWidget(LabelFrame, object):
 class LowerThird(LabelFrame,object):
     '''
         Lower Third composite UI widget
-        Required params: parent (MainWindow), Caspar channel, Caspar layer, Template name
+        Required params: parent (MainWindow), Caspar channel, Caspar layer, Template name, ConfigParser object to use
     '''
-    def __init__(self, parent, channel, layer, template, text='Lower Third', *args, **kwargs):
+    def __init__(self, parent, channel, layer, template, config, text='Lower Third', *args, **kwargs):
         super(LowerThird, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
         self.channel = channel
@@ -131,12 +131,12 @@ class MainWindow:
         self.config.read(configfile)
 
         self.server = amcp.Connection(self.config, self)
-        # TODO If we need configuration in here, merge AMCP to use the same file
 
         self.wStatus = StatusWidget(self, 1) # TODO config - channel
         self.wStatus.pack()
 
-        self.lt = LowerThird(self, 1, 10, 'hello-world/INDEX') # TODO make this configurable
+        self.lt = LowerThird(self, 1, 10, 'hello-world/INDEX', self.config)
+        # TODO config options: channel, layer, template
         self.lt.pack()
 
     def newbutton(self, parent, targetfunc, col=None, row=None, **kwargs):
