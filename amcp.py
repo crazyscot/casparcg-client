@@ -6,7 +6,7 @@
 import socket
 import configparser
 import json
-import Tkinter
+import tkinter
 
 def code_lookup(c):
     if c==400:

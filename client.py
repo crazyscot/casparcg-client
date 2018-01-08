@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from Tkinter import * # python-tk package
-import tkColorChooser
+from tkinter import * # python-tk3 package
+import tkinter.colorchooser
 import amcp
 import configparser
 import traceback
@@ -47,7 +47,7 @@ class ColourPicker(Button, object):
         self.bind('<Button-1>', lambda e: self.pick_colour(e))
 
     def pick_colour(self, e):
-        rv = tkColorChooser.askcolor(self.my_colour)[1]
+        rv = tkinter.colorchooser.askcolor(self.my_colour)[1]
         if rv is not None:
             self.my_colour = rv
             self.parent.update_colour()
@@ -228,7 +228,7 @@ class MainWindow:
             self.status('ERROR: %s from %s' % (e, gist))
             return None
         except Exception as e:
-            print e
+            print(e)
             traceback.print_exc()
             self.status('ERROR: %s' % e)
 
