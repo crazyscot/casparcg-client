@@ -11,9 +11,10 @@ def newlabel(parent, text, col=None, row=None, **kwargs):
     return l
 
 class StatusWidget(LabelFrame, object):
-    def __init__(self, parent, text='Status', *args, **kwargs):
+    def __init__(self, parent, channel, text='Status', *args, **kwargs):
         super(StatusWidget, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
+        self.channel=channel
         self.fStatus = Label(self, width=100, justify=LEFT)
         # TODO text alignment
         self.update('nothing happening')
@@ -72,7 +73,7 @@ class MainWindow:
         self.root = root
         root.title('Hello, Caspar World!')
 
-        self.wStatus = StatusWidget(self)
+        self.wStatus = StatusWidget(self, 1) # TODO config - channel
         self.wStatus.pack()
 
         self.lt = LowerThird(self, 1, 10, 'hello-world/INDEX') # TODO make this configurable
