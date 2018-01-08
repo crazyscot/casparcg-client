@@ -10,11 +10,10 @@ def newlabel(parent, text, col=None, row=None, **kwargs):
     l.grid(row=row, column=col)
     return l
 
-class StatusWidget(Frame, object):
-    def __init__(self, parent, *args, **kwargs):
-        super(StatusWidget, self).__init__(*args, **kwargs)
+class StatusWidget(LabelFrame, object):
+    def __init__(self, parent, text='Status', *args, **kwargs):
+        super(StatusWidget, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
-        newlabel(self, 'Status: ', 0, 0)
         self.fStatus = Label(self, width=100, justify=LEFT)
         # TODO text alignment
         self.update('nothing happening')
