@@ -20,7 +20,9 @@ class StatusWidget(LabelFrame, object):
         self.update('nothing happening')
         self.fStatus.grid(column=1,row=0)
         self.AllOff = parent.newbutton(self, self.allGfxOff, col=2, row=0, text='ALL GFX OFF', bg='#f88', activebackground='#f44')
-        # TODO want a safety margin around alloff button
+        # Leave a safety margin around the All Off button
+        self.grid_columnconfigure(2, pad=30)
+        self.grid_rowconfigure(0, pad=30)
 
     def update(self, msg):
         #self.status.set(msg)
