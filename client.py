@@ -29,9 +29,16 @@ class StatusWidget(LabelFrame, object):
         self.parent.wStatus.update('Not yet implemented')
 
 class LowerThird(LabelFrame,object):
-    def __init__(self, parent, text='Lower Third', *args, **kwargs):
+    '''
+        Configuration of a Lower Third
+        Required params: parent (MainWindow), Caspar channel, Caspar layer, Template name
+    '''
+    def __init__(self, parent, channel, layer, template, text='Lower Third', *args, **kwargs):
         super(LowerThird, self).__init__(*args, text=text, **kwargs)
         self.parent = parent
+        self.channel = channel
+        self.layer = layer
+        self.template = template
 
         newlabel(self, 'Line 1: ', 0, 0)
         newlabel(self, 'Line 2: ', 0, 1)
@@ -68,7 +75,7 @@ class MainWindow:
         self.wStatus = StatusWidget(self)
         self.wStatus.pack()
 
-        self.lt = LowerThird(self)
+        self.lt = LowerThird(self, 1, 10, 'hello-world/INDEX') # TODO make this configurable
         self.lt.pack()
 
     def newbutton(self, parent, targetfunc, col=None, row=None, **kwargs):
