@@ -3,6 +3,7 @@
 from Tkinter import * # python-tk package
 import tkColorChooser
 import amcp
+import configparser
 
 def stopProg(e):
     root.destroy()
@@ -86,7 +87,6 @@ class LowerThird(LabelFrame,object):
         self.eBottomLine.grid(column=1, row=1)
 
         bUpdate=self.parent.newbutton(self, self.do_update, text='Update', col=1, row=2)
-        # TODO colour choosers / pickers
 
         newlabel(self, '', 2, 0, width=10) # empty, put some space between the buttons
         self.textcol = PairedColourPicker(self, '#d0d0d0', '#000000') # TODO config, and remember last used
@@ -122,10 +122,13 @@ class LowerThird(LabelFrame,object):
 
 
 class MainWindow:
-    def __init__(self):
+    def __init__(self, configfile='config.ini'):
         root=Tk()
-        self.root = root
         root.title('Hello, Caspar World!')
+        self.root = root
+        self.cfilename = configfile
+        self.config = configparser.ConfigParser()
+        self.config.read(configfile)
 
         self.server = amcp.Connection()
         # TODO If we need configuration in here, merge AMCP to use the same file
@@ -165,4 +168,5 @@ class MainWindow:
             self.wStatus.update('ERROR: %s' % e)
 
 if __name__=='__main__':
+    # TODO specify name of config file on command line
     MainWindow().mainloop()
