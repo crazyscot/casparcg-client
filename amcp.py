@@ -100,6 +100,7 @@ class Connection(object):
         Error-checking transaction
         '''
         if self.socket is None:
+            self.report('Connecting to server...')
             self.connect()
         self.socket.send( (command+'\r\n').encode('utf-8') )
         # Read until we see a \r\n
