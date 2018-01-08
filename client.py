@@ -28,7 +28,10 @@ class StatusWidget(LabelFrame, object):
         self.fStatus.configure(text=msg)
 
     def allGfxOff(self, e):
-        self.parent.wStatus.update('Not yet implemented')
+        self.parent.server.transact('CLEAR %d'%(self.channel))
+        self.parent.wStatus.update('OK')
+
+        # TODO Handle transact errors - use a wrapper fn self.parent.transact(...) which traps and sends to the status widget. If all good then set status to 'OK <gist of command>' instead.
 
 class LowerThird(LabelFrame,object):
     '''
