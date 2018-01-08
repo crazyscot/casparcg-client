@@ -29,16 +29,12 @@ class StatusWidget(Frame, object):
     def allGfxOff(self, e):
         self.parent.wStatus.update('Not yet implemented')
 
-class MainWindow:
-    def __init__(self):
-        root=Tk()
-        self.root = root
-        root.title('Hello, Caspar World!')
+class LowerThird(Frame,object):
+    def __init__(self, parent, container, *args, **kwargs):
+        super(LowerThird, self).__init__(*args, **kwargs)
+        self.parent = parent
 
-        self.wStatus = StatusWidget(self, root)
-        self.wStatus.pack()
-
-        fr = Frame(root, bd=10)
+        fr = Frame(container, bd=10)
         newlabel(fr, 'Line 1: ', 0, 0)
         newlabel(fr, 'Line 2: ', 0, 1)
         eTopLine=Entry(fr, width=50)
@@ -46,30 +42,44 @@ class MainWindow:
         eBottomLine=Entry(fr, width=50)
         eBottomLine.grid(column=1, row=1)
 
-        bUpdate=self.newbutton(fr, self.do_update, text='Update', col=1, row=2)
+        bUpdate=self.parent.newbutton(fr, self.do_update, text='Update', col=1, row=2)
         fr.pack()
 
         # TODO colour choosers / pickers
 
-        fr = Frame(root, bd=20)
-        bFadeOn=self.newbutton(fr, self.fadeOn, text='Fade on')
-        bFadeOff=self.newbutton(fr, self.fadeOff, text='Fade off')
+
+        fr = Frame(container, bd=20)
+        bFadeOn=self.parent.newbutton(fr, self.fadeOn, text='Fade on')
+        bFadeOff=self.parent.newbutton(fr, self.fadeOff, text='Fade off')
         fr.pack()
+
+    def fadeOn(self,e):
+        # XXX HERE
+        self.parent.wStatus.update('Would fade on - Not yet implemented')
+    def fadeOff(self,e):
+        # XXX HERE
+        self.parent.wStatus.update('Would fade off - Not yet implemented')
+
+    def do_update(self,e):
+        self.parent.wStatus.update('Would Update - Not yet implemented')
+
+
+class MainWindow:
+    def __init__(self):
+        root=Tk()
+        self.root = root
+        root.title('Hello, Caspar World!')
+
+        self.wStatus = StatusWidget(self)
+        self.wStatus.pack()
+
+        self.lt = LowerThird(self, root)
 
     def newbutton(self, parent, targetfunc, col=None, row=None, **kwargs):
         b = Button(parent, **kwargs)
         b.grid(row=row, column=col)
         b.bind('<Button-1>', lambda e: targetfunc(e))
         return b
-
-    def fadeOn(self,e):
-        # XXX HERE
-        self.wStatus.update('Would fade on - Not yet implemented')
-    def fadeOff(self,e):
-        # XXX HERE
-        self.wStatus.update('Would fade off - Not yet implemented')
-    def do_update(self,e):
-        self.wStatus.update('Would Update - Not yet implemented')
 
     def mainloop(self):
         self.root.mainloop()
