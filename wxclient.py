@@ -36,7 +36,7 @@ To make this work:
 class MainWindow(wx.Frame):
     def __init__(self, parent, title='Hello, Caspar World!', configfile='config.ini'):
         wx.Frame.__init__(self, parent, title=title)
-        self.statusbar = self.CreateStatusBar(1)
+        self.statusbar = self.CreateStatusBar(1, style= wx.STB_SIZEGRIP|wx.STB_SHOW_TIPS|wx.STB_ELLIPSIZE_END|wx.FULL_REPAINT_ON_RESIZE)
         self.status('nothing happening')
 
         self.config = config.config(configfile)
@@ -87,16 +87,12 @@ class MainPanel(wx.Panel):
             Exception-safe server transaction
             Updates the status line suitably
         '''
-        if len(command)>30:
-            gist = '%s...'%command[0:27]
-        else:
-            gist = command
         try:
             rv = self.parent.server.transact(command)
-            self.status('OK: %s' % gist)
+            self.status('OK: %s' % command)
             return rv
         except amcp.AMCPException as e:
-            self.status('ERROR: %s from %s' % (e, gist))
+            self.status('ERROR: %s from %s' % (e, command))
             return None
         except Exception as e:
             print(e)
