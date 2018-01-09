@@ -45,9 +45,9 @@ class LowerThird(wx.StaticBox):
         inner.AddStretchSpacer()
         inner.Add(bUpdate)
 
-        sizer.AddStretchSpacer()
+        sizer.AddSpacer(10)
         sizer.Add(inner, flag=wx.EXPAND)
-        sizer.AddStretchSpacer()
+        sizer.AddSpacer(10)
 
         self.cp = None # so the immediate callback works
         self.cp = colour.PairedColourPicker(self,
