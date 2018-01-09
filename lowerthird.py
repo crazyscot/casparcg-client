@@ -39,9 +39,14 @@ class LowerThird(wx.StaticBox):
         bUpdate.Bind(wx.EVT_BUTTON, self.do_update)
 
         inner = wx.BoxSizer(wx.HORIZONTAL)
-        inner.AddMany([bFadeOn, bFadeOff, bUpdate])
-        sizer.Add(inner)
+        inner.Add(bFadeOn)
+        inner.AddStretchSpacer()
+        inner.Add(bFadeOff)
+        inner.AddStretchSpacer()
+        inner.Add(bUpdate)
 
+        sizer.AddStretchSpacer()
+        sizer.Add(inner, flag=wx.EXPAND)
         sizer.AddStretchSpacer()
 
         self.cp = None # so the immediate callback works
