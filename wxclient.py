@@ -5,6 +5,7 @@ import configparser
 import traceback
 import config
 import globalwidget
+import lowerthird
 import wx # wxPython 4.0:
 # on Windows, pip install -U wxPython
 # on Linux, refer to Linux Wheels on https://www.wxpython.org/pages/downloads/
@@ -67,7 +68,8 @@ class MainPanel(wx.Panel):
         sizer.Add(gw, 0, wx.EXPAND)
 
         # TODO make the set of visible widgets configurable
-        #self.lt = LowerThird(self, self.config)
+        self.lt = lowerthird.LowerThird(self, self.parent.config)
+        sizer.Add(self.lt, 1, wx.EXPAND)
         #self.lt.pack()
 
     def channel(self):
