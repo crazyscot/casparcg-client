@@ -4,6 +4,7 @@ Lower Third widget
 '''
 
 import amcp
+import colour
 import wx
 
 class LowerThird(wx.StaticBox):
@@ -40,7 +41,15 @@ class LowerThird(wx.StaticBox):
         inner = wx.BoxSizer(wx.HORIZONTAL)
         inner.AddMany([bFadeOn, bFadeOff, bUpdate])
         sizer.Add(inner)
-        # TODO: Colour picker & write out to config.
+
+        sizer.AddStretchSpacer()
+
+        self.cp = None # so the immediate callback works
+        self.cp = colour.PairedColourPicker(self,
+                self.config.get(self.section, 'fg', '#ffff00'),
+                self.config.get(self.section, 'bg', '#0000ff'),
+                self.got_colours)
+        sizer.Add(self.cp, 1, wx.EXPAND)
 
     def channel(self):
         return self.parent.channel()
@@ -57,6 +66,8 @@ class LowerThird(wx.StaticBox):
         return amcp.jsondata({
             'f0': self.line1.GetValue(),
             'f1': self.line2.GetValue(),
+            'bgcol': self.cp.get_bg(),
+            'fgcol': self.cp.get_fg(),
             })
 
     def do_fade_on(self, event):
@@ -70,3 +81,9 @@ class LowerThird(wx.StaticBox):
     def do_update(self,e):
         # CG channel UPDATE layer data
         self.parent.transact('CG %d UPDATE %d %s'%(self.channel(), self.layer(), self.templateData()))
+
+    def got_colours(self):
+        if self.cp:
+            self.config.put(self.section, 'bg', self.cp.get_bg())
+            self.config.put(self.section, 'fg', self.cp.get_fg())
+            self.config.write()
