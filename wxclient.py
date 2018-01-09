@@ -6,9 +6,7 @@ import traceback
 import config
 import globalwidget
 import lowerthird
-import wx # wxPython 4.0:
-# on Windows, pip install -U wxPython
-# on Linux, refer to Linux Wheels on https://www.wxpython.org/pages/downloads/
+import wx # developed against wxpython 3.0
 
 '''
 Simple Caspar client.
@@ -70,7 +68,6 @@ class MainPanel(wx.Panel):
         # TODO make the set of visible widgets configurable
         self.lt = lowerthird.LowerThird(self, self.parent.config)
         sizer.Add(self.lt, 1, wx.EXPAND)
-        #self.lt.pack()
 
     def channel(self):
         ''' For convenient access to our Caspar channel id, which is a configured global '''
@@ -105,10 +102,6 @@ class MainPanel(wx.Panel):
             print(e)
             traceback.print_exc()
             self.status('ERROR: %s' % e)
-
-    def rewrite_config(self):
-        with open(self.cfilename, 'w') as cf:
-            self.config.write(cf)
 
 if __name__=='__main__':
     app = wx.App(False)
