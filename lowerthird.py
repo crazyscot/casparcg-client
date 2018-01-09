@@ -55,6 +55,7 @@ class LowerThird(wx.StaticBox):
                 self.config.get(self.section, 'bg', '#0000ff'),
                 self.got_colours)
         sizer.Add(self.cp, 1, wx.EXPAND)
+        sizer.AddStretchSpacer()
 
     def channel(self):
         return self.parent.channel()
