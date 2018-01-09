@@ -67,7 +67,7 @@ class MainPanel(wx.Panel):
 
         # TODO make the set of visible widgets configurable
         self.lt = lowerthird.LowerThird(self, self.parent.config)
-        sizer.Add(self.lt, 1, wx.EXPAND)
+        sizer.Add(self.lt, 0, wx.EXPAND)
 
     def channel(self):
         ''' For convenient access to our Caspar channel id, which is a configured global '''
