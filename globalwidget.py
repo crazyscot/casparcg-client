@@ -5,6 +5,7 @@ Contains ALL OFF and global configuration functions.
 '''
 
 import wx
+import sys
 
 class GlobalWidget(wx.StaticBox):
     def __init__(self, parent):
@@ -17,8 +18,9 @@ class GlobalWidget(wx.StaticBox):
         sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(sizer)
 
-        txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
-        sizer.Add(txt)
+        if sys.platform=='win32':
+            txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
+            sizer.Add(txt)
 
         bConfig = wx.Button(self, label='Configuration')
         bConfig.Bind(wx.EVT_BUTTON, self.do_config)
@@ -31,6 +33,9 @@ class GlobalWidget(wx.StaticBox):
         inner.Add(bConfig)
         inner.AddStretchSpacer()
         inner.Add(bAllOff)
+
+        if sys.platform.startswith('linux'):
+            sizer.AddSpacer(20) # sigh
 
     def do_all_off(self, event):
         self.parent.transact('CLEAR %d'%(self.parent.channel()))
