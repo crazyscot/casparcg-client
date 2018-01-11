@@ -64,6 +64,9 @@ class MainPanel(wx.Panel):
         gw = globalwidget.GlobalWidget(self)
         sizer.Add(gw, 0, wx.EXPAND)
 
+        sizer.AddSpacer(10)
+        sizer.AddStretchSpacer()
+
         # TODO make the set of visible widgets configurable
         self.lt = lowerthird.LowerThird(self, self.parent.config)
         sizer.Add(self.lt, 0, wx.EXPAND)
