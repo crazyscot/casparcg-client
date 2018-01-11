@@ -59,7 +59,6 @@ class MainPanel(wx.Panel):
         self.parent = parent
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        self.SetSizer(sizer)
 
         gw = globalwidget.GlobalWidget(self)
         sizer.Add(gw, 0, wx.EXPAND)
@@ -71,7 +70,7 @@ class MainPanel(wx.Panel):
         self.lt = lowerthird.LowerThird(self, self.parent.config)
         sizer.Add(self.lt, 0, wx.EXPAND)
 
-        sizer.Fit(parent)
+        self.SetSizerAndFit(sizer)
 
     def channel(self):
         ''' For convenient access to our Caspar channel id, which is a configured global '''
