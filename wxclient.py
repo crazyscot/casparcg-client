@@ -1,7 +1,6 @@
 #!/usr/bin/env python2
 
 import amcp
-import configparser
 import traceback
 import config
 import globalwidget

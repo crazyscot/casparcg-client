@@ -4,7 +4,7 @@
 '''
 
 import socket
-import configparser
+import ConfigParser
 import json
 
 def code_lookup(c):
@@ -61,11 +61,11 @@ class Connection(object):
         # INI file overrides default parameters
         try:
             self.server = config.get('server','host')
-        except configparser.Error:
+        except ConfigParser.Error:
             pass
         try:
             self.port = int(config.get('server','port'))
-        except configparser.Error:
+        except ConfigParser.Error:
             pass
 
     def connect(self):

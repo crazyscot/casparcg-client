@@ -1,5 +1,5 @@
 
-from configparser import *
+from ConfigParser import *
 
 MAIN='main'
 CHANNEL='channel'
@@ -15,13 +15,12 @@ class config(object):
             (If the file does not exist, you get an empty config.)
         '''
         self.filename = filename
-        self.parser = ConfigParser()
         self.reload()
 
     def reload(self, filename=None):
         if filename is None:
             filename=self.filename
-        self.parser.clear()
+        self.parser = ConfigParser()
         self.parser.read(filename)
 
     def write(self, filename=None):
