@@ -50,7 +50,7 @@ class PairedColourPicker(wx.Panel):
 
         self.patch = wx.Panel(self)
         self.patchtext = wx.StaticText(self.patch, label=' Sample ')
-        font = wx.Font(18, wx.NORMAL, wx.NORMAL, wx.BOLD)
+        font = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
         self.patchtext.SetFont(font)
         inner = wx.BoxSizer(wx.VERTICAL)
         self.patch.SetSizer(inner)
