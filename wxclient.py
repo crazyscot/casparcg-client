@@ -6,6 +6,7 @@ import config
 import globalwidget
 import lowerthird
 import wx # developed against wxpython 3.0
+import widget
 
 '''
 Simple Caspar client.
@@ -54,25 +55,34 @@ class MainWindow(wx.Frame):
         self.Update()
 
 class MainPanel(wx.Panel):
+    # Master list of widgets
+    widgets = [lowerthird.LowerThird]
+
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
         self.parent = parent
+        self.rebuild()
 
+    def rebuild(self):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         gw = globalwidget.GlobalWidget(self)
         sizer.Add(gw, 0, wx.EXPAND)
 
-        sizer.AddSpacer(10)
-        sizer.AddStretchSpacer()
+        self.widget_instances = {}
 
-        # TODO make the set of visible widgets configurable
-        self.lt = lowerthird.LowerThird(self, self.parent.config)
-        sizer.Add(self.lt, 0, wx.EXPAND)
+        for w in MainPanel.widgets:
+            assert issubclass(w, widget.Widget)
+            sizer.AddSpacer(10)
+            sizer.AddStretchSpacer()
+            instance = w(self, self.parent.config)
+            self.widget_instances[w.ui_label] = instance
+            sizer.Add(instance, 0, wx.EXPAND)
+
 
         sizer.AddSpacer(10)
         self.SetSizerAndFit(sizer)
-        sizer.Fit(parent)
+        sizer.Fit(self.parent)
 
     def channel(self):
         ''' For convenient access to our Caspar channel id, which is a configured global '''
