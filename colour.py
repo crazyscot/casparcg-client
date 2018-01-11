@@ -57,7 +57,7 @@ class PairedColourPicker(wx.Panel):
         inner.Add(self.patchtext, 0, wx.CENTRE)
 
         sizer.AddStretchSpacer()
-        sizer.Add(self.patch)
+        sizer.Add(self.patch, flag=wx.LEFT|wx.RIGHT, border=5)
         self.update_patch()
 
     def update_patch(self):
