@@ -7,14 +7,22 @@ import amcp
 import colour
 import wx
 import sys
+from configurable import Configurable
+import configurable
+from widget import Widget
 
-class LowerThird(wx.StaticBox):
+class LowerThird(wx.StaticBox, Configurable, Widget):
     OPTION_LAYER='layer'
     OPTION_TEMPLATE='template'
     OPTION_BG='bg'
     OPTION_FG='fg'
 
-    def __init__(self, parent, config, label='Lower Third', section='lowerthird'):
+    my_configurations=[configurable.Template,configurable.Layer]
+    config_section='lowerthird'
+    ui_label='Lower Third'
+    default_config={'Template': 'hello-world/helloworld', 'Layer': 10}
+
+    def __init__(self, parent, config, label=ui_label, section='lowerthird'):
         '''
             Required: parent object, config object
             Optional: Frame label, config section to use
