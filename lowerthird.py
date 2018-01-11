@@ -11,7 +11,7 @@ from configurable import Configurable
 import configurable
 from widget import Widget
 
-class LowerThird(wx.StaticBox, Configurable, Widget):
+class LowerThird(wx.StaticBox, Widget):
     OPTION_LAYER='layer'
     OPTION_TEMPLATE='template'
     OPTION_BG='bg'

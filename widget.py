@@ -1,7 +1,8 @@
 
 import abc
+from configurable import Configurable
 
-class Widget(object):
+class Widget(Configurable):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractproperty
