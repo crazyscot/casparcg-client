@@ -6,6 +6,7 @@ Lower Third widget
 import amcp
 import colour
 import wx
+import sys
 
 class LowerThird(wx.StaticBox):
     OPTION_LAYER='layer'
@@ -26,8 +27,9 @@ class LowerThird(wx.StaticBox):
         sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(sizer)
 
-        txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
-        sizer.Add(txt)
+        if sys.platform=='win32':
+            txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
+            sizer.Add(txt)
 
         self.line1 = wx.TextCtrl(self, value='line1')
         sizer.Add(self.line1, flag=wx.EXPAND)
