@@ -14,20 +14,23 @@ class GlobalWidget(wx.StaticBox):
         super(GlobalWidget, self).__init__(parent, label='Global')
         self.parent = parent
 
-        bAllOff = wx.Button(self, label='ALL GFX OFF')
-        bAllOff.Bind(wx.EVT_BUTTON, self.do_all_off)
-        bAllOff.SetBackgroundColour(wx.Colour(255,64,64))
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        self.SetSizer(sizer)
+
+        txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
+        sizer.Add(txt)
 
         bConfig = wx.Button(self, label='Configuration')
         bConfig.Bind(wx.EVT_BUTTON, self.do_config)
 
-        sizer = wx.BoxSizer(wx.HORIZONTAL)
-        sizer.Add(bConfig, 0, wx.ALL, 5)
-        sizer.Add((0,0),1) # empty space, expands in proportion
-        sizer.AddSpacer(60)
-        sizer.Add(bAllOff, 0, wx.ALL, 5)
-
-        self.SetSizer(sizer)
+        bAllOff = wx.Button(self, label='ALL GFX OFF')
+        bAllOff.Bind(wx.EVT_BUTTON, self.do_all_off)
+        bAllOff.SetBackgroundColour(wx.Colour(255,64,64))
+        inner = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(inner, flag=wx.EXPAND)
+        inner.Add(bConfig)
+        inner.AddStretchSpacer()
+        inner.Add(bAllOff)
 
     def do_all_off(self, event):
         self.parent.transact('CLEAR %d'%(self.parent.channel()))
