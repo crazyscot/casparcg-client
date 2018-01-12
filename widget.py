@@ -11,3 +11,7 @@ class Widget(Configurable):
             The label to use in the UI, as a string
         '''
         pass
+
+    @classmethod
+    def is_visible(cls, config):
+        return config.get_bool(cls.config_section, 'visible', True)
