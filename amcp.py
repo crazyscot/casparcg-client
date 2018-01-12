@@ -60,7 +60,7 @@ class Connection(object):
         self.reporter = reporter
         # INI file overrides default parameters
         try:
-            self.server = config.get('server','host')
+            self.server = config.get('server','server')
         except ConfigParser.Error:
             pass
         try:
