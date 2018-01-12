@@ -22,15 +22,13 @@ class LowerThird(wx.StaticBox, Widget):
     ui_label='Lower Third'
     my_default_config={'Template': 'hello-world/helloworld', 'Layer': 10}
 
-    def __init__(self, parent, config, label=ui_label, section='lowerthird'):
+    def __init__(self, parent, config):
         '''
             Required: parent object, config object
-            Optional: Frame label, config section to use
         '''
-        super(LowerThird, self).__init__(parent, label=label)
+        super(LowerThird, self).__init__(parent, label=self.ui_label)
         self.parent = parent
         self.config = config
-        self.section = section
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(sizer)
@@ -64,8 +62,8 @@ class LowerThird(wx.StaticBox, Widget):
 
         self.cp = None # so the immediate callback works
         self.cp = colour.PairedColourPicker(self,
-                self.config.get(self.section, 'fg', '#ffff00'),
-                self.config.get(self.section, 'bg', '#0000ff'),
+                self.config.get(self.config_section, 'fg', '#ffff00'),
+                self.config.get(self.config_section, 'bg', '#0000ff'),
                 self.got_colours)
         sizer.Add(self.cp, 1, wx.EXPAND)
         sizer.AddStretchSpacer()
@@ -73,13 +71,13 @@ class LowerThird(wx.StaticBox, Widget):
     def channel(self):
         return self.parent.channel()
     def layer(self):
-        return self.config.get_int(self.section, LowerThird.OPTION_LAYER, 1)
+        return self.config.get_int(self.config_section, LowerThird.OPTION_LAYER, 1)
     def template(self):
-        return self.config.get(self.section, LowerThird.OPTION_TEMPLATE, 'lowerthird')
+        return self.config.get(self.config_section, LowerThird.OPTION_TEMPLATE, 'lowerthird')
     def fg(self):
-        return self.config.get(self.section, LowerThird.OPTION_FG, '#ffff00')
+        return self.config.get(self.config_section, LowerThird.OPTION_FG, '#ffff00')
     def bg(self):
-        return self.config.get(self.section, LowerThird.OPTION_BG, '#0000ff')
+        return self.config.get(self.config_section, LowerThird.OPTION_BG, '#0000ff')
 
     def templateData(self):
         return amcp.jsondata({
@@ -103,6 +101,6 @@ class LowerThird(wx.StaticBox, Widget):
 
     def got_colours(self):
         if self.cp:
-            self.config.put(self.section, 'bg', self.cp.get_bg())
-            self.config.put(self.section, 'fg', self.cp.get_fg())
+            self.config.put(self.config_section, 'bg', self.cp.get_bg())
+            self.config.put(self.config_section, 'fg', self.cp.get_fg())
             self.config.write()
