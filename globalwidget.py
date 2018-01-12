@@ -6,13 +6,35 @@ Contains ALL OFF and global configuration functions.
 
 import wx
 import sys
+from configurable import ConfigItem, classproperty
+from widget import Widget
 
-class GlobalWidget(wx.StaticBox):
+class Server(ConfigItem):
+    label='Server'
+    helptext='IP address or host name of the CasparCG server to connect to'
+class Port(ConfigItem):
+    label='Port'
+    helptext='Port to connect to (usually 5250)'
+class Channel(ConfigItem):
+    label='Channel'
+    helptext='CasparCG channel to use'
+
+class GlobalWidget(wx.StaticBox, Widget):
+    ui_label='Global'
+    my_configurations=[Server,Port,Channel]
+    config_section='server'
+    my_default_config={'Server':'127.0.0.1', 'Port':5250, 'Channel':1}
+
+    @classproperty
+    def configurations(cls):
+        ''' This widget does not have a Visible member '''
+        return cls.my_configurations[:]
+
     def __init__(self, parent):
         '''
             Parent must accept status() calls and have a config member
         '''
-        super(GlobalWidget, self).__init__(parent, label='Global')
+        super(GlobalWidget, self).__init__(parent, label=self.ui_label)
         self.parent = parent
 
         sizer = wx.BoxSizer(wx.VERTICAL)
