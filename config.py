@@ -1,7 +1,7 @@
 
 from ConfigParser import *
 
-MAIN='main'
+SERVER='server'
 CHANNEL='channel'
 
 class config(object):
@@ -81,7 +81,7 @@ class config(object):
         '''
             Quick access to the Caspar channel this system is to use globally.
             Configure as
-                [main]
+                [server]
                 channel=1
         '''
-        return self.get_int(MAIN, CHANNEL, 1)
+        return self.get_int(SERVER, CHANNEL, 1)
