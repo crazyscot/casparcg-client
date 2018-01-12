@@ -1,17 +1,23 @@
 from abc import ABCMeta, abstractproperty
 
+class classproperty(object):
+    ''' Decorator for read-only class properties '''
+    def __init__(self, fget):
+        self.fget = fget
+    def __get__(self, owner_self, owner_cls):
+        return self.fget(owner_cls)
+
 class Configurable(object):
     '''
     Interface class for widgets which play with our config dialog mechanism
     '''
     __metaclass__=ABCMeta
 
-    def get_configurations(self):
-        rv = self.my_configurations[:]
+    @classproperty
+    def configurations(cls):
+        rv = cls.my_configurations[:]
         rv.extend((Visible,))
         return rv
-
-    configurations = property(get_configurations, None, None, 'The list of configurable Items for this class')
 
     @abstractproperty
     def my_configurations(self):
@@ -45,6 +51,7 @@ class Configurable(object):
         '''
         pass
 
+    @classmethod
     def default_config(self):
         ''' Default data including implicit fields '''
         rv = {}
