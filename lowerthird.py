@@ -20,7 +20,7 @@ class LowerThird(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
     config_section='lowerthird'
     ui_label='Lower Third'
-    default_config={'Template': 'hello-world/helloworld', 'Layer': 10}
+    my_default_config={'Template': 'hello-world/helloworld', 'Layer': 10}
 
     def __init__(self, parent, config, label=ui_label, section='lowerthird'):
         '''

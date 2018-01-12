@@ -34,7 +34,7 @@ class Configurable(object):
         pass
 
     @abstractproperty
-    def default_config(self):
+    def my_default_config(self):
         '''
             A dictionary of default data for this configuration.
             Keys are the label names from the config items.
@@ -44,6 +44,13 @@ class Configurable(object):
                default_config = { 'Template' : 'helloworld', 'Layer': 42 }
         '''
         pass
+
+    def default_config(self):
+        ''' Default data including implicit fields '''
+        rv = {}
+        rv.update({'Visible' : 1}) # TODO Default visibility for new config items
+        rv.update(self.my_default_config)
+        return rv
 
 class ConfigItem(object):
     '''

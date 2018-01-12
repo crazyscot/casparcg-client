@@ -63,6 +63,8 @@ class MainPanel(wx.Panel):
         self.parent = parent
         self.rebuild()
 
+    config = property(lambda self:self.parent.config)
+
     def rebuild(self):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
