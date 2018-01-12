@@ -99,6 +99,7 @@ class ConfigDialog(wx.Dialog):
             current = self.main.config.get(cls.config_section, c.label, current)
             ctrl = wx.TextCtrl(self, value=str(current))
             self.ctrls[c.label] = ctrl
+            ctrl.SetToolTip(wx.ToolTip(c.helptext))
             inner.Add(ctrl, 1, wx.EXPAND|wx.HORIZONTAL)
 
         #inner.Layout()
