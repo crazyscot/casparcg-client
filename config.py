@@ -62,6 +62,7 @@ class config(object):
             Bulk access to the dict for a config section.
             Creates the section if it doesn't already exist.
             (Note that keys and values are always Unicode strings.)
+            (Note that configparser matches case-insensitively!)
         '''
         if not self.parser.has_section(section):
             self.parser.add_section(section)
