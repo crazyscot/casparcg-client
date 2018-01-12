@@ -46,6 +46,15 @@ class config(object):
         '''
         return int(self.get(section, item, default))
 
+    def get_bool(self, section, item, default=0):
+        '''
+            Convenience wrapper to get() which does the boolean interpretation thing
+        '''
+        try:
+            return self.parser.getboolean(section,item)
+        except:
+            return default
+
     def put(self, section, item, value):
         '''
             Config accessor.
