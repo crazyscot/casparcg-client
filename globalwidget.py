@@ -86,7 +86,8 @@ class ConfigDialog(wx.Dialog):
         sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(sizer)
 
-        # TODO Global config - server, channel - add this to the GlobalWidget
+        self.configure_widget(GlobalWidget, sizer)
+
         for cls in self.main.widgets:
             self.configure_widget(cls, sizer)
 
@@ -124,7 +125,7 @@ class ConfigDialog(wx.Dialog):
             inner.Add(ctrl, flag=wx.EXPAND)
 
     def read_out(self, config):
-        # TODO action global config too
+        self.read_out_widget(GlobalWidget, config)
         for cls in self.main.widgets:
             self.read_out_widget(cls, config)
 
