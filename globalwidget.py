@@ -89,10 +89,12 @@ class ConfigDialog(wx.Dialog):
         # TODO Global config - server, channel - add this to the GlobalWidget
         for cls in self.main.widgets:
             self.configure_widget(cls, sizer)
-            #sizer.AddStretchSpacer()
 
         sizer.Add(self.CreateStdDialogButtonSizer(wx.OK|wx.CANCEL))
-        #sizer.Fit(self)
+        size1 = self.GetSize() # plausible horizontal, insufficient vertical
+        sizer.Fit(self) # argh: how to make the window wide enough for the horizontal fields?
+        size2 = self.GetSize() # short horizontal, good vertical
+        self.SetSize((max(size1[0],size2[0]), 30+max(size1[1],size2[1]))) # what a horrid bodge. there must be a better way.
         self.Show()
 
     def configure_widget(self, cls, parentsizer):
@@ -120,8 +122,6 @@ class ConfigDialog(wx.Dialog):
             self.ctrls[c.label] = ctrl
             ctrl.SetToolTip(wx.ToolTip(c.helptext))
             inner.Add(ctrl, flag=wx.EXPAND)
-
-        #inner.Layout()
 
     def read_out(self, config):
         # TODO action global config too
