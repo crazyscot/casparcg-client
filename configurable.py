@@ -77,12 +77,12 @@ class ConfigItem(object):
 
 class Visible(ConfigItem):
     label='Visible'
-    helptext='Show in the interface?'
+    helptext='Show in the interface? (1 to show, 0 to hide)'
     # TODO: Checkbox
 
 class Template(ConfigItem):
     label='Template'
-    helptext='Name of the Caspar template to use'
+    helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)'
     # TODO: Populate as drop-down list from server
 
 class Layer(ConfigItem):
