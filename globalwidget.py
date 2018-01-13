@@ -92,7 +92,6 @@ class ConfigDialog(wx.Dialog):
             #sizer.AddStretchSpacer()
 
         sizer.Add(self.CreateStdDialogButtonSizer(wx.OK|wx.CANCEL))
-        self.Centre()
         #sizer.Fit(self)
         self.Show()
 
@@ -102,27 +101,25 @@ class ConfigDialog(wx.Dialog):
         sb = wx.StaticBox(self, label=cls.ui_label)
         sbs = wx.StaticBoxSizer(sb, wx.HORIZONTAL)
         border = wx.BoxSizer()
-        border.Add(sbs, 1, wx.EXPAND|wx.HORIZONTAL, border=1)
-        parentsizer.Add(border, 1, wx.EXPAND|wx.HORIZONTAL)
+        border.Add(sbs, 1, border=1)
+        parentsizer.Add(border, 0, wx.EXPAND|wx.HORIZONTAL)
 
         #inner = wx.FlexGridSizer(len(wdg.configurations))
         inner = wx.FlexGridSizer(cols=2, rows=0, vgap=2, hgap=2)
-        sbs.Add(inner, 1, wx.ALL|wx.EXPAND, border=10)
+        sbs.Add(inner, 1, 0, border=10)
         inner.AddGrowableCol(1,1)
-        inner.SetFlexibleDirection(wx.HORIZONTAL)
-        #inner.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_ALL)
 
         defaults = cls.default_config()
 
         for c in cls.configurations:
             #print '>> CONFIG:', c.label
-            inner.Add(wx.StaticText(self, label=c.label),0)
+            inner.Add(wx.StaticText(sb, label=c.label),0)
             current = defaults[c.label]
             current = self.main.config.get(cls.config_section, c.label, current)
-            ctrl = wx.TextCtrl(self, value=str(current))
+            ctrl = wx.TextCtrl(sb, value=str(current))
             self.ctrls[c.label] = ctrl
             ctrl.SetToolTip(wx.ToolTip(c.helptext))
-            inner.Add(ctrl, 1, wx.EXPAND|wx.HORIZONTAL)
+            inner.Add(ctrl, flag=wx.EXPAND)
 
         #inner.Layout()
 
