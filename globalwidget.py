@@ -79,7 +79,7 @@ class GlobalWidget(wx.StaticBox, Widget):
 
 class ConfigDialog(wx.Dialog):
     def __init__(self, main):
-        wx.Dialog.__init__(self, parent=None, title='Configuration', style=wx.RESIZE_BORDER)
+        wx.Dialog.__init__(self, parent=main, title='Configuration', style=wx.RESIZE_BORDER)
         self.main = main
         self.ctrls = {}
 
