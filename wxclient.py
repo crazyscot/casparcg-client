@@ -69,22 +69,30 @@ class MainPanel(wx.Panel):
     def rebuild(self):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
-        if self.gw is None:
+        if not self.gw:
             self.gw = globalwidget.GlobalWidget(self)
-        sizer.Add(self.gw, 0, wx.EXPAND)
+        sizer.Add(self.gw, 1, wx.EXPAND|wx.ALL)
 
         self.widget_instances = {}
         for w in MainPanel.widgets:
             assert issubclass(w, widget.Widget)
+            visible = w.is_visible(self.parent.config)
+
+            instance = None
             if w.ui_label in self.widget_instances:
-                t = self.widget_instances[w.ui_label]
-                t.Destroy()
-                del self.widget_instances[w.ui_label]
-            if not w.is_visible(self.parent.config):
+                instance = self.widget_instances[w.ui_label]
+
+            if not visible:
+                if instance:
+                    instance.Hide()
+                    instance.Destroy()
+                    del self.widget_instances[w.ui_label]
                 continue
+
             sizer.AddSpacer(10)
             sizer.AddStretchSpacer()
-            instance = w(self, self.parent.config)
+            if not instance:
+                instance = w(self, self.parent.config)
             self.widget_instances[w.ui_label] = instance
             sizer.Add(instance, 0, wx.EXPAND)
 
