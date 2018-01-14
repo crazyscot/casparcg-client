@@ -90,6 +90,21 @@ class ConfigItem(object):
         ''' Reads out the field, as a string. May be overridden for unusual types. '''
         return control.GetValue()
 
+class CheckBox(ConfigItem):
+    '''
+        Mixin class for boolean (checkbox) types
+    '''
+    @classmethod
+    def create_control(cls, parent, value):
+        rv = wx.CheckBox(parent, label='')
+        rv.SetValue(str(value).lower() in ('yes','true','t','1'))
+        rv.SetToolTip(wx.ToolTip(cls.helptext))
+        return rv
+
+    @classmethod
+    def get_value(cls, control):
+        return str(control.IsChecked())
+
 class Visible(ConfigItem):
     label='Visible'
     helptext='Show in the interface? (1 to show, 0 to hide)'
