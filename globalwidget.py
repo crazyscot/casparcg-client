@@ -119,9 +119,9 @@ class ConfigDialog(wx.Dialog):
             inner.Add(wx.StaticText(sb, label=c.label),0)
             current = defaults[c.label]
             current = self.main.config.get(cls.config_section, c.label, current)
-            ctrl = wx.TextCtrl(sb, value=str(current))
+            ctrl = c.create_control(sb, current)
+
             self.ctrls[c.label] = ctrl
-            ctrl.SetToolTip(wx.ToolTip(c.helptext))
             inner.Add(ctrl, flag=wx.EXPAND)
 
     def read_out(self, config):
@@ -131,5 +131,6 @@ class ConfigDialog(wx.Dialog):
 
     def read_out_widget(self, cls, config):
         for c in cls.configurations:
-            val = self.ctrls[c.label].GetValue()
+            val = c.get_value( self.ctrls[c.label] )
+
             self.main.config.put(cls.config_section, c.label, val)
