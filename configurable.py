@@ -92,7 +92,7 @@ class ConfigItem(object):
 
 class CheckBox(ConfigItem):
     '''
-        Mixin class for boolean (checkbox) types
+        Subclass for boolean (checkbox) types
     '''
     @classmethod
     def create_control(cls, parent, value):
@@ -105,10 +105,9 @@ class CheckBox(ConfigItem):
     def get_value(cls, control):
         return str(control.IsChecked())
 
-class Visible(ConfigItem):
+class Visible(CheckBox):
     label='Visible'
-    helptext='Show in the interface? (1 to show, 0 to hide)'
-    # TODO: Checkbox
+    helptext='Show this widget in the interface?'
 
 class Template(ConfigItem):
     label='Template'
