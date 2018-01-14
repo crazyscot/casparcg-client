@@ -132,6 +132,13 @@ class FieldValidator(wx.PyValidator):
                 return
             event.Skip()
 
+class IntConfigItem(ConfigItem):
+    @classmethod
+    def create_control(cls, parent, value):
+        rv = wx.TextCtrl(parent, value=str(value), validator=FieldValidator(allowLetters=False))
+        rv.SetToolTip(wx.ToolTip(cls.helptext))
+        return rv
+
 class Visible(BoolConfigItem):
     label='Visible'
     helptext='Show this widget in the interface?'
