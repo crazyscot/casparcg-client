@@ -146,7 +146,6 @@ class Visible(BoolConfigItem):
 class Template(ConfigItem):
     label='Template'
     helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)'
-    # TODO: Populate as drop-down list from server
 
 class Layer(IntConfigItem):
     label='Layer'
