@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractproperty
+import wx
 
 class classproperty(object):
     ''' Decorator for read-only class properties '''
@@ -74,6 +75,20 @@ class ConfigItem(object):
     def helptext(self):
         ''' Help text in the dialog '''
         pass
+
+    @classmethod
+    def create_control(cls, parent, value):
+        ''' Creates the new wx control for the field and any tooltip.
+            May be overridden for special (non-string) types.
+        '''
+        rv = wx.TextCtrl(parent, value=str(value))
+        rv.SetToolTip(wx.ToolTip(cls.helptext))
+        return rv
+
+    @classmethod
+    def get_value(cls, control):
+        ''' Reads out the field, as a string. May be overridden for unusual types. '''
+        return control.GetValue()
 
 class Visible(ConfigItem):
     label='Visible'
