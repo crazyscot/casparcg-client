@@ -6,16 +6,16 @@ Contains ALL OFF and global configuration functions.
 
 import wx
 import sys
-from configurable import ConfigItem, classproperty
+from configurable import ConfigItem, IntConfigItem, classproperty
 from widget import Widget
 
 class Server(ConfigItem):
     label='Server'
     helptext='IP address or host name of the CasparCG server to connect to'
-class Port(ConfigItem):
+class Port(IntConfigItem):
     label='Port'
     helptext='Port to connect to (usually 5250)'
-class Channel(ConfigItem):
+class Channel(IntConfigItem):
     label='Channel'
     helptext='CasparCG channel to use'
 

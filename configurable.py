@@ -148,7 +148,6 @@ class Template(ConfigItem):
     helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)'
     # TODO: Populate as drop-down list from server
 
-class Layer(ConfigItem):
+class Layer(IntConfigItem):
     label='Layer'
     helptext='CG layer number to use'
-    # TODO: Integer
