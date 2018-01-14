@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractproperty
 import wx
+import string
 
 class classproperty(object):
     ''' Decorator for read-only class properties '''
@@ -104,6 +105,32 @@ class BoolConfigItem(ConfigItem):
     @classmethod
     def get_value(cls, control):
         return str(control.IsChecked())
+
+
+class FieldValidator(wx.PyValidator):
+    ''' A configurable validator for text controls '''
+    def __init__(self, allowDigits=True, allowLetters=True):
+        wx.PyValidator.__init__(self)
+        self.Bind(wx.EVT_CHAR, self.onChar)
+        self.allowDigits=allowDigits
+        self.allowLetters=allowLetters
+    def Clone(self):
+        return FieldValidator(self.allowDigits, self.allowLetters)
+    def Validate(self, win):
+        return True
+    def TransferToWindow(self):
+        return True
+    def TransferFromWindow(self):
+        return True
+    def onChar(self, event):
+        keycode = int(event.GetKeyCode())
+        if keycode < 256:
+            key = chr(keycode)
+            if not self.allowLetters and key in string.letters:
+                return
+            if not self.allowDigits and key in string.digits:
+                return
+            event.Skip()
 
 class Visible(BoolConfigItem):
     label='Visible'
