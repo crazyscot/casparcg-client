@@ -90,7 +90,7 @@ class ConfigItem(object):
         ''' Reads out the field, as a string. May be overridden for unusual types. '''
         return control.GetValue()
 
-class CheckBox(ConfigItem):
+class BoolConfigItem(ConfigItem):
     '''
         Subclass for boolean (checkbox) types
     '''
@@ -105,7 +105,7 @@ class CheckBox(ConfigItem):
     def get_value(cls, control):
         return str(control.IsChecked())
 
-class Visible(CheckBox):
+class Visible(BoolConfigItem):
     label='Visible'
     helptext='Show this widget in the interface?'
 
