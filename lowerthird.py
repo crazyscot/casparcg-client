@@ -12,8 +12,6 @@ import configurable
 from widget import Widget
 
 class LowerThird(wx.StaticBox, Widget):
-    OPTION_LAYER='layer'
-    OPTION_TEMPLATE='template'
     OPTION_BG='bg'
     OPTION_FG='fg'
 
@@ -71,9 +69,9 @@ class LowerThird(wx.StaticBox, Widget):
     def channel(self):
         return self.parent.channel()
     def layer(self):
-        return self.config.get_int(self.config_section, LowerThird.OPTION_LAYER, 1)
+        return self.config.get_int(self.config_section, configurable.Layer.label, 1)
     def template(self):
-        return self.config.get(self.config_section, LowerThird.OPTION_TEMPLATE, 'lowerthird')
+        return self.config.get(self.config_section, configurable.Template.label, 'lowerthird')
     def fg(self):
         return self.config.get(self.config_section, LowerThird.OPTION_FG, '#ffff00')
     def bg(self):
