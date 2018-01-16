@@ -77,6 +77,11 @@ class GlobalWidget(wx.StaticBox, Widget):
                 self.parent.status('Configuration cancelled')
             dlg.Destroy()
 
+
+def hashkey(cls,config):
+    ''' Labels may not be globally unique, so this is what we put in our master ctrls hash '''
+    return '%s!%s'%(cls.__name__, config.label)
+
 class ConfigDialog(wx.Dialog):
     def __init__(self, main):
         wx.Dialog.__init__(self, parent=main, title='Configuration', style=wx.RESIZE_BORDER)
@@ -121,7 +126,7 @@ class ConfigDialog(wx.Dialog):
             current = self.main.config.get(cls.config_section, c.label, current)
             ctrl = c.create_control(sb, current)
 
-            self.ctrls[c.label] = ctrl
+            self.ctrls[hashkey(cls,c)] = ctrl
             inner.Add(ctrl, flag=wx.EXPAND)
 
     def read_out(self, config):
@@ -131,6 +136,5 @@ class ConfigDialog(wx.Dialog):
 
     def read_out_widget(self, cls, config):
         for c in cls.configurations:
-            val = c.get_value( self.ctrls[c.label] )
-
+            val = c.get_value( self.ctrls[hashkey(cls,c)] )
             self.main.config.put(cls.config_section, c.label, val)
