@@ -5,6 +5,7 @@ import traceback
 import config
 import globalwidget
 import lowerthird
+import scorebug
 import wx # developed against wxpython 3.0
 import widget
 
@@ -40,7 +41,7 @@ class MainWindow(wx.Frame):
 
 class MainPanel(wx.Panel):
     # Master list of widgets
-    widgets = [lowerthird.LowerThird]
+    widgets = [lowerthird.LowerThird, scorebug.ScoreBug]
 
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
