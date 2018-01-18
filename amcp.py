@@ -6,6 +6,7 @@
 import socket
 import ConfigParser
 import json
+import globalwidget
 
 def code_lookup(c):
     if c==400:
@@ -54,22 +55,12 @@ class Connection(object):
         If reporter is not None, its status() method may be called
         at any time with a human-readable text string.
         '''
-        self.server = '127.0.0.1'
-        self.port = 5250
         self.socket = None # we'll connect on demand
         self.reporter = reporter
-        # INI file overrides default parameters
-        try:
-            self.server = config.get('server','server')
-        except ConfigParser.Error:
-            pass
-        try:
-            self.port = int(config.get('server','port', self.port))
-        except ConfigParser.Error:
-            pass
+        self.config = config
 
     def connect(self):
-        self.socket = socket.create_connection((self.server, self.port), 5)
+        self.socket = socket.create_connection((globalwidget.get_server(self.config), globalwidget.get_port(self.config)), 5)
 
     def info(self, what=''):
         ''' INFO command/subcommand '''
