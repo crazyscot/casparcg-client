@@ -11,13 +11,14 @@ from configurable import Configurable,FieldValidator
 import configurable
 from widget import Widget
 
+ITEM_TEAM1='team1'
+ITEM_TEAM2='team2'
+
 class ScoreBug(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
     config_section='scorebug'
     ui_label='Score bug'
     my_default_config={'Template': 'hello-world/scorebug', 'Layer': 20}
-
-    # TODO: Config: colours ? Teams ?
 
     def __init__(self, parent, config):
         '''
@@ -36,8 +37,8 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
-        self.team1 = 'AAA'
-        self.team1ctrl = wx.TextCtrl(self, 2, style=wx.TE_READONLY, value = ' ZZZ ')
+        self.team1 = self.config.get(self.config_section, 'team1', 'AAA')
+        self.team1ctrl = wx.TextCtrl(self, 2, value = self.team1)
         self.team1ctrl.SetFont(bigfont)
         line1.Add(self.team1ctrl, 1)
         self.score1 = 0
@@ -47,8 +48,8 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1.AddStretchSpacer(1)
 
-        self.team2 = 'BBB'
-        self.team2ctrl = wx.TextCtrl(self, style=wx.TE_READONLY, value = ' YYY ')
+        self.team2 = self.config.get(self.config_section, 'team2', 'BBB')
+        self.team2ctrl = wx.TextCtrl(self, value = self.team2)
         self.team2ctrl.SetFont(bigfont)
         line1.Add(self.team2ctrl, 1)
         self.score2 = 0
@@ -97,9 +98,7 @@ class ScoreBug(wx.StaticBox, Widget):
 
 
     def update_display(self):
-        self.team1ctrl.SetValue(' '+self.team1+' ')
         self.score1ctrl.SetValue(str(self.score1))
-        self.team2ctrl.SetValue(' '+self.team2+' ')
         self.score2ctrl.SetValue(str(self.score2))
 
     def channel(self):
@@ -141,6 +140,13 @@ class ScoreBug(wx.StaticBox, Widget):
         self.do_update()
 
     def do_update_btn(self,e):
+        self.team1=self.team1ctrl.GetValue()
+        self.team2=self.team2ctrl.GetValue()
+
+        self.config.put(self.config_section, ITEM_TEAM1, self.team1)
+        self.config.put(self.config_section, ITEM_TEAM2, self.team2)
+        self.config.write()
+
         self.score1=int(self.score1ctrl.GetValue())
         self.score2=int(self.score2ctrl.GetValue())
         self.do_update()
