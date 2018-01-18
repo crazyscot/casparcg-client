@@ -47,7 +47,7 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
-        self.team1 = self.config.get(self.config_section, 'team1', 'AAA')
+        self.team1 = self.config.get(self.config_section, ITEM_TEAM1, 'AAA')
         self.team1ctrl = wx.TextCtrl(self, 2, value = self.team1)
         self.team1ctrl.SetFont(bigfont)
         line1.Add(self.team1ctrl, 1)
@@ -58,7 +58,7 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1.AddStretchSpacer(1)
 
-        self.team2 = self.config.get(self.config_section, 'team2', 'BBB')
+        self.team2 = self.config.get(self.config_section, ITEM_TEAM2, 'BBB')
         self.team2ctrl = wx.TextCtrl(self, value = self.team2)
         self.team2ctrl.SetFont(bigfont)
         line1.Add(self.team2ctrl, 1)
