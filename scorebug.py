@@ -85,39 +85,37 @@ class ScoreBug(wx.StaticBox, Widget):
         sizer.AddSpacer(10)
         sizer.Add(line2, 0, wx.EXPAND)
 
-        # Third line: Fade On, Fade Off, Update
+        # Third line: Colour 1, Fade On, Fade Off, Update, Colour 2
         line3 = wx.BoxSizer(wx.HORIZONTAL)
-        lineX = line3
-        line3.AddStretchSpacer(3)
-        addButton('Fade on', self.do_fade_on)
-        line3.AddSpacer(10)
-        addButton('Fade off', self.do_fade_off)
-        line3.AddSpacer(10)
-        addButton('Update', self.do_update_btn)
-        line3.AddStretchSpacer(3)
 
-        sizer.AddStretchSpacer(3)
-        sizer.AddSpacer(10)
-        sizer.Add(line3, 0, wx.EXPAND)
-
-        line4 = wx.BoxSizer(wx.HORIZONTAL)
         self.team1cp = self.team2cp = None
         self.team1cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, ITEM_FG1, '#fff'),
                 self.config.get(self.config_section, ITEM_BG1, '#00f'),
                 self.got_colours, sample_patch=False)
-        line4.Add(self.team1cp, 1, wx.EXPAND)
-        line4.AddStretchSpacer()
+        line3.Add(self.team1cp, 1, wx.EXPAND)
+
+        line3.AddStretchSpacer(2)
+
+        lineX = line3
+        addButton('Fade on', self.do_fade_on)
+        line3.AddSpacer(10)
+        addButton('Fade off', self.do_fade_off)
+        line3.AddSpacer(10)
+        addButton('Update', self.do_update_btn)
+
+        line3.AddStretchSpacer(2)
+
         self.team2cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, ITEM_FG2, '#fff'),
                 self.config.get(self.config_section, ITEM_BG2, '#080'),
                 self.got_colours, sample_patch=False)
-        line4.Add(self.team2cp, 1, wx.EXPAND)
-        sizer.AddStretchSpacer(10)
-        sizer.AddSpacer(10)
-        sizer.Add(line4, 0, wx.EXPAND)
-        self.update_field_colours()
+        line3.Add(self.team2cp, 1, wx.EXPAND)
 
+        sizer.AddStretchSpacer()
+        sizer.AddSpacer(10)
+        sizer.Add(line3, 0, wx.EXPAND)
+        self.update_field_colours()
 
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
