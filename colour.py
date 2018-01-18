@@ -45,7 +45,7 @@ class PairedColourPicker(wx.Panel):
         self.fg = ColourPicker(self, 'Text colour', initfg )
         self.bg = ColourPicker(self, 'Background', initbg )
         sizer.Add(self.fg)
-        sizer.AddStretchSpacer()
+        sizer.AddSpacer(10)
         sizer.Add(self.bg)
 
         if sample_patch:
@@ -57,7 +57,7 @@ class PairedColourPicker(wx.Panel):
             self.patch.SetSizer(inner)
             inner.Add(self.patchtext, 0, wx.CENTRE)
 
-            sizer.AddStretchSpacer()
+            sizer.AddSpacer(10)
             sizer.Add(self.patch, flag=wx.LEFT|wx.RIGHT, border=5)
             self.update_patch()
         else:
