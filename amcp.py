@@ -64,7 +64,7 @@ class Connection(object):
         except ConfigParser.Error:
             pass
         try:
-            self.port = int(config.get('server','port'))
+            self.port = int(config.get('server','port', self.port))
         except ConfigParser.Error:
             pass
 
