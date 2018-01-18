@@ -90,15 +90,15 @@ class LowerThird(wx.StaticBox, Widget):
 
     def do_fade_on(self, event):
         # CG channel ADD layer template 1 data
-        self.parent.transact('CG %d ADD %d %s 1 %s'%(self.channel(), self.layer(), amcp.quote(self.template()), self.templateData()))
+        self.parent.transact('CG %d-%d ADD 1 %s 1 %s'%(self.channel(), self.layer(), amcp.quote(self.template()), self.templateData()))
 
     def do_fade_off(self, event):
         # CG channel STOP layer
-        self.parent.transact('CG %d STOP %d'%(self.channel(), self.layer()))
+        self.parent.transact('CG %d-%d STOP 1'%(self.channel(), self.layer()))
 
     def do_update(self,e):
         # CG channel UPDATE layer data
-        self.parent.transact('CG %d UPDATE %d %s'%(self.channel(), self.layer(), self.templateData()))
+        self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
 
     def got_colours(self):
         if self.cp:
