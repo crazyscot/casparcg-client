@@ -37,7 +37,7 @@ We style the div to be blue, but don't assign the body a background color. In no
 
 .team, .score {
     margin: 0px 0px;
-    padding: 4px 4px 5px;
+    padding: 4px 0.4em 5px;
 }
 
 .team {
