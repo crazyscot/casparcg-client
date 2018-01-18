@@ -54,16 +54,19 @@ class LowerThird(wx.StaticBox, Widget):
         inner.AddSpacer(10)
         inner.Add(bUpdate)
 
-        sizer.AddSpacer(10)
-        sizer.Add(inner, flag=wx.EXPAND)
-        sizer.AddSpacer(10)
-
+        inner.AddSpacer(20)
+        inner.AddStretchSpacer(1)
         self.cp = None # so the immediate callback works
         self.cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, 'fg', '#ffff00'),
                 self.config.get(self.config_section, 'bg', '#0000ff'),
                 self.got_colours)
-        sizer.Add(self.cp, 1, wx.EXPAND)
+        inner.Add(self.cp, 1, wx.EXPAND)
+
+        sizer.AddSpacer(10)
+        sizer.Add(inner, flag=wx.EXPAND)
+        sizer.AddSpacer(20)
+
         sizer.AddStretchSpacer()
 
     def channel(self):
