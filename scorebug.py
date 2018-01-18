@@ -13,6 +13,10 @@ from widget import Widget
 
 ITEM_TEAM1='team1'
 ITEM_TEAM2='team2'
+ITEM_FG1='team1fg'
+ITEM_BG1='team1bg'
+ITEM_FG2='team2fg'
+ITEM_BG2='team2bg'
 
 class ScoreBug(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
@@ -93,6 +97,24 @@ class ScoreBug(wx.StaticBox, Widget):
         sizer.AddSpacer(10)
         sizer.Add(line3, 0, wx.EXPAND)
 
+        line4 = wx.BoxSizer(wx.HORIZONTAL)
+        self.team1cp = self.team2cp = None
+        self.team1cp = colour.PairedColourPicker(self,
+                self.config.get(self.config_section, ITEM_FG1, '#fff'),
+                self.config.get(self.config_section, ITEM_BG1, '#00f'),
+                self.got_colours)
+        line4.Add(self.team1cp, 1, wx.EXPAND)
+        line4.AddStretchSpacer()
+        self.team2cp = colour.PairedColourPicker(self,
+                self.config.get(self.config_section, ITEM_FG2, '#fff'),
+                self.config.get(self.config_section, ITEM_BG2, '#080'),
+                self.got_colours)
+        line4.Add(self.team2cp, 1, wx.EXPAND)
+        sizer.AddStretchSpacer(10)
+        sizer.AddSpacer(10)
+        sizer.Add(line4, 0, wx.EXPAND)
+
+
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
 
@@ -114,8 +136,11 @@ class ScoreBug(wx.StaticBox, Widget):
             'score1': self.score1,
             'team2': self.team2,
             'score2': self.score2,
+            'team1fg': self.team1cp.get_fg(),
+            'team1bg': self.team1cp.get_bg(),
+            'team2fg': self.team2cp.get_fg(),
+            'team2bg': self.team2cp.get_bg(),
             })
-        # TODO: team1bg, team1fg, team2bg, team2fg
         return rv
 
     def do_fade_on(self, event):
@@ -156,3 +181,12 @@ class ScoreBug(wx.StaticBox, Widget):
         self.update_display()
         self.Refresh()
         self.parent.transact('CG %d UPDATE %d %s'%(self.channel(), self.layer(), self.templateData()))
+
+    def got_colours(self):
+        if self.team1cp:
+            self.config.put(self.config_section, ITEM_FG1, self.team1cp.get_fg())
+            self.config.put(self.config_section, ITEM_BG1, self.team1cp.get_bg())
+        if self.team2cp:
+            self.config.put(self.config_section, ITEM_FG2, self.team2cp.get_fg())
+            self.config.put(self.config_section, ITEM_BG2, self.team2cp.get_bg())
+            self.config.write()
