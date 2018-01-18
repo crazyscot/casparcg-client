@@ -21,7 +21,7 @@ function update(arg) { //the key/value pairs configured in CasparCG client are p
     }
 
     if (json.team1bg !== undefined) {
-        ss = 'linear-gradient(to bottom, '+hexToRGBA(json.team1bg, 0.5)+', '+hexToRGTBA(json.team1bg,1)+')';
+        ss = 'linear-gradient(to bottom, '+hexToRGBA(json.team1bg, 0.5)+', '+hexToRGBA(json.team1bg,1)+')';
         $("#team1").css('background-image', ss);
     }
     if (json.team1fg !== undefined) {
@@ -29,7 +29,7 @@ function update(arg) { //the key/value pairs configured in CasparCG client are p
     }
 
     if (json.team2bg !== undefined) {
-        ss = 'linear-gradient(to bottom, '+hexToRGBA(json.team2bg, 0.5)+', '+hexToRGTBA(json.team2bg,1)+')';
+        ss = 'linear-gradient(to bottom, '+hexToRGBA(json.team2bg, 0.5)+', '+hexToRGBA(json.team2bg,1)+')';
         $("#team2").css('background-image', ss);
     }
     if (json.team2fg !== undefined) {
