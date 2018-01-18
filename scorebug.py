@@ -88,12 +88,15 @@ class ScoreBug(wx.StaticBox, Widget):
         # Third line: Fade On, Fade Off, Update
         line3 = wx.BoxSizer(wx.HORIZONTAL)
         lineX = line3
+        line3.AddStretchSpacer(3)
         addButton('Fade on', self.do_fade_on)
-        line3.AddStretchSpacer(1)
+        line3.AddSpacer(10)
         addButton('Fade off', self.do_fade_off)
-        line3.AddStretchSpacer(1)
+        line3.AddSpacer(10)
         addButton('Update', self.do_update_btn)
-        sizer.AddStretchSpacer(10)
+        line3.AddStretchSpacer(3)
+
+        sizer.AddStretchSpacer(3)
         sizer.AddSpacer(10)
         sizer.Add(line3, 0, wx.EXPAND)
 
