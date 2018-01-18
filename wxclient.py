@@ -19,7 +19,7 @@ To make this work:
 '''
 
 class MainWindow(wx.Frame):
-    def __init__(self, parent, title='Hello, Caspar World!', configfile='config.ini'):
+    def __init__(self, parent, title='Mediary\'s Caspar Client', configfile='config.ini'):
         wx.Frame.__init__(self, parent, title=title)
         self.statusbar = self.CreateStatusBar(1, style= wx.STB_SIZEGRIP|wx.STB_SHOW_TIPS|wx.STB_ELLIPSIZE_END|wx.FULL_REPAINT_ON_RESIZE)
         self.status('nothing happening')
