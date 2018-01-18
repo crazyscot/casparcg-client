@@ -35,7 +35,7 @@ class PairedColourPicker(wx.Panel):
     '''
         Widget for choosing a pair of colours for text.
     '''
-    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None):
+    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, sample_patch=True):
         super(PairedColourPicker, self).__init__(parent)
         self.parent = parent
         self.notifyfn = notifyfn
@@ -48,21 +48,25 @@ class PairedColourPicker(wx.Panel):
         sizer.AddStretchSpacer()
         sizer.Add(self.bg)
 
-        self.patch = wx.Panel(self)
-        self.patchtext = wx.StaticText(self.patch, label=' Sample ')
-        font = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
-        self.patchtext.SetFont(font)
-        inner = wx.BoxSizer(wx.VERTICAL)
-        self.patch.SetSizer(inner)
-        inner.Add(self.patchtext, 0, wx.CENTRE)
+        if sample_patch:
+            self.patch = wx.Panel(self)
+            self.patchtext = wx.StaticText(self.patch, label=' Sample ')
+            font = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
+            self.patchtext.SetFont(font)
+            inner = wx.BoxSizer(wx.VERTICAL)
+            self.patch.SetSizer(inner)
+            inner.Add(self.patchtext, 0, wx.CENTRE)
 
-        sizer.AddStretchSpacer()
-        sizer.Add(self.patch, flag=wx.LEFT|wx.RIGHT, border=5)
-        self.update_patch()
+            sizer.AddStretchSpacer()
+            sizer.Add(self.patch, flag=wx.LEFT|wx.RIGHT, border=5)
+            self.update_patch()
+        else:
+            self.patch = None
 
     def update_patch(self):
-        self.patch.SetBackgroundColour(self.bg.current)
-        self.patchtext.SetForegroundColour(self.fg.current)
+        if self.patch:
+            self.patch.SetBackgroundColour(self.bg.current)
+            self.patchtext.SetForegroundColour(self.fg.current)
         if self.notifyfn:
             self.notifyfn()
 
