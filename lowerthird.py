@@ -49,9 +49,9 @@ class LowerThird(wx.StaticBox, Widget):
 
         inner = wx.BoxSizer(wx.HORIZONTAL)
         inner.Add(bFadeOn)
-        inner.AddStretchSpacer()
+        inner.AddSpacer(10)
         inner.Add(bFadeOff)
-        inner.AddStretchSpacer()
+        inner.AddSpacer(10)
         inner.Add(bUpdate)
 
         sizer.AddSpacer(10)
