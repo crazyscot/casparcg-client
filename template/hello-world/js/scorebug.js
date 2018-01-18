@@ -44,16 +44,16 @@ function update(arg) { //the key/value pairs configured in CasparCG client are p
 //This function actually plays the animation that we've updated/configured with update()
 function play(arg) {
     //in this case we just have to fade in a simple <div>
-    $(".textbox").fadeTo(400, 1); // over 400ms, set opacity to 1
+    $(".scorebug").fadeTo(400, 1); // over 400ms, set opacity to 1
 }
 
 function stop() {
-    $(".textbox").fadeTo(400, 0);
+    $(".scorebug").fadeTo(400, 0);
 }
 
 //This is an opportunity to smoothly transition out, so in this case we want to fade out our text
 function next() {
-    $(".textbox").fadeTo(400, 0);
+    $(".scorebug").fadeTo(400, 0);
 }
 
 function hexToRGBA(hex, alpha){
