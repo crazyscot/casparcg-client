@@ -47,8 +47,8 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
-        self.team1 = self.config.get(self.config_section, ITEM_TEAM1, 'AAA')
-        self.team1ctrl = wx.TextCtrl(self, 2, value = self.team1)
+        team1 = self.config.get(self.config_section, ITEM_TEAM1, 'AAA')
+        self.team1ctrl = wx.TextCtrl(self, 2, value = team1)
         self.team1ctrl.SetFont(bigfont)
         line1.Add(self.team1ctrl, 1)
         self.score1 = 0
@@ -58,8 +58,8 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1.AddStretchSpacer(1)
 
-        self.team2 = self.config.get(self.config_section, ITEM_TEAM2, 'BBB')
-        self.team2ctrl = wx.TextCtrl(self, value = self.team2)
+        team2 = self.config.get(self.config_section, ITEM_TEAM2, 'BBB')
+        self.team2ctrl = wx.TextCtrl(self, value = team2)
         self.team2ctrl.SetFont(bigfont)
         line1.Add(self.team2ctrl, 1)
         self.score2 = 0
@@ -140,9 +140,9 @@ class ScoreBug(wx.StaticBox, Widget):
 
     def templateData(self):
         rv = amcp.jsondata({
-            'team1': self.team1,
+            'team1': str(self.team1ctrl.GetValue()),
             'score1': self.score1,
-            'team2': self.team2,
+            'team2': str(self.team2ctrl.GetValue()),
             'score2': self.score2,
             'team1fg': self.team1cp.get_fg(),
             'team1bg': self.team1cp.get_bg(),
@@ -174,11 +174,8 @@ class ScoreBug(wx.StaticBox, Widget):
         self.do_update()
 
     def do_update_btn(self,e):
-        self.team1=self.team1ctrl.GetValue()
-        self.team2=self.team2ctrl.GetValue()
-
-        self.config.put(self.config_section, ITEM_TEAM1, self.team1)
-        self.config.put(self.config_section, ITEM_TEAM2, self.team2)
+        self.config.put(self.config_section, ITEM_TEAM1, self.team1ctrl.GetValue())
+        self.config.put(self.config_section, ITEM_TEAM2, self.team2ctrl.GetValue())
         self.config.write()
 
         self.score1=int(self.score1ctrl.GetValue())
