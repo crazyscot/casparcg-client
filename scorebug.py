@@ -90,8 +90,8 @@ class ScoreBug(wx.StaticBox, Widget):
 
         self.team1cp = self.team2cp = None
         self.team1cp = colour.PairedColourPicker(self,
-                self.config.get(self.config_section, ITEM_FG1, '#fff'),
-                self.config.get(self.config_section, ITEM_BG1, '#00f'),
+                self.config.get(self.config_section, ITEM_FG1, '#ffffff'),
+                self.config.get(self.config_section, ITEM_BG1, '#0000ff'),
                 self.got_colours, sample_patch=False)
         line3.Add(self.team1cp, 1, wx.EXPAND)
 
@@ -107,8 +107,8 @@ class ScoreBug(wx.StaticBox, Widget):
         line3.AddStretchSpacer(2)
 
         self.team2cp = colour.PairedColourPicker(self,
-                self.config.get(self.config_section, ITEM_FG2, '#fff'),
-                self.config.get(self.config_section, ITEM_BG2, '#080'),
+                self.config.get(self.config_section, ITEM_FG2, '#ffffff'),
+                self.config.get(self.config_section, ITEM_BG2, '#008000'),
                 self.got_colours, sample_patch=False)
         line3.Add(self.team2cp, 1, wx.EXPAND)
 
