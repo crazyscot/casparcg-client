@@ -35,7 +35,9 @@ class ScoreBug(wx.StaticBox, Widget):
         sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(sizer)
 
-        # TODO win32 bodge here if necessary
+        if sys.platform=='win32':
+            txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
+            sizer.Add(txt)
 
         # First line: Team names and scores
 
