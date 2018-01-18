@@ -22,7 +22,7 @@ We style the div to be blue, but don't assign the body a background color. In no
     font-weight: bold;
     color: white;
 	margin: 10px;
-    padding: 0px 8px;
+    padding: 0px 8px 0px 16px;
 	display: block;
 	position: absolute;
 	top: 1vh;
