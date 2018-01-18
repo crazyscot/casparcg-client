@@ -78,6 +78,13 @@ class GlobalWidget(wx.StaticBox, Widget):
             dlg.Destroy()
 
 
+def get_server(config):
+    return config.get(GlobalWidget.config_section, Server.label, GlobalWidget.my_default_config[Server.label])
+
+def get_port(config):
+    return int(config.get(GlobalWidget.config_section, Port.label, GlobalWidget.my_default_config[Port.label]))
+
+
 def hashkey(cls,config):
     ''' Labels may not be globally unique, so this is what we put in our master ctrls hash '''
     return '%s!%s'%(cls.__name__, config.label)
