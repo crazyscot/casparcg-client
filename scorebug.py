@@ -7,7 +7,7 @@ import amcp
 import colour
 import wx
 import sys
-from configurable import Configurable,FieldValidator
+from configurable import Configurable,FieldValidator,IntConfigItem
 import configurable
 from widget import Widget
 
@@ -18,11 +18,15 @@ ITEM_BG1='team1bg'
 ITEM_FG2='team2fg'
 ITEM_BG2='team2bg'
 
+class FontSize(IntConfigItem):
+    label='Font size'
+    helptext='Font size in pixels'
+
 class ScoreBug(wx.StaticBox, Widget):
-    my_configurations=[configurable.Template,configurable.Layer]
+    my_configurations=[configurable.Template,configurable.Layer, FontSize]
     config_section='scorebug'
     ui_label='Score bug'
-    my_default_config={'Template': 'hello-world/scorebug', 'Layer': 20}
+    my_default_config={'Template': 'hello-world/scorebug', 'Layer': 20, FontSize.label: 20}
 
     def __init__(self, parent, config):
         '''
@@ -144,6 +148,7 @@ class ScoreBug(wx.StaticBox, Widget):
             'team1bg': self.team1cp.get_bg(),
             'team2fg': self.team2cp.get_fg(),
             'team2bg': self.team2cp.get_bg(),
+            'fontsize': self.config.get(self.config_section, FontSize.label, '20')
             })
         return rv
 

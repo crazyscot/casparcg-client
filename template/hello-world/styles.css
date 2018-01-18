@@ -27,6 +27,7 @@ We style the div to be blue, but don't assign the body a background color. In no
 	top: 1vh;
     left: 5%;
     background: linear-gradient(#999, #333);
+    font-size: 20px;
 }
 
 .scorebuginner {

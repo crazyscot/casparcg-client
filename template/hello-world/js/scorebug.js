@@ -35,6 +35,9 @@ function update(arg) { //the key/value pairs configured in CasparCG client are p
     if (json.team2fg !== undefined) {
         $("#team2").css('color', json.team2fg);
     }
+    if (json.fontsize !== undefined) {
+        $(".scorebug").css('font-size', json.fontsize+'px');
+    }
 
 }
 
