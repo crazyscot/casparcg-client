@@ -102,17 +102,18 @@ class ScoreBug(wx.StaticBox, Widget):
         self.team1cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, ITEM_FG1, '#fff'),
                 self.config.get(self.config_section, ITEM_BG1, '#00f'),
-                self.got_colours)
+                self.got_colours, sample_patch=False)
         line4.Add(self.team1cp, 1, wx.EXPAND)
         line4.AddStretchSpacer()
         self.team2cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, ITEM_FG2, '#fff'),
                 self.config.get(self.config_section, ITEM_BG2, '#080'),
-                self.got_colours)
+                self.got_colours, sample_patch=False)
         line4.Add(self.team2cp, 1, wx.EXPAND)
         sizer.AddStretchSpacer(10)
         sizer.AddSpacer(10)
         sizer.Add(line4, 0, wx.EXPAND)
+        self.update_field_colours()
 
 
         if sys.platform.startswith('linux'):
@@ -182,6 +183,14 @@ class ScoreBug(wx.StaticBox, Widget):
         self.Refresh()
         self.parent.transact('CG %d UPDATE %d %s'%(self.channel(), self.layer(), self.templateData()))
 
+    def update_field_colours(self):
+        if self.team1cp:
+            self.team1ctrl.SetBackgroundColour(self.team1cp.get_bg())
+            self.team1ctrl.SetForegroundColour(self.team1cp.get_fg())
+        if self.team2cp:
+            self.team2ctrl.SetBackgroundColour(self.team2cp.get_bg())
+            self.team2ctrl.SetForegroundColour(self.team2cp.get_fg())
+
     def got_colours(self):
         if self.team1cp:
             self.config.put(self.config_section, ITEM_FG1, self.team1cp.get_fg())
@@ -190,3 +199,4 @@ class ScoreBug(wx.StaticBox, Widget):
             self.config.put(self.config_section, ITEM_FG2, self.team2cp.get_fg())
             self.config.put(self.config_section, ITEM_BG2, self.team2cp.get_bg())
             self.config.write()
+        self.update_field_colours()
