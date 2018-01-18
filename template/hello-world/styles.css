@@ -45,7 +45,7 @@ We style the div to be blue, but don't assign the body a background color. In no
     color: white;
 }
 .score {
-    background-color: white;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,1.0), rgba(255,255,255,0.8));
     color: black;
     margin-right: 5px;
 }
