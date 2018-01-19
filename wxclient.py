@@ -32,7 +32,7 @@ class MainWindow(wx.Frame):
         self.server = amcp.Connection(self.config, self)
 
         icon = wx.EmptyIcon()
-        icon.CopyFromBitmap(wx.Bitmap('mediary caspar logo.ico'))
+        icon.CopyFromBitmap(wx.Bitmap('mediary-caspar.ico'))
         self.SetIcon(icon)
 
         self.panel = MainPanel(self)
