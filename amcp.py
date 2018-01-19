@@ -56,11 +56,18 @@ class Connection(object):
         at any time with a human-readable text string.
         '''
         self.socket = None # we'll connect on demand
+        self.server = None
+        self.port = None
         self.reporter = reporter
         self.config = config
 
     def connect(self):
-        self.socket = socket.create_connection((globalwidget.get_server(self.config), globalwidget.get_port(self.config)), 5)
+        self.server = globalwidget.get_server(self.config)
+        self.port = globalwidget.get_port(self.config)
+        self.socket = socket.create_connection((self.server, self.port), 5)
+
+    def server_changed(self):
+        return not ( (self.server == globalwidget.get_server(self.config)) and (self.port == globalwidget.get_port(self.config)) )
 
     def info(self, what=''):
         ''' INFO command/subcommand '''
@@ -78,6 +85,9 @@ class Connection(object):
         '''
         Error-checking transaction
         '''
+        if self.socket and self.server_changed():
+            self.socket.close()
+            self.socket = None
         if self.socket is None:
             self.report('Connecting to server...')
             self.connect()
