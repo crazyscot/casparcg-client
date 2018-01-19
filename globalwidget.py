@@ -132,7 +132,7 @@ def hashkey(cls,config):
 
 class ConfigDialog(wx.Dialog):
     def __init__(self, main):
-        wx.Dialog.__init__(self, parent=main, title='Configuration', style=wx.RESIZE_BORDER)
+        wx.Dialog.__init__(self, parent=main, title='Configuration', style=wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
         self.main = main
         self.ctrls = {}
 
