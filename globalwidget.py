@@ -98,7 +98,7 @@ class GlobalWidget(wx.StaticBox, Widget):
         info = wx.AboutDialogInfo()
         info.Name = "Mediary's Caspar Client"
         try:
-            icon = wx.Icon('mediary-logo.png',64,64)
+            icon = wx.Icon('mediary-logo.xpm')
             info.SetIcon(icon)
         except:
             pass
