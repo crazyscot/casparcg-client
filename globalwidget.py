@@ -5,6 +5,7 @@ Contains ALL OFF and global configuration functions.
 '''
 
 import wx
+import datetime
 import sys
 from configurable import ConfigItem, IntConfigItem, classproperty
 from widget import Widget
@@ -53,6 +54,9 @@ class GlobalWidget(wx.StaticBox, Widget):
         bAbout = wx.Button(self, label='About')
         bAbout.Bind(wx.EVT_BUTTON, self.do_about)
 
+        bPing = wx.Button(self, label='Ping server')
+        bPing.Bind(wx.EVT_BUTTON, self.do_ping)
+
         bAllOff = wx.Button(self, label='ALL GFX OFF')
         bAllOff.Bind(wx.EVT_BUTTON, self.do_all_off)
         bAllOff.SetBackgroundColour(wx.Colour(255,64,64))
@@ -61,6 +65,8 @@ class GlobalWidget(wx.StaticBox, Widget):
         inner.Add(bConfig)
         inner.AddSpacer(5)
         inner.Add(bAbout)
+        inner.AddSpacer(5)
+        inner.Add(bPing)
         inner.AddStretchSpacer()
         inner.Add(bAllOff)
 
@@ -102,6 +108,12 @@ class GlobalWidget(wx.StaticBox, Widget):
         #info.Developers = ["Ross Younger"]
         #info.License = wordwrap("...", 500, wx.ClientDC(self.parent))
         wx.AboutBox(info)
+
+    def do_ping(self,event):
+        dat = self.parent.transact('VERSION')
+        print dat
+        if dat:
+            self.parent.status('PING: As of %s, server reported version %s'%(datetime.datetime.now(),dat))
 
 def get_server(config):
     return config.get(GlobalWidget.config_section, Server.label, GlobalWidget.my_default_config[Server.label])
