@@ -31,6 +31,10 @@ class MainWindow(wx.Frame):
         self.config = config.config(configfile)
         self.server = amcp.Connection(self.config, self)
 
+        icon = wx.EmptyIcon()
+        icon.CopyFromBitmap(wx.Bitmap('mediary caspar logo.ico'))
+        self.SetIcon(icon)
+
         self.panel = MainPanel(self)
         self.Show()
 
