@@ -1,3 +1,11 @@
+#
+# This file is part of Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
+
+'''
+Interface class for our Widgets
+'''
 
 import abc
 from configurable import Configurable

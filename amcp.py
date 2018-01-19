@@ -1,3 +1,8 @@
+#
+# This file is part of Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
+
 '''
     Python (2) interface to v2.1 of the CasparCG AMCP protocol
     Note that not all parts of the protocol are implemented - only what I needed.

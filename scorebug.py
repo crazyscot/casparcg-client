@@ -1,6 +1,10 @@
+#
+# This file is part of Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
 
 '''
-Lower Third widget
+Score Bug widget
 '''
 
 import amcp

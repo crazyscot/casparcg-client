@@ -1,3 +1,12 @@
+#
+# This file is part of Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
+
+'''
+Interface class for configurable wx widgets and various helper types
+'''
+
 from abc import ABCMeta, abstractproperty
 import wx
 import string

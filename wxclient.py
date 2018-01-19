@@ -1,4 +1,17 @@
 #!/usr/bin/env python2
+#
+# This file is part of Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
+
+'''
+Main entrypoint to the client.
+
+To make this work:
+    * You MUST be using Caspar 2.1.0beta or later, 2.0 isn't good enough
+    * Install the templates to the caspar server's template directory
+'''
+
 
 import amcp
 import traceback
@@ -8,15 +21,6 @@ import lowerthird
 import scorebug
 import wx # developed against wxpython 3.0
 import widget
-
-'''
-Simple Caspar client.
-To make this work:
-    * You MUST be using Caspar 2.1.0beta or later, 2.0 isn't good enough
-    * Install the template to the caspar template directory
-    * Settings are kept in config.ini in the same directory as this script.
-      Access via the configuration button.
-'''
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title='Mediary\'s Caspar Client', configfile='config.ini'):
