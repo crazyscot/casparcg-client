@@ -1,4 +1,4 @@
-$.getScript("js/common.js");
+$.getScript("common.js");
 
 /*
 These functions are in a certain order on purpose. update() is the most important, and is called first. Please see http://blog.evilgeniustech.com/casparcg-html-producer-basics/ for more information.
@@ -12,7 +12,7 @@ function update(arg) {
     if (json.f1 !== undefined) {
         $("#f1").html(json.f1);
     }
-	
+
 	if (json.bgcol !== undefined) {
 		$(".textbox").css('background-color', json.bgcol);
 	}

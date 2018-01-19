@@ -1,8 +1,8 @@
-$.getScript("js/common.js");
+$.getScript("common.js");
 
 function update(arg) {
     json = JSON.parse(arg);
-    
+
     if (json.team1 !== undefined) {
         $("#team1").html(json.team1);
     }
