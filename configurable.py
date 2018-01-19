@@ -49,7 +49,7 @@ class Configurable(object):
             For example:
 
             def MyClass(...):
-               default_config = { 'Template' : 'helloworld', 'Layer': 42 }
+               default_config = { 'Template' : 'lowerthird', 'Layer': 42 }
         '''
         pass
 
