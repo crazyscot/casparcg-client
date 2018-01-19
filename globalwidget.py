@@ -8,6 +8,9 @@ import wx
 import sys
 from configurable import ConfigItem, IntConfigItem, classproperty
 from widget import Widget
+from wx.lib.wordwrap import wordwrap
+
+VERSION='0.0.1'
 
 class Server(ConfigItem):
     label='Server'
@@ -47,12 +50,17 @@ class GlobalWidget(wx.StaticBox, Widget):
         bConfig = wx.Button(self, label='Configuration')
         bConfig.Bind(wx.EVT_BUTTON, self.do_config)
 
+        bAbout = wx.Button(self, label='About')
+        bAbout.Bind(wx.EVT_BUTTON, self.do_about)
+
         bAllOff = wx.Button(self, label='ALL GFX OFF')
         bAllOff.Bind(wx.EVT_BUTTON, self.do_all_off)
         bAllOff.SetBackgroundColour(wx.Colour(255,64,64))
         inner = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(inner, flag=wx.EXPAND)
         inner.Add(bConfig)
+        inner.AddSpacer(5)
+        inner.Add(bAbout)
         inner.AddStretchSpacer()
         inner.Add(bAllOff)
 
@@ -76,6 +84,24 @@ class GlobalWidget(wx.StaticBox, Widget):
                 self.parent.status('Configuration cancelled')
             dlg.Destroy()
 
+    def do_about(self, event):
+        info = wx.AboutDialogInfo()
+        info.Name = "Mediary's Caspar Client"
+        try:
+            icon = wx.Icon('mediary logo.png',64,64)
+            info.SetIcon(icon)
+        except:
+            pass
+        info.Version = VERSION
+        info.Copyright = wordwrap(
+                "(C) 2018 Mediary Limited. All rights reserved. "
+                "Licensing/business enquiries to: hi@mediary.nz"
+                , 350, wx.ClientDC(self.parent))
+        #info.Description = wordwrap("...", 350, wx.ClientDC(self.parent))
+        info.WebSite = ("https://mediary.nz/", "website")
+        #info.Developers = ["Ross Younger"]
+        #info.License = wordwrap("...", 500, wx.ClientDC(self.parent))
+        wx.AboutBox(info)
 
 def get_server(config):
     return config.get(GlobalWidget.config_section, Server.label, GlobalWidget.my_default_config[Server.label])
