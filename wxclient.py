@@ -47,11 +47,11 @@ class MainPanel(wx.Panel):
         wx.Panel.__init__(self, parent)
         self.parent = parent
         self.gw=None
-        self.rebuild()
+        self.build()
 
     config = property(lambda self:self.parent.config)
 
-    def rebuild(self):
+    def build(self):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         if not self.gw:

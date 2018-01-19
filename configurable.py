@@ -141,7 +141,7 @@ class IntConfigItem(ConfigItem):
 
 class Visible(BoolConfigItem):
     label='Visible'
-    helptext='Show this widget in the interface?'
+    helptext='Show this widget in the interface? (Quit and reopen to take effect)'
 
 class Template(ConfigItem):
     label='Template'

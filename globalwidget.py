@@ -72,7 +72,6 @@ class GlobalWidget(wx.StaticBox, Widget):
                 self.parent.status('Reconfigured')
                 dlg.read_out(self.parent.config)
                 self.parent.config.write()
-                self.parent.rebuild()
             else:
                 self.parent.status('Configuration cancelled')
             dlg.Destroy()
