@@ -138,9 +138,9 @@ class ScoreBug(wx.StaticBox, Widget):
     def channel(self):
         return self.parent.channel()
     def layer(self):
-        return self.config.get_int(self.config_section, configurable.Layer.label, 1)
+        return self.config.get_int(self.config_section, configurable.Layer.label, ScoreBug.my_default_config[configurable.Layer.label])
     def template(self):
-        return self.config.get(self.config_section, configurable.Template.label, 'lowerthird')
+        return self.config.get(self.config_section, configurable.Template.label, ScoreBug.my_default_config[configurable.Template.label])
 
     def templateData(self):
         rv = amcp.jsondata({
