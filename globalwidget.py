@@ -102,6 +102,8 @@ class ConfigDialog(wx.Dialog):
         for cls in self.main.widgets:
             self.configure_widget(cls, sizer)
 
+        sizer.Add(wx.StaticText(self, label='Changes to visibility take effect after quitting'))
+
         sizer.Add(self.CreateStdDialogButtonSizer(wx.OK|wx.CANCEL))
         size1 = self.GetSize() # plausible horizontal, insufficient vertical
         sizer.Fit(self) # argh: how to make the window wide enough for the horizontal fields?
