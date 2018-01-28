@@ -4,6 +4,11 @@ import configurable
 
 RugbyCode = configurable.ListConfigItem('Code', 'Which rugby code\'s scoring rules', ['Union','League'])
 
+ScoresByCode = {
+        'Union': { 'try': 5, 'conversion': 2, 'penalty': 3, 'dropgoal': 3 },
+        'League': { 'try': 4, 'conversion': 2, 'penalty': 2, 'dropgoal': 1 },
+}
+
 class RugbyScoreBug(scorebug.ScoreBug):
     config_section='rugby'
     ui_label='Rugby score bug'
@@ -37,6 +42,9 @@ class RugbyScoreBug(scorebug.ScoreBug):
         sizer.AddStretchSpacer(1)
         sizer.AddSpacer(10)
         sizer.Add(line2, 0, wx.EXPAND)
+
+    def code(self):
+        return self.config.get(self.config_section, RugbyCode.label, RugbyScoreBug.my_default_config[RugbyCode.label])
 
     def score(self,team,points):
         if team==1:
