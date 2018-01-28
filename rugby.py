@@ -19,25 +19,25 @@ class RugbyScoreBug(scorebug.ScoreBug):
         line2 = wx.BoxSizer(wx.HORIZONTAL)
         # Penalty and drop goal cannot be merged as league scores them differently...
         # Conversion and penalty cannot be merged as union scores them differently...
-        self.addButton(line2, 'TRY', lambda e: self.score_try(1), True)
+        self.addButton(line2, 'TRY', lambda e: self.score(1, 'try'), True)
         line2.AddSpacer(10)
-        self.addButton(line2, 'CONV', lambda e: self.score_conv(1), True)
+        self.addButton(line2, 'CONV', lambda e: self.score(1, 'conversion'), True)
         line2.AddSpacer(10)
-        self.addButton(line2, 'PEN', lambda e: self.score_pen(1), True)
+        self.addButton(line2, 'PEN', lambda e: self.score(1, 'penalty'), True)
         line2.AddSpacer(10)
-        self.addButton(line2, 'DROP', lambda e: self.score_drop(1), True)
+        self.addButton(line2, 'DROP', lambda e: self.score(1, 'dropgoal'), True)
 
         line2.AddStretchSpacer(1)
         line2.Add(wx.StaticText(self, label='Remember to press Update'))
         line2.AddStretchSpacer(1)
 
-        self.addButton(line2, 'TRY', lambda e: self.score_try(2), True)
+        self.addButton(line2, 'TRY', lambda e: self.score(2, 'try'), True)
         line2.AddSpacer(10)
-        self.addButton(line2, 'CONV', lambda e: self.score_conv(2), True)
+        self.addButton(line2, 'CONV', lambda e: self.score(2, 'conversion'), True)
         line2.AddSpacer(10)
-        self.addButton(line2, 'PEN', lambda e: self.score_pen(2), True)
+        self.addButton(line2, 'PEN', lambda e: self.score(2, 'penalty'), True)
         line2.AddSpacer(10)
-        self.addButton(line2, 'DROP', lambda e: self.score_drop(2), True)
+        self.addButton(line2, 'DROP', lambda e: self.score(2, 'dropgoal'), True)
 
         sizer.AddStretchSpacer(1)
         sizer.AddSpacer(10)
@@ -46,18 +46,12 @@ class RugbyScoreBug(scorebug.ScoreBug):
     def code(self):
         return self.config.get(self.config_section, RugbyCode.label, RugbyScoreBug.my_default_config[RugbyCode.label])
 
-    def score(self,team,points):
+    def score(self,team,event):
+        self.score1=int(self.score1ctrl.GetValue())
+        self.score2=int(self.score2ctrl.GetValue())
+        points = ScoresByCode[self.code()][event]
         if team==1:
             self.score1 += points
         else:
             self.score2 += points
         self.update_display()
-
-    def score_try(self, team):
-        self.score(team, 5)
-    def score_conv(self, team):
-        self.score(team, 2)
-    def score_pen(self, team):
-        self.score(team, 3)
-    def score_drop(self, team):
-        self.score(team, 3)
