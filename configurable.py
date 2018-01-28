@@ -140,14 +140,9 @@ class IntConfigItem(ConfigItem):
         rv.SetToolTip(wx.ToolTip(cls.helptext))
         return rv
 
-class Visible(BoolConfigItem):
-    label='Visible'
-    helptext='Show this widget in the interface? (Quit and reopen to take effect)'
+Visible = BoolConfigItem('Visible', 'Show this widget in the interface? (Quit and reopen to take effect)')
 
-class Template(ConfigItem):
-    label='Template'
-    helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)'
+Template = ConfigItem(label='Template', helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)')
 
-class Layer(IntConfigItem):
-    label='Layer'
-    helptext='CG layer number to use'
+Layer = IntConfigItem('Layer', 'CG layer number to use')
+

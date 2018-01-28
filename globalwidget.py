@@ -17,15 +17,9 @@ from wx.lib.wordwrap import wordwrap
 
 VERSION='0.0.1'
 
-class Server(ConfigItem):
-    label='Server'
-    helptext='IP address or host name of the CasparCG server to connect to'
-class Port(IntConfigItem):
-    label='Port'
-    helptext='Port to connect to (usually 5250)'
-class Channel(IntConfigItem):
-    label='Channel'
-    helptext='CasparCG channel to use'
+Server=ConfigItem('Server', 'IP address or host name of the CasparCG server to connect to')
+Port=IntConfigItem('Port', 'Port to connect to (usually 5250)')
+Channel=IntConfigItem('Channel', 'CasparCG channel to use')
 
 class GlobalWidget(wx.StaticBox, Widget):
     ui_label='Global'

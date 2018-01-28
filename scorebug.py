@@ -22,9 +22,7 @@ ITEM_BG1='team1bg'
 ITEM_FG2='team2fg'
 ITEM_BG2='team2bg'
 
-class FontSize(IntConfigItem):
-    label='Font size'
-    helptext='Font size in pixels'
+FontSize = IntConfigItem('Font size', 'Font size in pixels')
 
 class ScoreBug(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer, FontSize]
