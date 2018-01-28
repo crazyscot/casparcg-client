@@ -75,19 +75,8 @@ class ScoreBug(wx.StaticBox, Widget):
         self.update_display()
         sizer.Add(line1, 0, wx.EXPAND)
 
-        # Second line: +1, -1, Update, +1, -1
-        line2 = wx.BoxSizer(wx.HORIZONTAL)
-        self.addButton(line2,'+1', self.team1plus1, True)
-        line2.AddSpacer(10)
-        self.addButton(line2,'-1', self.team1minus1)
-        line2.AddStretchSpacer(1)
-        line2.AddSpacer(10)
-        self.addButton(line2,'+1', self.team2plus1, True)
-        line2.AddSpacer(10)
-        self.addButton(line2,'-1', self.team2minus1)
-        sizer.AddStretchSpacer(1)
-        sizer.AddSpacer(10)
-        sizer.Add(line2, 0, wx.EXPAND)
+        # Second line: +1, -1, Update, +1, -1 (overridden in subclasses)
+        self.createSecondLine(sizer)
 
         # Third line: Colour 1, Fade On, Fade Off, Update, Colour 2
         line3 = wx.BoxSizer(wx.HORIZONTAL)
@@ -122,6 +111,20 @@ class ScoreBug(wx.StaticBox, Widget):
 
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
+
+    def createSecondLine(self,sizer):
+        line2 = wx.BoxSizer(wx.HORIZONTAL)
+        self.addButton(line2,'+1', self.team1plus1, True)
+        line2.AddSpacer(10)
+        self.addButton(line2,'-1', self.team1minus1)
+        line2.AddStretchSpacer(1)
+        line2.AddSpacer(10)
+        self.addButton(line2,'+1', self.team2plus1, True)
+        line2.AddSpacer(10)
+        self.addButton(line2,'-1', self.team2minus1)
+        sizer.AddStretchSpacer(1)
+        sizer.AddSpacer(10)
+        sizer.Add(line2, 0, wx.EXPAND)
 
     def addButton(self, line, label, fn, big=False):
         btn = wx.Button(self, label=label)
