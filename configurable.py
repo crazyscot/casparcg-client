@@ -74,17 +74,9 @@ class ConfigItem(object):
     '''
         Class representing a configurable item
     '''
-    __metaclass__=ABCMeta
-
-    @abstractproperty
-    def label(self):
-        ''' Label to display in the dialog and the config file '''
-        pass
-
-    @abstractproperty
-    def helptext(self):
-        ''' Help text in the dialog '''
-        pass
+    def __init__(self, label, helptext):
+        self.label = label
+        self.helptext = helptext
 
     @classmethod
     def create_control(cls, parent, value):
