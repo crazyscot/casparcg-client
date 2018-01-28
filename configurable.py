@@ -78,17 +78,15 @@ class ConfigItem(object):
         self.label = label
         self.helptext = helptext
 
-    @classmethod
-    def create_control(cls, parent, value):
+    def create_control(self, parent, value):
         ''' Creates the new wx control for the field and any tooltip.
             May be overridden for special (non-string) types.
         '''
         rv = wx.TextCtrl(parent, value=str(value))
-        rv.SetToolTip(wx.ToolTip(cls.helptext))
+        rv.SetToolTip(wx.ToolTip(self.helptext))
         return rv
 
-    @classmethod
-    def get_value(cls, control):
+    def get_value(self, control):
         ''' Reads out the field, as a string. May be overridden for unusual types. '''
         return control.GetValue()
 
@@ -96,15 +94,13 @@ class BoolConfigItem(ConfigItem):
     '''
         Subclass for boolean (checkbox) types
     '''
-    @classmethod
-    def create_control(cls, parent, value):
+    def create_control(self, parent, value):
         rv = wx.CheckBox(parent, label='')
         rv.SetValue(str(value).lower() in ('yes','true','t','1'))
-        rv.SetToolTip(wx.ToolTip(cls.helptext))
+        rv.SetToolTip(wx.ToolTip(self.helptext))
         return rv
 
-    @classmethod
-    def get_value(cls, control):
+    def get_value(self, control):
         return str(control.IsChecked())
 
 
@@ -134,10 +130,9 @@ class FieldValidator(wx.PyValidator):
             event.Skip()
 
 class IntConfigItem(ConfigItem):
-    @classmethod
-    def create_control(cls, parent, value):
+    def create_control(self, parent, value):
         rv = wx.TextCtrl(parent, value=str(value), validator=FieldValidator(allowLetters=False))
-        rv.SetToolTip(wx.ToolTip(cls.helptext))
+        rv.SetToolTip(wx.ToolTip(self.helptext))
         return rv
 
 Visible = BoolConfigItem('Visible', 'Show this widget in the interface? (Quit and reopen to take effect)')
