@@ -135,6 +135,26 @@ class IntConfigItem(ConfigItem):
         rv.SetToolTip(wx.ToolTip(self.helptext))
         return rv
 
+class ListConfigItem(ConfigItem):
+    '''
+    A multiple-choice item. @items must be an array of strings.
+    '''
+    def __init__(self, label, helptext, items):
+        '''
+        @items should be an array of strings.
+        '''
+        super(ListConfigItem, self).__init__(label, helptext)
+        self.items = items
+
+    def create_control(self, parent, value):
+        rv = wx.Choice(parent, choices=self.items)
+        rv.SetSelection( self.items.index(value) )
+        rv.SetToolTip(wx.ToolTip(self.helptext))
+        return rv
+    def get_value(self, control):
+        return self.items[control.GetSelection()]
+
+
 Visible = BoolConfigItem('Visible', 'Show this widget in the interface? (Quit and reopen to take effect)')
 
 Template = ConfigItem(label='Template', helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)')
