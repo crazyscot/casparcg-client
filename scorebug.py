@@ -51,6 +51,7 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
+        self.bigfont = bigfont
         team1 = self.config.get(self.config_section, ITEM_TEAM1, 'AAA')
         self.team1ctrl = wx.TextCtrl(self, 2, value = team1)
         self.team1ctrl.SetFont(bigfont)
@@ -76,21 +77,14 @@ class ScoreBug(wx.StaticBox, Widget):
 
         # Second line: +1, -1, Update, +1, -1
         line2 = wx.BoxSizer(wx.HORIZONTAL)
-        lineX = line2
-        def addButton(label, fn, big=False):
-            btn = wx.Button(self, label=label)
-            if big: btn.SetFont(bigfont)
-            btn.Bind(wx.EVT_BUTTON, fn)
-            lineX.Add(btn)
-            return btn
-        addButton('+1', self.team1plus1, True)
+        self.addButton(line2,'+1', self.team1plus1, True)
         line2.AddSpacer(10)
-        addButton('-1', self.team1minus1)
+        self.addButton(line2,'-1', self.team1minus1)
         line2.AddStretchSpacer(1)
         line2.AddSpacer(10)
-        addButton('+1', self.team2plus1, True)
+        self.addButton(line2,'+1', self.team2plus1, True)
         line2.AddSpacer(10)
-        addButton('-1', self.team2minus1)
+        self.addButton(line2,'-1', self.team2minus1)
         sizer.AddStretchSpacer(1)
         sizer.AddSpacer(10)
         sizer.Add(line2, 0, wx.EXPAND)
@@ -107,12 +101,11 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line3.AddStretchSpacer(2)
 
-        lineX = line3
-        addButton('Fade on', self.do_fade_on)
+        self.addButton(line3,'Fade on', self.do_fade_on)
         line3.AddSpacer(10)
-        addButton('Fade off', self.do_fade_off)
+        self.addButton(line3,'Fade off', self.do_fade_off)
         line3.AddSpacer(10)
-        addButton('Update', self.do_update_btn)
+        self.addButton(line3,'Update', self.do_update_btn)
 
         line3.AddStretchSpacer(2)
 
@@ -130,6 +123,12 @@ class ScoreBug(wx.StaticBox, Widget):
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
 
+    def addButton(self, line, label, fn, big=False):
+        btn = wx.Button(self, label=label)
+        if big: btn.SetFont(self.bigfont)
+        btn.Bind(wx.EVT_BUTTON, fn)
+        line.Add(btn)
+        return btn
 
     def update_display(self):
         self.score1ctrl.SetValue(str(self.score1))
