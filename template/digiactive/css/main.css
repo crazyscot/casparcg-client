@@ -69,3 +69,54 @@ html, body {
   top:0px;
   left:0px;
 }
+.score_white_box {
+  width: 10px;
+  left: 28.6vw;
+  top: 5vh;
+  height: 0px;
+  display:inline-block;
+  position:relative;
+  background-color:#fff;
+  z-index: 20;
+}
+.score_second_box {
+  width: 0px;
+  top: 5vh;
+  left: 5vw;
+  height: 7vh;
+  display:inline-block;
+  position:fixed;
+  background-color:#777;
+  z-index: 10;
+  overflow: hidden;
+
+  font-family: Poppins-Bold;
+  font-size: 5vh;
+  color: #fff;
+  z-index: 15;
+}
+.score {
+  background: white;
+  color: black;
+  z-index: 16;
+  left: 29vw;
+  position: absolute;
+  width: auto;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+.team {
+  width: auto;
+  white-space: nowrap;
+  position: absolute;
+  left: 29vw;
+  color: #fff;
+  z-index: 15;
+  padding: 0 5px;
+}
+#team1 {
+    background-color: red;
+}
+#team2 {
+    background-color: green;
+}
