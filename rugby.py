@@ -28,8 +28,6 @@ class RugbyScoreBug(scorebug.ScoreBug):
         self.addButton(line2, 'DROP', lambda e: self.score(1, 'dropgoal'), True)
 
         line2.AddStretchSpacer(1)
-        line2.Add(wx.StaticText(self, label='Remember to press Update'))
-        line2.AddStretchSpacer(1)
 
         self.addButton(line2, 'TRY', lambda e: self.score(2, 'try'), True)
         line2.AddSpacer(10)
@@ -54,4 +52,4 @@ class RugbyScoreBug(scorebug.ScoreBug):
             self.score1 += points
         else:
             self.score2 += points
-        self.update_display()
+        self.do_update()
