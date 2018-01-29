@@ -100,6 +100,9 @@
             
             if (is_update)
                 resizeAndRepo(false);
+
+            TweenMax.to("#team1", 0.1, { css:{'background-color': data.team1bg, 'color': data.team1fg}, ease:Linear.easeNone});
+            TweenMax.to("#team2", 0.1, { css:{'background-color': data.team2bg, 'color': data.team2fg}, ease:Linear.easeNone});
         }
 		function debugUpdate() {
 			// Used only if debuging (see below)
