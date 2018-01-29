@@ -22,13 +22,11 @@ ITEM_BG1='team1bg'
 ITEM_FG2='team2fg'
 ITEM_BG2='team2bg'
 
-FontSize = IntConfigItem('Font size', 'Font size in pixels')
-
 class ScoreBug(wx.StaticBox, Widget):
-    my_configurations=[configurable.Template,configurable.Layer, FontSize]
+    my_configurations=[configurable.Template,configurable.Layer]
     config_section='scorebug'
     ui_label='Score bug'
-    my_default_config={'Template': 'mediary/scorebug', 'Layer': 20, FontSize.label: 24}
+    my_default_config={'Template': 'mediary/scorebug', 'Layer': 20}
 
     def __init__(self, parent, config):
         '''
@@ -152,7 +150,6 @@ class ScoreBug(wx.StaticBox, Widget):
             'team1bg': self.team1cp.get_bg(),
             'team2fg': self.team2cp.get_fg(),
             'team2bg': self.team2cp.get_bg(),
-            'fontsize': self.config.get(self.config_section, FontSize.label, ScoreBug.my_default_config[FontSize.label])
             })
         return rv
 
