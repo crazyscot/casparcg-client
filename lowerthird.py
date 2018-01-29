@@ -62,8 +62,8 @@ class LowerThird(wx.StaticBox, Widget):
         inner.AddStretchSpacer(1)
         self.cp = None # so the immediate callback works
         self.cp = colour.PairedColourPicker(self,
-                self.config.get(self.config_section, 'fg', '#ffff00'),
-                self.config.get(self.config_section, 'bg', '#0000ff'),
+                self.config.get(self.config_section, 'fg', '#ffffff'),
+                self.config.get(self.config_section, 'bg', '#eda129'),
                 self.got_colours,
                 label_patch=' Top line (A on B) ',
                 label_inverse=' Bottom line ')
@@ -83,9 +83,9 @@ class LowerThird(wx.StaticBox, Widget):
         return self.config.get(self.config_section, configurable.Template.label, LowerThird.my_default_config[configurable.Template.label])
 
     def fg(self):
-        return self.config.get(self.config_section, LowerThird.OPTION_FG, '#ffff00')
+        return self.config.get(self.config_section, LowerThird.OPTION_FG, '#ffffff')
     def bg(self):
-        return self.config.get(self.config_section, LowerThird.OPTION_BG, '#0000ff')
+        return self.config.get(self.config_section, LowerThird.OPTION_BG, '#eda129')
 
     def templateData(self):
         return amcp.jsondata({
