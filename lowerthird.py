@@ -89,10 +89,10 @@ class LowerThird(wx.StaticBox, Widget):
 
     def templateData(self):
         return amcp.jsondata({
-            'f0': self.line1.GetValue(),
-            'f1': self.line2.GetValue(),
-            'bgcol': self.cp.get_bg(),
-            'fgcol': self.cp.get_fg(),
+            'name': self.line1.GetValue(),
+            'title': self.line2.GetValue(),
+            'colourB': self.cp.get_bg(),
+            'colourA': self.cp.get_fg(),
             })
 
     def do_fade_on(self, event):
