@@ -110,14 +110,14 @@ class ScoreBug(wx.StaticBox, Widget):
 
     def createSecondLine(self,sizer):
         line2 = wx.BoxSizer(wx.HORIZONTAL)
-        self.addButton(line2,'+1', self.team1plus1, True)
+        self.addButton(line2,'+1', lambda e: self.score(1, 1), True)
         line2.AddSpacer(10)
-        self.addButton(line2,'-1', self.team1minus1)
+        self.addButton(line2,'-1', lambda e: self.score(1, -1))
         line2.AddStretchSpacer(1)
         line2.AddSpacer(10)
-        self.addButton(line2,'+1', self.team2plus1, True)
+        self.addButton(line2,'+1', lambda e: self.score(2, 1), True)
         line2.AddSpacer(10)
-        self.addButton(line2,'-1', self.team2minus1)
+        self.addButton(line2,'-1', lambda e: self.score(2, -1))
         sizer.AddStretchSpacer(1)
         sizer.AddSpacer(10)
         sizer.Add(line2, 0, wx.EXPAND)
@@ -157,17 +157,13 @@ class ScoreBug(wx.StaticBox, Widget):
         # CG channel STOP layer
         self.parent.transact('CG %d-%d STOP 1'%(self.channel(), self.layer()))
 
-    def team1plus1(self, e):
-        self.score1ctrl.SetValue( str( int(self.score1ctrl.GetValue()) + 1 ) )
-        self.do_update()
-    def team2plus1(self, e):
-        self.score2ctrl.SetValue( str( int(self.score2ctrl.GetValue()) + 1 ) )
-        self.do_update()
-    def team1minus1(self, e):
-        self.score1ctrl.SetValue( str( int(self.score1ctrl.GetValue()) - 1 ) )
-        self.do_update()
-    def team2minus1(self, e):
-        self.score2ctrl.SetValue( str( int(self.score2ctrl.GetValue()) - 1 ) )
+    def score(self, team, delta):
+        if team==1:
+            field = self.score1ctrl
+        else:
+            field = self.score2ctrl
+        newscore = int(field.GetValue()) + delta
+        field.SetValue(str(newscore))
         self.do_update()
 
     def do_update_btn(self,e):
