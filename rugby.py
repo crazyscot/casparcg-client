@@ -45,11 +45,5 @@ class RugbyScoreBug(scorebug.ScoreBug):
         return self.config.get(self.config_section, RugbyCode.label, RugbyScoreBug.my_default_config[RugbyCode.label])
 
     def score(self,team,event):
-        self.score1=int(self.score1ctrl.GetValue())
-        self.score2=int(self.score2ctrl.GetValue())
-        points = ScoresByCode[self.code()][event]
-        if team==1:
-            self.score1 += points
-        else:
-            self.score2 += points
-        self.do_update()
+        delta = ScoresByCode[self.code()][event]
+        super(RugbyScoreBug, self).score(team, delta)
