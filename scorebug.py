@@ -67,7 +67,6 @@ class ScoreBug(wx.StaticBox, Widget):
         self.score2ctrl.SetFont(bigfont)
         line1.Add(self.score2ctrl, 1)
 
-        self.update_display()
         sizer.Add(line1, 0, wx.EXPAND)
 
         # Second line: +1, -1, Update, +1, -1 (overridden in subclasses)
@@ -130,9 +129,6 @@ class ScoreBug(wx.StaticBox, Widget):
         line.Add(btn)
         return btn
 
-    def update_display(self):
-        pass
-
     def channel(self):
         return self.parent.channel()
     def layer(self):
@@ -183,7 +179,6 @@ class ScoreBug(wx.StaticBox, Widget):
 
     def do_update(self):
         # CG channel UPDATE layer data
-        self.update_display()
         self.Refresh()
         self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
 
