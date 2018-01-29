@@ -1,6 +1,6 @@
 html, body {
-	Width:1920px;  											/* Set to your channel's resolution */
-	Height:1080px;											/* Set to your channel's resolution */
+	Width:100vw;  											/* Set to your channel's resolution */
+	Height:100vh;											/* Set to your channel's resolution */
 	Margin:0;												/* Use all available space */
 	Padding:0;												/* Use all available space */
 	Background:transparent;									/* The HTML consumer actually makes your background transparent by default, unless a color or image is specified - but this might be usefull when debugging in browsers */
@@ -13,8 +13,8 @@ html, body {
 }
 .upper_white_box {
   width: 10px;
-  top: 975px;
-  left: 550px;
+  top: 90.3vh;
+  left: 28.6vw;
   height: 0px;
   display:inline-block;
   position:relative;
@@ -23,9 +23,9 @@ html, body {
 }
 .upper_second_box {
   width: 0px;
-  top: 900px;
-  left: 100px;
-  height: 75px;
+  top: 83.3vh;
+  left: 5.2vw;
+  height: 6.9vh;
   display:inline-block;
   position:fixed;
   background-color:#eda129;
@@ -36,9 +36,9 @@ html, body {
   width: auto;
   background-color:#fff;
   position: absolute;
-  top: 975px;
-  left: 100px;
-  width: 70px;
+  top: 90.3vh;
+  left: 5.2vw;
+  width: 3.6vw;
   height: 0px;
   overflow: hidden;
   z-index: 5;
@@ -47,9 +47,9 @@ html, body {
   width: auto;
   white-space: nowrap;
   position: absolute;
-  left: 550px;
+  left: 28.6vw;
   font-family: Poppins-Bold;
-  font-size: 50px;
+  font-size: 4.6vh;
   color: #fff;
   z-index: 15;
 }
@@ -57,10 +57,10 @@ html, body {
   width: auto;
   white-space: nowrap;
   position: absolute;
-  left: 20px;
-  top: 40px;
+  left: 1vw;
+  top: 3.7vh;
   font-family: Poppins-Bold;
-  font-size: 30px;
+  font-size: 2.8vh;
   color: #eda129;
   z-index: 8;
 }

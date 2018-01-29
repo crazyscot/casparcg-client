@@ -18,21 +18,21 @@
 				// Start animating
 				var tl = new TimelineMax();
 				  // Reveal white bar
-				  tl.to(".upper_white_box", 0.5, {css:{height: "75px", top: "900px"}});
+				  tl.to(".upper_white_box", 0.5, {css:{height: "6.9vh", top: "83.3vh"}});
 				  // Animate white bar to left
-				  tl.to(".upper_white_box", 1, {css:{left: "100px"}});
+				  tl.to(".upper_white_box", 1, {css:{left: "5.2vw"}});
 				  // Expand (based on name width) white bar to right 
 				  tl.to(".upper_white_box", 1, {css:{width: secondBarWidth +"px"}});
 				  // Shrink white bar to right 
 				  tl.to(".upper_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
 				  // Reveal second bar
-				  tl.to(".upper_second_box", 1, {css:{width: secondBarWidth +"px", left: "100px"}},"-=1");
+				  tl.to(".upper_second_box", 1, {css:{width: secondBarWidth +"px", left: "5.2vw"}},"-=1");
 				  // Animate "name" to left
-				  tl.to(".name", 1, {css:{left: "20px"}},"-=1");
+				  tl.to(".name", 1, {css:{left: "1vw"}},"-=1");
 				  // Animate title only if there is one
 				  if (data.title != "" && typeof data.title !== 'undefined') {
 					// Animate lower white box
-					tl.to(".lower_white_box", 1, {css:{top: "975px", height: "50px"}},"-=1.25");
+					tl.to(".lower_white_box", 1, {css:{top: "90.3vh", height: "4.62vh"}},"-=1.25");
 					// Animate "title" text
 					tl.to(".title", 1, {css:{top: "0px"}},"-=1.25");
 				  }
@@ -45,7 +45,7 @@
         function stop() {
 			var tl = new TimelineMax();
 			  // Animate bars off screen
-			  tl.to(".upper_second_box", 0.5, {css:{height: "0px",top: "975px"}});
+			  tl.to(".upper_second_box", 0.5, {css:{height: "0px",top: "90.3vh"}});
 			  tl.to(".lower_white_box", 0.5, {css:{height: "0px"}},"-=0.5");
         }
 
