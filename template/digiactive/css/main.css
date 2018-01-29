@@ -1,0 +1,71 @@
+html, body {
+	Width:1920px;  											/* Set to your channel's resolution */
+	Height:1080px;											/* Set to your channel's resolution */
+	Margin:0;												/* Use all available space */
+	Padding:0;												/* Use all available space */
+	Background:transparent;									/* The HTML consumer actually makes your background transparent by default, unless a color or image is specified - but this might be usefull when debugging in browsers */
+	Overflow:hidden;										/* Hide any overflowing elements - to disable scollbars */
+	-webkit-font-smoothing:antialiased !important;	 		/* Set aliasing of fonts - possible options: none, antialiased,  subpixel-antialiased */
+}
+@font-face {
+	font-family: Poppins-Bold;
+	src: url('../fonts/Poppins-Bold.ttf');
+}
+.upper_white_box {
+  width: 10px;
+  top: 975px;
+  left: 550px;
+  height: 0px;
+  display:inline-block;
+  position:relative;
+  background-color:#fff;
+  z-index: 20;
+}
+.upper_second_box {
+  width: 0px;
+  top: 900px;
+  left: 100px;
+  height: 75px;
+  display:inline-block;
+  position:fixed;
+  background-color:#eda129;
+  z-index: 10;
+  overflow: hidden;
+}
+.lower_white_box {
+  width: auto;
+  background-color:#fff;
+  position: absolute;
+  top: 975px;
+  left: 100px;
+  width: 70px;
+  height: 0px;
+  overflow: hidden;
+  z-index: 5;
+}
+.name{
+  width: auto;
+  white-space: nowrap;
+  position: absolute;
+  left: 550px;
+  font-family: Poppins-Bold;
+  font-size: 50px;
+  color: #fff;
+  z-index: 15;
+}
+.title{
+  width: auto;
+  white-space: nowrap;
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  font-family: Poppins-Bold;
+  font-size: 30px;
+  color: #eda129;
+  z-index: 8;
+}
+.debug {
+  position:absolute;
+  top:0px;
+  left:0px;
+}
