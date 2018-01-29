@@ -52,8 +52,7 @@ class ScoreBug(wx.StaticBox, Widget):
         self.team1ctrl = wx.TextCtrl(self, 2, value = team1)
         self.team1ctrl.SetFont(bigfont)
         line1.Add(self.team1ctrl, 1)
-        self.score1 = 0
-        self.score1ctrl = wx.TextCtrl(self, 1, value='', validator=FieldValidator(allowLetters=False))
+        self.score1ctrl = wx.TextCtrl(self, 1, value='0', validator=FieldValidator(allowLetters=False))
         self.score1ctrl.SetFont(bigfont)
         line1.Add(self.score1ctrl, 1)
 
@@ -64,7 +63,7 @@ class ScoreBug(wx.StaticBox, Widget):
         self.team2ctrl.SetFont(bigfont)
         line1.Add(self.team2ctrl, 1)
         self.score2 = 0
-        self.score2ctrl = wx.TextCtrl(self, 1, value='', validator=FieldValidator(allowLetters=False))
+        self.score2ctrl = wx.TextCtrl(self, 1, value='0', validator=FieldValidator(allowLetters=False))
         self.score2ctrl.SetFont(bigfont)
         line1.Add(self.score2ctrl, 1)
 
@@ -132,8 +131,7 @@ class ScoreBug(wx.StaticBox, Widget):
         return btn
 
     def update_display(self):
-        self.score1ctrl.SetValue(str(self.score1))
-        self.score2ctrl.SetValue(str(self.score2))
+        pass
 
     def channel(self):
         return self.parent.channel()
@@ -145,9 +143,9 @@ class ScoreBug(wx.StaticBox, Widget):
     def templateData(self):
         rv = amcp.jsondata({
             'team1': str(self.team1ctrl.GetValue()),
-            'score1': self.score1,
+            'score1': str(self.score1ctrl.GetValue()),
             'team2': str(self.team2ctrl.GetValue()),
-            'score2': self.score2,
+            'score2': str(self.score2ctrl.GetValue()),
             'team1fg': self.team1cp.get_fg(),
             'team1bg': self.team1cp.get_bg(),
             'team2fg': self.team2cp.get_fg(),
@@ -164,16 +162,16 @@ class ScoreBug(wx.StaticBox, Widget):
         self.parent.transact('CG %d-%d STOP 1'%(self.channel(), self.layer()))
 
     def team1plus1(self, e):
-        self.score1 += 1
+        self.score1ctrl.SetValue( str( int(self.score1ctrl.GetValue()) + 1 ) )
         self.do_update()
     def team2plus1(self, e):
-        self.score2 += 1
+        self.score2ctrl.SetValue( str( int(self.score2ctrl.GetValue()) + 1 ) )
         self.do_update()
     def team1minus1(self, e):
-        self.score1 -= 1
+        self.score1ctrl.SetValue( str( int(self.score1ctrl.GetValue()) - 1 ) )
         self.do_update()
     def team2minus1(self, e):
-        self.score2 -= 1
+        self.score2ctrl.SetValue( str( int(self.score2ctrl.GetValue()) - 1 ) )
         self.do_update()
 
     def do_update_btn(self,e):
@@ -181,8 +179,6 @@ class ScoreBug(wx.StaticBox, Widget):
         self.config.put(self.config_section, ITEM_TEAM2, self.team2ctrl.GetValue())
         self.config.write()
 
-        self.score1=int(self.score1ctrl.GetValue())
-        self.score2=int(self.score2ctrl.GetValue())
         self.do_update()
 
     def do_update(self):
