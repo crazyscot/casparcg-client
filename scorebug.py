@@ -88,9 +88,9 @@ class ScoreBug(wx.StaticBox, Widget):
         line3.AddStretchSpacer(2)
 
         self.addButton(line3,'Fade on', self.do_fade_on)
-        line3.AddSpacer(10)
+        line3.AddStretchSpacer(1)
         self.addButton(line3,'Fade off', self.do_fade_off)
-        line3.AddSpacer(10)
+        line3.AddStretchSpacer(1)
         self.addButton(line3,'Update', self.do_update_btn)
 
         line3.AddStretchSpacer(2)
