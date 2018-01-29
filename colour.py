@@ -40,7 +40,7 @@ class PairedColourPicker(wx.Panel):
     '''
         Widget for choosing a pair of colours for text.
     '''
-    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, label_patch=' A on B ', label_inverse=' B on A '):
+    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, label_patch=' A on B ', label_inverse=' B on A ', buttonAlabel='Colour A', buttonBlabel='Colour B'):
         super(PairedColourPicker, self).__init__(parent)
         self.parent = parent
         self.notifyfn = notifyfn
@@ -48,8 +48,8 @@ class PairedColourPicker(wx.Panel):
 
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.SetSizer(sizer)
-        self.fg = ColourPicker(self, 'Colour A', initfg )
-        self.bg = ColourPicker(self, 'Colour B', initbg )
+        self.fg = ColourPicker(self, buttonAlabel, initfg )
+        self.bg = ColourPicker(self, buttonBlabel, initbg )
         sizer.Add(self.fg)
         sizer.AddSpacer(10)
         sizer.Add(self.bg)

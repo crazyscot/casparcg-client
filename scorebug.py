@@ -22,13 +22,11 @@ ITEM_BG1='team1bg'
 ITEM_FG2='team2fg'
 ITEM_BG2='team2bg'
 
-FontSize = IntConfigItem('Font size', 'Font size in pixels')
-
 class ScoreBug(wx.StaticBox, Widget):
-    my_configurations=[configurable.Template,configurable.Layer, FontSize]
+    my_configurations=[configurable.Template,configurable.Layer]
     config_section='scorebug'
     ui_label='Score bug'
-    my_default_config={'Template': 'mediary/scorebug', 'Layer': 20, FontSize.label: 24}
+    my_default_config={'Template': 'mediary/scorebug', 'Layer': 102}
 
     def __init__(self, parent, config):
         '''
@@ -83,15 +81,16 @@ class ScoreBug(wx.StaticBox, Widget):
         self.team1cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, ITEM_FG1, '#ffffff'),
                 self.config.get(self.config_section, ITEM_BG1, '#0000ff'),
-                self.got_colours, label_patch=None, label_inverse=None)
+                self.got_colours, label_patch=None, label_inverse=None,
+                buttonAlabel='Text colour', buttonBlabel='Background colour')
         line3.Add(self.team1cp, 1, wx.EXPAND)
 
         line3.AddStretchSpacer(2)
 
         self.addButton(line3,'Fade on', self.do_fade_on)
-        line3.AddSpacer(10)
+        line3.AddStretchSpacer(1)
         self.addButton(line3,'Fade off', self.do_fade_off)
-        line3.AddSpacer(10)
+        line3.AddStretchSpacer(1)
         self.addButton(line3,'Update', self.do_update_btn)
 
         line3.AddStretchSpacer(2)
@@ -99,7 +98,8 @@ class ScoreBug(wx.StaticBox, Widget):
         self.team2cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, ITEM_FG2, '#ffffff'),
                 self.config.get(self.config_section, ITEM_BG2, '#008000'),
-                self.got_colours, label_patch=None, label_inverse=None)
+                self.got_colours, label_patch=None, label_inverse=None,
+                buttonAlabel='Text colour', buttonBlabel='Background colour')
         line3.Add(self.team2cp, 1, wx.EXPAND)
 
         sizer.AddStretchSpacer()
@@ -152,7 +152,6 @@ class ScoreBug(wx.StaticBox, Widget):
             'team1bg': self.team1cp.get_bg(),
             'team2fg': self.team2cp.get_fg(),
             'team2bg': self.team2cp.get_bg(),
-            'fontsize': self.config.get(self.config_section, FontSize.label, ScoreBug.my_default_config[FontSize.label])
             })
         return rv
 

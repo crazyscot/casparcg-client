@@ -22,7 +22,7 @@ class LowerThird(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
     config_section='lowerthird'
     ui_label='Lower Third'
-    my_default_config={'Template': 'mediary/lowerthird', 'Layer': 10}
+    my_default_config={'Template': 'mediary/lowerthird', 'Layer': 101}
 
     def __init__(self, parent, config):
         '''
@@ -52,22 +52,25 @@ class LowerThird(wx.StaticBox, Widget):
         bUpdate.Bind(wx.EVT_BUTTON, self.do_update)
 
         inner = wx.BoxSizer(wx.HORIZONTAL)
-        inner.Add(bFadeOn)
-        inner.AddSpacer(10)
-        inner.Add(bFadeOff)
-        inner.AddSpacer(10)
-        inner.Add(bUpdate)
 
-        inner.AddSpacer(20)
-        inner.AddStretchSpacer(1)
         self.cp = None # so the immediate callback works
         self.cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, LowerThird.OPTION_FG, '#ffffff'),
                 self.config.get(self.config_section, LowerThird.OPTION_BG, '#eda129'),
                 self.got_colours,
-                label_patch=' Top line (A on B) ',
-                label_inverse=' Bottom line ')
+                label_patch=' Name ',
+                label_inverse=' Title ',
+                buttonAlabel='Name text colour', buttonBlabel='Name background colour')
         inner.Add(self.cp, 1, wx.EXPAND)
+
+        inner.AddStretchSpacer(2)
+
+        inner.Add(bFadeOn)
+        inner.AddStretchSpacer(1)
+        inner.Add(bFadeOff)
+        inner.AddStretchSpacer(1)
+        inner.Add(bUpdate)
+
 
         sizer.AddSpacer(10)
         sizer.Add(inner, flag=wx.EXPAND)
