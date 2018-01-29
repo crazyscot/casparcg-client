@@ -87,6 +87,16 @@
 				// Make sure the title fits on bar (scale to width)
 				TweenMax.to(".lower_white_box", 0.1, {css:{width: (titlebox.offsetWidth + 40) + "px"}, ease:Linear.easeNone});
 			}
+            if (data.colourA !== undefined) {
+                TweenMax.to("#nameid", 0.1, {css:{'color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to("#titleid", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to(".lower_white_box", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
+            }
+            if (data.colourB !== undefined) {
+                TweenMax.to("#nameid", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
+                TweenMax.to(".upper_second_box", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
+                TweenMax.to("#titleid", 0.1, {css:{'color': data.colourB}, ease:Linear.easeNone});
+            }
         }
 		function debugUpdate() {
 			// Used only if debuging (see below)
