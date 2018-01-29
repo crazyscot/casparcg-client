@@ -8,46 +8,46 @@
 		var data;
 
 		function resizeAndRepo(from_invisible) {
-                var team1 = document.getElementById('team1');
-                var team2 = document.getElementById('team2');
-                var score1 = document.getElementById('score1');
-                var score2 = document.getElementById('score2');
-                var vpWidth = verge.viewportW();
-				// Get the width of the text
-				var secondBarWidth = team1.offsetWidth + team2.offsetWidth + score1.offsetWidth + score2.offsetWidth + 0.03*vpWidth;
-				// Start animating
-				var tl = new TimelineMax();
-                  if (from_invisible) {
-                    // Reveal white bar
-                    tl.to(".score_white_box", 0.5, {css:{height: "7vh", top: "5vh"}});
-                    // Animate white bar to left
-                    tl.to(".score_white_box", 1, {css:{left: "5.2vw"}});
-                    // Expand (based on width) white bar to right
-                    tl.to(".score_white_box", 1, {css:{width: secondBarWidth +"px"}});
-                    // Shrink white bar to right
-                    tl.to(".score_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
+            var team1 = document.getElementById('team1');
+            var team2 = document.getElementById('team2');
+            var score1 = document.getElementById('score1');
+            var score2 = document.getElementById('score2');
+            var vpWidth = verge.viewportW();
+            // Get the width of the text
+            var secondBarWidth = team1.offsetWidth + team2.offsetWidth + score1.offsetWidth + score2.offsetWidth + 0.03*vpWidth;
+            // Start animating
+            var tl = new TimelineMax();
+            if (from_invisible) {
+                // Reveal white bar
+                tl.to(".score_white_box", 0.5, {css:{height: "7vh", top: "5vh"}});
+                // Animate white bar to left
+                tl.to(".score_white_box", 1, {css:{left: "5.2vw"}});
+                // Expand (based on width) white bar to right
+                tl.to(".score_white_box", 1, {css:{width: secondBarWidth +"px"}});
+                // Shrink white bar to right
+                tl.to(".score_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
 
-                    var time = 1;
-                  } else {
-                    var time = 0.5;
-                  }
-                  // Reveal second bar
-                  tl.to(".score_second_box", time, {css:{width: secondBarWidth +"px", left: "5.2vw"}},
-                                (from_invisible ? "-=0.75" : "" ));
+                var time = 1;
+            } else {
+                var time = 0.5;
+            }
+            // Reveal second bar
+            tl.to(".score_second_box", time, {css:{width: secondBarWidth +"px", left: "5.2vw"}},
+                    (from_invisible ? "-=0.75" : "" ));
 
-                  // Note staggered landings.
-                  var pos = 0.01*vpWidth;
-                  tl.to("#team1", time, {css:{left: pos+"px"}},
-                                (from_invisible ? "-=1.25" : "-=0.5" ));
-                  pos += team1.offsetWidth;
-                  tl.to("#score1", time, {css:{left: pos + "px"}},
-                                (from_invisible ? "-=1" : "-=0.5" ));
-                  pos += score1.offsetWidth + 0.01*vpWidth;
-                  tl.to("#team2", time, {css:{left: pos+"px"}},
-                                (from_invisible ? "-=0.75" : "-=0.5" ));
-                  pos += team2.offsetWidth;
-                  tl.to("#score2", time, {css:{left: pos + "px"}},
-                                (from_invisible ? "-=0.75" : "-=0.5" ));
+            // Note staggered landings.
+            var pos = 0.01*vpWidth;
+            tl.to("#team1", time, {css:{left: pos+"px"}},
+                    (from_invisible ? "-=1.25" : "-=0.5" ));
+            pos += team1.offsetWidth;
+            tl.to("#score1", time, {css:{left: pos + "px"}},
+                    (from_invisible ? "-=1" : "-=0.5" ));
+            pos += score1.offsetWidth + 0.01*vpWidth;
+            tl.to("#team2", time, {css:{left: pos+"px"}},
+                    (from_invisible ? "-=0.75" : "-=0.5" ));
+            pos += team2.offsetWidth;
+            tl.to("#score2", time, {css:{left: pos + "px"}},
+                    (from_invisible ? "-=0.75" : "-=0.5" ));
 		}
 
         function animateOn() {
