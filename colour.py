@@ -40,22 +40,23 @@ class PairedColourPicker(wx.Panel):
     '''
         Widget for choosing a pair of colours for text.
     '''
-    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, sample_patch=True):
+    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, label_patch=' A on B ', label_inverse=' B on A '):
         super(PairedColourPicker, self).__init__(parent)
         self.parent = parent
         self.notifyfn = notifyfn
+        self.patch = self.patch2 = None
 
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.SetSizer(sizer)
-        self.fg = ColourPicker(self, 'Text colour', initfg )
-        self.bg = ColourPicker(self, 'Background', initbg )
+        self.fg = ColourPicker(self, 'Colour A', initfg )
+        self.bg = ColourPicker(self, 'Colour B', initbg )
         sizer.Add(self.fg)
         sizer.AddSpacer(10)
         sizer.Add(self.bg)
 
-        if sample_patch:
+        if label_patch is not None:
             self.patch = wx.Panel(self)
-            self.patchtext = wx.StaticText(self.patch, label=' Sample ')
+            self.patchtext = wx.StaticText(self.patch, label=label_patch)
             font = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
             self.patchtext.SetFont(font)
             inner = wx.BoxSizer(wx.VERTICAL)
@@ -68,10 +69,28 @@ class PairedColourPicker(wx.Panel):
         else:
             self.patch = None
 
+        if label_inverse is not None:
+            self.patch2 = wx.Panel(self)
+            self.patch2text = wx.StaticText(self.patch2, label=label_inverse)
+            font = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
+            self.patch2text.SetFont(font)
+            inner = wx.BoxSizer(wx.VERTICAL)
+            self.patch2.SetSizer(inner)
+            inner.Add(self.patch2text, 0, wx.CENTRE)
+
+            sizer.AddSpacer(10)
+            sizer.Add(self.patch2, flag=wx.LEFT|wx.RIGHT, border=5)
+            self.update_patch()
+        else:
+            self.patch2 = None
+
     def update_patch(self):
         if self.patch:
             self.patch.SetBackgroundColour(self.bg.current)
             self.patchtext.SetForegroundColour(self.fg.current)
+        if self.patch2:
+            self.patch2.SetBackgroundColour(self.fg.current)
+            self.patch2text.SetForegroundColour(self.bg.current)
         if self.notifyfn:
             self.notifyfn()
 

@@ -64,7 +64,9 @@ class LowerThird(wx.StaticBox, Widget):
         self.cp = colour.PairedColourPicker(self,
                 self.config.get(self.config_section, 'fg', '#ffff00'),
                 self.config.get(self.config_section, 'bg', '#0000ff'),
-                self.got_colours)
+                self.got_colours,
+                label_patch=' Top line (A on B) ',
+                label_inverse=' Bottom line ')
         inner.Add(self.cp, 1, wx.EXPAND)
 
         sizer.AddSpacer(10)
