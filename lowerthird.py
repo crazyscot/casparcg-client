@@ -16,8 +16,8 @@ import configurable
 from widget import Widget
 
 class LowerThird(wx.StaticBox, Widget):
-    OPTION_BG='bg'
-    OPTION_FG='fg'
+    OPTION_BG='colour_a'
+    OPTION_FG='colour_b'
 
     my_configurations=[configurable.Template,configurable.Layer]
     config_section='lowerthird'
@@ -62,8 +62,8 @@ class LowerThird(wx.StaticBox, Widget):
         inner.AddStretchSpacer(1)
         self.cp = None # so the immediate callback works
         self.cp = colour.PairedColourPicker(self,
-                self.config.get(self.config_section, 'fg', '#ffffff'),
-                self.config.get(self.config_section, 'bg', '#eda129'),
+                self.config.get(self.config_section, LowerThird.OPTION_FG, '#ffffff'),
+                self.config.get(self.config_section, LowerThird.OPTION_BG, '#eda129'),
                 self.got_colours,
                 label_patch=' Top line (A on B) ',
                 label_inverse=' Bottom line ')
@@ -109,6 +109,6 @@ class LowerThird(wx.StaticBox, Widget):
 
     def got_colours(self):
         if self.cp:
-            self.config.put(self.config_section, 'bg', self.cp.get_bg())
-            self.config.put(self.config_section, 'fg', self.cp.get_fg())
+            self.config.put(self.config_section, LowerThird.OPTION_BG, self.cp.get_bg())
+            self.config.put(self.config_section, LowerThird.OPTION_FG, self.cp.get_fg())
             self.config.write()
