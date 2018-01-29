@@ -26,7 +26,7 @@ class ScoreBug(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
     config_section='scorebug'
     ui_label='Score bug'
-    my_default_config={'Template': 'mediary/scorebug', 'Layer': 20}
+    my_default_config={'Template': 'mediary/scorebug', 'Layer': 102}
 
     def __init__(self, parent, config):
         '''
