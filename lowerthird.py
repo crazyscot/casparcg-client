@@ -115,3 +115,4 @@ class LowerThird(wx.StaticBox, Widget):
             self.config.put(self.config_section, LowerThird.OPTION_BG, self.cp.get_bg())
             self.config.put(self.config_section, LowerThird.OPTION_FG, self.cp.get_fg())
             self.config.write()
+        self.Refresh()
