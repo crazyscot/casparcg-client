@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<script>
 		var data;
-        
+
 		function resizeAndRepo(from_invisible) {
                 var team1 = document.getElementById('team1');
                 var team2 = document.getElementById('team2');
@@ -22,16 +22,16 @@
                     tl.to(".score_white_box", 0.5, {css:{height: "7vh", top: "5vh"}});
                     // Animate white bar to left
                     tl.to(".score_white_box", 1, {css:{left: "5.2vw"}});
-                    // Expand (based on width) white bar to right 
+                    // Expand (based on width) white bar to right
                     tl.to(".score_white_box", 1, {css:{width: secondBarWidth +"px"}});
-                    // Shrink white bar to right 
+                    // Shrink white bar to right
                     tl.to(".score_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
-                    
+
                     var time = 1;
                   } else {
                     var time = 0.5;
                   }
-                  // Reveal second bar                  
+                  // Reveal second bar
                   tl.to(".score_second_box", time, {css:{width: secondBarWidth +"px", left: "5.2vw"}},
                                 (from_invisible ? "-=0.75" : "" ));
 
@@ -49,7 +49,7 @@
                   tl.to("#score2", time, {css:{left: pos + "px"}},
                                 (from_invisible ? "-=0.75" : "-=0.5" ));
 		}
-        
+
         function animateOn() {
             resizeAndRepo(true);
         }
@@ -70,7 +70,7 @@
 			if (str == "" || str == "<templateData></templateData>") {
 				// Input empty, set example text
 				data = JSON.parse('{"team1":"AAA", "score1":"12",'
-                    +'"team2":"BBB", "score2":"34",' 
+                    +'"team2":"BBB", "score2":"34",'
                     +'"team1fg": "#ffffff", "team1bg": "#ff0000", '
                     +'"team2fg": "#ffffff", "team2bg": "#00ff00"}');
 			} else {
@@ -80,12 +80,12 @@
 				} catch (e) {
 					// Input not JSON, set example text
 				data = JSON.parse('{"team1":"data not JSON", "score1":"12",'
-                    +'"team2":"BBB", "score2":"34",' 
+                    +'"team2":"BBB", "score2":"34",'
                     +'"team1fg": "#ffffff", "team1bg": "#ff0000", '
                     +'"team2fg": "#ffffff", "team2bg": "#00ff00"}');
 				}
 			}
-            
+
             console.log('team1 is '+data.team1+', score '+data.score1);
 
             var team1 = document.getElementById('team1');
@@ -97,7 +97,7 @@
             document.getElementById('team2').innerHTML = data.team2;
             document.getElementById('score1').innerHTML = data.score1;
             document.getElementById('score2').innerHTML = data.score2;
-            
+
             if (is_update)
                 resizeAndRepo(false);
 
@@ -113,7 +113,7 @@
     </head>
     <body>
 		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
-		<!-- 
+		<!--
 		<div class="debug">
 			<button type="button" onclick="debugUpdate()">UPDATE</button>
 			<button type="button" onclick="play()">PLAY</button>
