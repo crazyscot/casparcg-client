@@ -198,6 +198,7 @@ class ScoreBug(wx.StaticBox, Widget):
         if self.team2cp:
             self.team2ctrl.SetBackgroundColour(self.team2cp.get_bg())
             self.team2ctrl.SetForegroundColour(self.team2cp.get_fg())
+        self.Refresh()
 
     def got_colours(self):
         if self.team1cp:
