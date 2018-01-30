@@ -96,7 +96,12 @@ class Connection(object):
         if self.socket is None:
             self.report('Connecting to server...')
             self.connect()
-        self.socket.send( (command+'\r\n').encode('utf-8') )
+        try:
+            self.socket.send( (command+'\r\n').encode('utf-8') )
+        except Exception as e:
+            self.socket=None
+            raise Exception('server connection lost (%s)'%e)
+
         # Read until we see a \r\n
         response = ''
         while not response.endswith('\r\n'):
