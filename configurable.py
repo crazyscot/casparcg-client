@@ -113,7 +113,7 @@ class FieldValidator(wx.PyValidator):
         self.allowLetters=allowLetters
         self.allowColon=allowColon
     def Clone(self):
-        return FieldValidator(self.allowDigits, self.allowLetters)
+        return FieldValidator(self.allowDigits, self.allowLetters, self.allowColon)
     def Validate(self, win):
         return True
     def TransferToWindow(self):
@@ -124,11 +124,19 @@ class FieldValidator(wx.PyValidator):
         keycode = int(event.GetKeyCode())
         if keycode < 256:
             key = chr(keycode)
-            if not self.allowLetters and key in string.letters:
+
+            # Always allow control characters
+            if keycode < 32 or keycode == 0x7f:
+                event.Skip()
                 return
-            if not self.allowDigits and key in string.digits:
-                return
-            if not self.allowColon and key is ':':
+
+            if key in string.letters:
+                if not self.allowLetters: return
+            elif key in string.digits:
+                if not self.allowDigits: return
+            elif key == ':':
+                if not self.allowColon: return
+            else: # key not in any set we recognise
                 return
             event.Skip()
 
