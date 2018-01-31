@@ -68,9 +68,9 @@ class Timer(wx.StaticBox, Widget):
 
         # Then: Fade On, Fade Off, Update
         line1.AddStretchSpacer(2)
-        self.addButton(line1,'Anim on', self.do_anim_on)
+        self.addButton(line1,'TAKE', self.do_anim_on)
         line1.AddStretchSpacer(1)
-        self.addButton(line1,'Anim off', self.do_anim_off)
+        self.addButton(line1,'OFF', self.do_anim_off)
         line1.AddStretchSpacer(1)
         self.addButton(line1,'Update', self.do_update_btn)
         line1.AddStretchSpacer(2)

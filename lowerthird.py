@@ -44,9 +44,9 @@ class LowerThird(wx.StaticBox, Widget):
         self.line2 = wx.TextCtrl(self, value='line2')
         sizer.Add(self.line2, flag=wx.EXPAND)
 
-        bFadeOn = wx.Button(self, label='Fade on')
+        bFadeOn = wx.Button(self, label='TAKE')
         bFadeOn.Bind(wx.EVT_BUTTON, self.do_fade_on)
-        bFadeOff = wx.Button(self, label='Fade off')
+        bFadeOff = wx.Button(self, label='OFF')
         bFadeOff.Bind(wx.EVT_BUTTON, self.do_fade_off)
         bUpdate = wx.Button(self, label='Update')
         bUpdate.Bind(wx.EVT_BUTTON, self.do_update)
