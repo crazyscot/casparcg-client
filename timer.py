@@ -102,8 +102,19 @@ class Timer(wx.StaticBox, Widget):
             })
         return rv
 
+    def validate(self):
+        try:
+            dt = parse_time( self.f_set_time.GetValue() )
+        except Exception as e:
+            self.parent.blink_status()
+            self.parent.status(e.message)
+            return False
+        return True
+
     def do_anim_on(self, event):
-        # CG channel ADD layer template 1 data
+        if not self.validate():
+            return
+        # CG channel-layer ADD 1 template 1 data
         self.parent.transact('CG %d-%d ADD 1 %s 1 %s'%(self.channel(), self.layer(), amcp.quote(self.template()), self.templateData()))
 
     def do_anim_off(self, event):
@@ -114,6 +125,8 @@ class Timer(wx.StaticBox, Widget):
         self.do_update()
 
     def do_update(self):
-        # CG channel UPDATE layer data
+        if not self.validate():
+            return
+        # CG channel-layer UPDATE 1 data
         self.Refresh()
         self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
