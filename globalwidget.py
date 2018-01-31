@@ -27,6 +27,10 @@ class GlobalWidget(wx.StaticBox, Widget):
     config_section='server'
     my_default_config={'Server':'127.0.0.1', 'Port':5250, 'Channel':1}
 
+    def templateData(self):
+        ''' dummy implementation of abstract method, it's ok, we don't use any functions that require it '''
+        pass
+
     @classproperty
     def configurations(cls):
         ''' This widget does not have a Visible member '''
