@@ -11,6 +11,10 @@ html, body {
 	font-family: Poppins-Bold;
 	src: url('../fonts/Poppins-Bold.ttf');
 }
+@font-face {
+    font-family: 'droid_sans_monoregular';
+    src: url('../fonts/DroidSansMono-webfont.woff') format('woff');
+}
 .upper_white_box {
   width: 10px;
   top: 90.3vh;
@@ -104,6 +108,8 @@ html, body {
   width: auto;
   white-space: nowrap;
   padding: 0 1vw;
+  font-family: droid_sans_monoregular;
+  font-weight: bold;
 }
 .team {
   width: auto;
