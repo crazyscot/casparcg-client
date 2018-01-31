@@ -75,7 +75,7 @@ class Timer(wx.StaticBox, Widget):
         self.addButton(line1,'CUT OFF', self.do_remove)
         line1.AddStretchSpacer(1)
 
-        self.addButton(line1,'Update', self.do_update_btn)
+        self.addButton(line1,'Update', self.do_update)
         line1.AddStretchSpacer(2)
 
         sizer.Add(line1, 0, wx.EXPAND)
@@ -106,13 +106,3 @@ class Timer(wx.StaticBox, Widget):
             self.parent.status(e.message)
             return False
         return True
-
-    def do_update_btn(self,e):
-        self.do_update()
-
-    def do_update(self):
-        if not self.validate():
-            return
-        # CG channel-layer UPDATE 1 data
-        self.Refresh()
-        self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
