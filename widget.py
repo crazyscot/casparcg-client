@@ -52,3 +52,10 @@ class Widget(Configurable):
     def do_remove(self, event):
         # CG channel-layer REMOVE 1
         self.parent.transact('CG %d-%d REMOVE 1'%(self.channel(), self.layer()))
+
+    def do_update(self, event):
+        if not self.validate():
+            return
+        # CG channel-layer UPDATE 1 data
+        self.Refresh()
+        self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
