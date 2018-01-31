@@ -95,10 +95,6 @@ class LowerThird(wx.StaticBox, Widget):
             'colourA': self.cp.get_fg(),
             })
 
-    def do_update(self,e):
-        # CG channel UPDATE layer data
-        self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
-
     def got_colours(self):
         if self.cp:
             self.config.put(self.config_section, LowerThird.OPTION_BG, self.cp.get_bg())
