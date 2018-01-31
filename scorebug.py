@@ -92,7 +92,7 @@ class ScoreBug(wx.StaticBox, Widget):
         self.addButton(line3, 'CUT OFF', self.do_remove)
         line3.AddStretchSpacer(1)
 
-        self.addButton(line3,'Update', self.do_update_btn)
+        self.addButton(line3,'Update', self.do_update)
 
         line3.AddStretchSpacer(2)
 
@@ -152,19 +152,13 @@ class ScoreBug(wx.StaticBox, Widget):
             field = self.score2ctrl
         newscore = int(field.GetValue()) + delta
         field.SetValue(str(newscore))
-        self.do_update()
+        self.do_update(None)
 
-    def do_update_btn(self,e):
+    def do_update(self,e):
         self.config.put(self.config_section, ITEM_TEAM1, self.team1ctrl.GetValue())
         self.config.put(self.config_section, ITEM_TEAM2, self.team2ctrl.GetValue())
         self.config.write()
-
-        self.do_update()
-
-    def do_update(self):
-        # CG channel UPDATE layer data
-        self.Refresh()
-        self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
+        super(ScoreBug,self).do_update(e)
 
     def update_field_colours(self):
         if self.team1cp:
