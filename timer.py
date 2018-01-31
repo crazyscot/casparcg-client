@@ -43,11 +43,11 @@ class Timer(wx.StaticBox, Widget):
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
 
-        self.f_time= wx.TextCtrl(self, value='00:00', style=wx.TE_CENTRE,
+        self.f_set_time= wx.TextCtrl(self, value='00:00', style=wx.TE_CENTRE,
                 validator=configurable.FieldValidator(allowLetters=False, allowColon=True))
-        self.f_time.SetFont(bigfont)
+        self.f_set_time.SetFont(bigfont)
         line1.AddStretchSpacer(2)
-        line1.Add(self.f_time, 2, wx.EXPAND)
+        line1.Add(self.f_set_time, 2, wx.EXPAND)
         line1.AddStretchSpacer(2)
 
         # Then: Fade On, Fade Off, Update
@@ -80,7 +80,7 @@ class Timer(wx.StaticBox, Widget):
 
     def templateData(self):
         rv = amcp.jsondata({
-            'time': self.f_time.GetValue(),
+            'time': self.f_set_time.GetValue(),
             'countUp': self.config.get(self.config_section, CountMode.label),
             'hideOnEnd': self.config.get(self.config_section, ZeroCut.label),
             })
