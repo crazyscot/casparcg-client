@@ -49,6 +49,10 @@ class MainWindow(wx.Frame):
         ''' Redraw. Rarely needed. '''
         self.Update()
 
+    def blink_status(self):
+        self.status('')
+        self.Refresh()
+
 class MainPanel(wx.Panel):
     # Master list of widgets
     widgets = [lowerthird.LowerThird, scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer]
@@ -103,6 +107,9 @@ class MainPanel(wx.Panel):
         ''' If you are going to not return to the main loop for a while,
             you ought to call update() to force a redraw. '''
         self.parent.status(msg)
+
+    def blink_status(self):
+        self.parent.blink_status()
 
     def update(self):
         ''' Redraw. Rarely needed. '''
