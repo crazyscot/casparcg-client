@@ -121,15 +121,14 @@ class FieldValidator(wx.PyValidator):
     def TransferFromWindow(self):
         return True
     def onChar(self, event):
-        keycode = int(event.GetKeyCode())
+        keycode = int(event.GetUnicodeKey())
+        if keycode == wx.WXK_NONE or keycode == 8:
+            # Always allow cursor keys, backspace (8), etc.
+            event.Skip()
+            return
+
         if keycode < 256:
             key = chr(keycode)
-
-            # Always allow control characters
-            if keycode < 32 or keycode == 0x7f:
-                event.Skip()
-                return
-
             if key in string.letters:
                 if not self.allowLetters: return
             elif key in string.digits:
@@ -139,6 +138,9 @@ class FieldValidator(wx.PyValidator):
             else: # key not in any set we recognise
                 return
             event.Skip()
+        else:
+            # extended unicode, not allowed for now
+            return
 
 class IntConfigItem(ConfigItem):
     def create_control(self, parent, value):
