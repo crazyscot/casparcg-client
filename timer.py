@@ -38,7 +38,7 @@ class Timer(wx.StaticBox, Widget):
             txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
             sizer.Add(txt)
 
-        # First line: Timer field
+        # First: Timer field
 
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
@@ -47,25 +47,19 @@ class Timer(wx.StaticBox, Widget):
                 validator=configurable.FieldValidator(allowLetters=False, allowColon=True))
         self.f_time.SetFont(bigfont)
         line1.AddStretchSpacer(2)
-        line1.Add(self.f_time, 1, wx.EXPAND)
+        line1.Add(self.f_time, 2, wx.EXPAND)
+        line1.AddStretchSpacer(2)
+
+        # Then: Fade On, Fade Off, Update
+        line1.AddStretchSpacer(2)
+        self.addButton(line1,'Anim on', self.do_anim_on)
+        line1.AddStretchSpacer(1)
+        self.addButton(line1,'Anim off', self.do_anim_off)
+        line1.AddStretchSpacer(1)
+        self.addButton(line1,'Update', self.do_update_btn)
         line1.AddStretchSpacer(2)
 
         sizer.Add(line1, 0, wx.EXPAND)
-
-        # Second line: Fade On, Fade Off, Update
-        line2 = wx.BoxSizer(wx.HORIZONTAL)
-
-        line2.AddStretchSpacer(2)
-        self.addButton(line2,'Anim on', self.do_anim_on)
-        line2.AddStretchSpacer(1)
-        self.addButton(line2,'Anim off', self.do_anim_off)
-        line2.AddStretchSpacer(1)
-        self.addButton(line2,'Update', self.do_update_btn)
-        line2.AddStretchSpacer(2)
-
-        sizer.AddStretchSpacer()
-        sizer.AddSpacer(10)
-        sizer.Add(line2, 0, wx.EXPAND)
 
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
