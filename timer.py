@@ -13,9 +13,25 @@ import sys
 from configurable import Configurable,FieldValidator,BoolConfigItem
 import configurable
 from widget import Widget
+import datetime
 
 CountMode = configurable.BoolConfigItem('Count up', 'If set, counts upwards. If clear, counts downwards.')
 ZeroCut = configurable.BoolConfigItem('Clear on zero', 'Automatically clear the timer when countdown reaches zero?')
+
+def parse_time(f):
+    ''' Interprets a user field in format MM:SS or HH:MM:SS '''
+    parts=f.split(':')
+    if len(parts) not in range(2,4): # i.e. 2 or 3 parts expected
+        raise Exception('Clock format must be MM:SS or HH:MM:SS')
+    try:
+        HH = int(parts[-3])
+    except IndexError:
+        HH = 0
+    MM = int(parts[-2])
+    SS = int(parts[-1])
+    if HH>60 or MM>60 or SS>60 or HH<0 or MM<0 or SS<0:
+        raise Exception('Clock field out of range')
+    return datetime.timedelta(0,3600*HH+60*MM+SS,0)
 
 class Timer(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer, CountMode, ZeroCut]
