@@ -106,11 +106,12 @@ class BoolConfigItem(ConfigItem):
 
 class FieldValidator(wx.PyValidator):
     ''' A configurable validator for text controls '''
-    def __init__(self, allowDigits=True, allowLetters=True):
+    def __init__(self, allowDigits=True, allowLetters=True, allowColon=False):
         wx.PyValidator.__init__(self)
         self.Bind(wx.EVT_CHAR, self.onChar)
         self.allowDigits=allowDigits
         self.allowLetters=allowLetters
+        self.allowColon=allowColon
     def Clone(self):
         return FieldValidator(self.allowDigits, self.allowLetters)
     def Validate(self, win):
@@ -126,6 +127,8 @@ class FieldValidator(wx.PyValidator):
             if not self.allowLetters and key in string.letters:
                 return
             if not self.allowDigits and key in string.digits:
+                return
+            if not self.allowColon and key is ':':
                 return
             event.Skip()
 
