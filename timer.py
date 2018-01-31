@@ -43,7 +43,7 @@ class Timer(wx.StaticBox, Widget):
         line1 = wx.BoxSizer(wx.HORIZONTAL)
         bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
 
-        self.f_time= wx.TextCtrl(self, value='00:00:00', style=wx.TE_CENTRE,
+        self.f_time= wx.TextCtrl(self, value='00:00', style=wx.TE_CENTRE,
                 validator=configurable.FieldValidator(allowLetters=False, allowColon=True))
         self.f_time.SetFont(bigfont)
         line1.AddStretchSpacer(2)
