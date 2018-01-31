@@ -29,7 +29,7 @@ html, body {
   width: 0px;
   top: 83.3vh;
   left: 5.2vw;
-  height: 6.9vh;
+  height: 7vh;
   display:inline-block;
   position:fixed;
   background-color:#eda129;
@@ -110,6 +110,7 @@ html, body {
   padding: 0 1vw;
   font-family: droid_sans_monoregular;
   font-weight: bold;
+  height: 7vh;
 }
 .team {
   width: auto;
