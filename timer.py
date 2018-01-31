@@ -70,8 +70,11 @@ class Timer(wx.StaticBox, Widget):
         line1.AddStretchSpacer(2)
         self.addButton(line1,'TAKE', self.do_anim_on)
         line1.AddStretchSpacer(1)
-        self.addButton(line1,'OFF', self.do_anim_off)
+        self.addButton(line1,'ANIM OFF', self.do_anim_off)
         line1.AddStretchSpacer(1)
+        self.addButton(line1,'CUT OFF', self.do_remove)
+        line1.AddStretchSpacer(1)
+
         self.addButton(line1,'Update', self.do_update_btn)
         line1.AddStretchSpacer(2)
 
