@@ -87,13 +87,6 @@ class Timer(wx.StaticBox, Widget):
         line.Add(btn)
         return btn
 
-    def channel(self):
-        return self.parent.channel()
-    def layer(self):
-        return self.config.get_int(self.config_section, configurable.Layer.label, self.my_default_config[configurable.Layer.label])
-    def template(self):
-        return self.config.get(self.config_section, configurable.Template.label, self.my_default_config[configurable.Template.label])
-
     def templateData(self):
         rv = amcp.jsondata({
             'time': self.f_set_time.GetValue(),
@@ -110,16 +103,6 @@ class Timer(wx.StaticBox, Widget):
             self.parent.status(e.message)
             return False
         return True
-
-    def do_anim_on(self, event):
-        if not self.validate():
-            return
-        # CG channel-layer ADD 1 template 1 data
-        self.parent.transact('CG %d-%d ADD 1 %s 1 %s'%(self.channel(), self.layer(), amcp.quote(self.template()), self.templateData()))
-
-    def do_anim_off(self, event):
-        # CG channel STOP layer
-        self.parent.transact('CG %d-%d STOP 1'%(self.channel(), self.layer()))
 
     def do_update_btn(self,e):
         self.do_update()
