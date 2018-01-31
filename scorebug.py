@@ -85,10 +85,13 @@ class ScoreBug(wx.StaticBox, Widget):
 
         line3.AddStretchSpacer(2)
 
-        self.addButton(line3,'TAKE', self.do_fade_on)
+        self.addButton(line3,'TAKE', self.do_anim_on)
         line3.AddStretchSpacer(1)
-        self.addButton(line3,'OFF', self.do_fade_off)
+        self.addButton(line3,'ANIM OFF', self.do_anim_off)
         line3.AddStretchSpacer(1)
+        self.addButton(line3, 'CUT OFF', self.do_remove)
+        line3.AddStretchSpacer(1)
+
         self.addButton(line3,'Update', self.do_update_btn)
 
         line3.AddStretchSpacer(2)
@@ -129,13 +132,6 @@ class ScoreBug(wx.StaticBox, Widget):
         line.Add(btn)
         return btn
 
-    def channel(self):
-        return self.parent.channel()
-    def layer(self):
-        return self.config.get_int(self.config_section, configurable.Layer.label, ScoreBug.my_default_config[configurable.Layer.label])
-    def template(self):
-        return self.config.get(self.config_section, configurable.Template.label, ScoreBug.my_default_config[configurable.Template.label])
-
     def templateData(self):
         rv = amcp.jsondata({
             'team1': str(self.team1ctrl.GetValue()),
@@ -148,14 +144,6 @@ class ScoreBug(wx.StaticBox, Widget):
             'team2bg': self.team2cp.get_bg(),
             })
         return rv
-
-    def do_fade_on(self, event):
-        # CG channel ADD layer template 1 data
-        self.parent.transact('CG %d-%d ADD 1 %s 1 %s'%(self.channel(), self.layer(), amcp.quote(self.template()), self.templateData()))
-
-    def do_fade_off(self, event):
-        # CG channel STOP layer
-        self.parent.transact('CG %d-%d STOP 1'%(self.channel(), self.layer()))
 
     def score(self, team, delta):
         if team==1:
