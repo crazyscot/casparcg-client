@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 #
 # This file is part of Mediary's Caspar Client.
 # Copyright (C) 2018 Mediary Limited. All rights reserved.
@@ -101,3 +103,7 @@ class LowerThird(wx.StaticBox, Widget):
             self.config.put(self.config_section, LowerThird.OPTION_FG, self.cp.get_fg())
             self.config.write()
         self.Refresh()
+
+if __name__=='__main__':
+    import wxclient
+    wxclient.run_app([lowerthird])
