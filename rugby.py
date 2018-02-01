@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 import scorebug
 import wx
 import configurable
@@ -47,3 +49,7 @@ class RugbyScoreBug(scorebug.ScoreBug):
     def score(self,team,event):
         delta = ScoresByCode[self.code()][event]
         super(RugbyScoreBug, self).score(team, delta)
+
+if __name__=='__main__':
+    import wxclient
+    wxclient.run_app([RugbyScoreBug])
