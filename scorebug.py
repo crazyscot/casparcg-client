@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 #
 # This file is part of Mediary's Caspar Client.
 # Copyright (C) 2018 Mediary Limited. All rights reserved.
@@ -178,3 +180,7 @@ class ScoreBug(wx.StaticBox, Widget):
             self.config.put(self.config_section, ITEM_BG2, self.team2cp.get_bg())
             self.config.write()
         self.update_field_colours()
+
+if __name__=='__main__':
+    import wxclient
+    wxclient.run_app([ScoreBug])
