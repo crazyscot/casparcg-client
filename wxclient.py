@@ -25,7 +25,11 @@ import widget
 import timer
 
 class MainWindow(wx.Frame):
-    def __init__(self, parent, title='Mediary\'s Caspar Client', configfile='config.ini'):
+    def __init__(self, parent, title='Mediary\'s Caspar Client', configfile='config.ini', widgets=None):
+        '''
+        'widgets' is the desired list of widget classes; if None,
+        all widgets visible in the configuration are displayed.
+        '''
         wx.Frame.__init__(self, parent, title=title)
         self.statusbar = self.CreateStatusBar(1, style= wx.STB_SIZEGRIP|wx.STB_SHOW_TIPS|wx.STB_ELLIPSIZE_END|wx.FULL_REPAINT_ON_RESIZE)
         self.status('nothing happening')
@@ -37,7 +41,7 @@ class MainWindow(wx.Frame):
         icon.CopyFromBitmap(wx.Bitmap('mediary-caspar.ico'))
         self.SetIcon(icon)
 
-        self.panel = MainPanel(self)
+        self.panel = MainPanel(self, widgets)
         self.Show()
 
     def status(self, msg):
@@ -55,12 +59,22 @@ class MainWindow(wx.Frame):
 
 class MainPanel(wx.Panel):
     # Master list of widgets
-    widgets = [lowerthird.LowerThird, scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer]
+    all_widgets = [lowerthird.LowerThird, scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer]
 
-    def __init__(self, parent):
+    def __init__(self, parent, widgets=None):
+        '''
+        Sets up the panel. 'widgets' is the desired list of widget classes; if None,
+        all widgets visible in the configuration are displayed.
+        '''
         wx.Panel.__init__(self, parent)
         self.parent = parent
         self.gw=None
+        if widgets:
+            self.widgets=widgets
+            self.override_visibility=True
+        else:
+            self.widgets=self.all_widgets
+            self.override_visibility=False
         self.build()
 
     config = property(lambda self:self.parent.config)
@@ -73,9 +87,9 @@ class MainPanel(wx.Panel):
         sizer.Add(self.gw, 1, wx.EXPAND|wx.ALL)
 
         self.widget_instances = {}
-        for w in MainPanel.widgets:
+        for w in self.widgets:
             assert issubclass(w, widget.Widget)
-            visible = w.is_visible(self.parent.config)
+            visible = w.is_visible(self.parent.config) or self.override_visibility
 
             instance = None
             if w.ui_label in self.widget_instances:
@@ -132,7 +146,14 @@ class MainPanel(wx.Panel):
             traceback.print_exc()
             self.status('ERROR: %s' % e)
 
-if __name__=='__main__':
+def run_app(widgets):
+    '''
+        'widgets' is the desired list of widget classes; if None,
+        all widgets visible in the configuration are displayed.
+    '''
     app = wx.App(False)
-    frame = MainWindow(None)
+    frame = MainWindow(None, widgets=widgets)
     app.MainLoop()
+
+if __name__=='__main__':
+    run_app(None)
