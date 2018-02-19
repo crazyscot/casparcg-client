@@ -19,7 +19,7 @@
             var tl = new TimelineMax();
             if (from_invisible) {
                 // Reveal white bar
-                tl.to(".score_white_box", 0.5, {css:{height: "7vh", top: "5vh"}});
+                tl.to(".score_white_box", 0.5, {css:{height: "3vh", top: "5vh"}});
                 // Animate white bar to left
                 tl.to(".score_white_box", 1, {css:{left: "5.2vw"}});
                 // Expand (based on width) white bar to right
@@ -62,7 +62,7 @@
 		
         function stop() {
 			var tl = new TimelineMax();
-			  tl.to(".score_second_box", 0.5, {css:{height: "0px",top: "12vh"}});
+			  tl.to(".score_second_box", 0.5, {css:{height: "0px",top: "8vh"}});
         }
 
         function update(str) {

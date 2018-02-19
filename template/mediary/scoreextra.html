@@ -15,7 +15,7 @@
 				// Start animating
 				var tl = new TimelineMax();
 				  // Reveal bar
-				  tl.to(".score_extra_box", 1, {css:{width: BarWidth +"px", left: "5.0vw"}});
+				  tl.to(".score_extra_box", 1, {css:{width: BarWidth +"px", left: "9.0vw"}});
 				  // Animate field to left
 				  tl.to("#score_extra_id", 1, {css:{left: "1vw"}},"-=1");
 			}
@@ -51,15 +51,15 @@
 			var line1 = document.getElementById('score_extra_id');
 			if (line1.innerHTML == "") {
 				// Set from user input
-				line1.innerHTML = data.line11;
+				line1.innerHTML = data.line1;
 			} else {
-				// Set before, update name
+				// Set before, update it
 				line1.innerHTML = data.line1;
 				var element = document.getElementById('score_extra_id');
 				// Make sure it fits on bar (scale to width)
                 var vpWidth = verge.viewportW();
 				var BarWidth = element.offsetWidth + 0.02 * vpWidth;
-				TweenMax.to(".score_extra_box", 0.1, {css:{width: BarWidth + "px"}, ease:Linear.easeNone});
+				TweenMax.to(".score_extra_box", 0.2, {css:{width: BarWidth + "px"}, ease:Linear.easeNone});
 			}
         }
 		function debugUpdate() {
