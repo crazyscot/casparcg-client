@@ -61,5 +61,4 @@ class BowlsEnds(ScoreExtra):
 
 if __name__=='__main__':
     import wxclient
-    scorebug.ScoreBug.config_section='scorebug_bowls'
     wxclient.run_app([scorebug.ScoreBug, BowlsEnds, lowerthird.LowerThird])
