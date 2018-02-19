@@ -11,13 +11,13 @@
 				// Get the width of the line
 				var nameElement = document.getElementById('score_extra_id');
                 var vpWidth = verge.viewportW();
-				var BarWidth = nameElement.offsetWidth + 0.02 * vpWidth;
+				var BarWidth = nameElement.offsetWidth + 0.01 * vpWidth;
 				// Start animating
 				var tl = new TimelineMax();
 				  // Reveal bar
 				  tl.to(".score_extra_box", 1, {css:{width: BarWidth +"px", left: "9.0vw"}});
 				  // Animate field to left
-				  tl.to("#score_extra_id", 1, {css:{left: "1vw"}},"-=1");
+				  tl.to("#score_extra_id", 1, {css:{left: "0.5vw"}},"-=1");
 			}
 			// 40ms delayed for css font load, otherwise the width of the boxes might be wrong
 			// if you have another solution let me know.
@@ -58,7 +58,7 @@
 				var element = document.getElementById('score_extra_id');
 				// Make sure it fits on bar (scale to width)
                 var vpWidth = verge.viewportW();
-				var BarWidth = element.offsetWidth + 0.02 * vpWidth;
+				var BarWidth = element.offsetWidth + 0.01 * vpWidth;
 				TweenMax.to(".score_extra_box", 0.2, {css:{width: BarWidth + "px"}, ease:Linear.easeNone});
 			}
         }
