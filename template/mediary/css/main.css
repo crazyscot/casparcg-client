@@ -87,7 +87,6 @@ html, body {
 
 .score_second_box, .score_extra_box {
   width: 0px;
-  left: 5vw;
   display:inline-block;
   position:fixed;
   z-index: 15;
@@ -97,6 +96,7 @@ html, body {
 
 .score_second_box {
   top: 5vh;
+  left: 5vw;
   height: 7vh;
   font-size: 4.5vh;
   color: #fff;
@@ -104,6 +104,7 @@ html, body {
 }
 .score_extra_box {
     top: 12vh;
+    left: 10vw;
     height: 6vh;
     font-size: 3.5vh;
     color: #000;
