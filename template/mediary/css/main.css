@@ -12,6 +12,10 @@ html, body {
 	src: url('../fonts/Poppins-Bold.ttf');
 }
 @font-face {
+	font-family: Poppins-Medium;
+	src: url('../fonts/Poppins-Medium.ttf');
+}
+@font-face {
     font-family: 'droid_sans_monoregular';
     src: url('../fonts/DroidSansMono-webfont.woff') format('woff');
 }
@@ -37,7 +41,6 @@ html, body {
   overflow: hidden;
 }
 .lower_white_box {
-  width: auto;
   background-color:#fff;
   position: absolute;
   top: 90.3vh;
@@ -167,4 +170,24 @@ html, body {
 }
 .LTscore_second_box div {
     left: 200vw;
+}
+.lowerthird_banner .line1 {
+  white-space: nowrap;
+  position: absolute;
+  left: 95vw;
+  font-family: Poppins-Bold;
+  font-size: 4.6vh;
+  color: #fff;
+  z-index: 15;
+}
+.lowerthird_banner .line2 {
+  width: auto;
+  white-space: nowrap;
+  position: absolute;
+  left: 1vw;
+  top: 0vh;
+  font-family: Poppins-Medium;
+  font-size: 2.8vh;
+  color: #eda129;
+  z-index: 8;
 }

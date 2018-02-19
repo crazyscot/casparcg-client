@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script src="js/verge.min.js"></script>
+		<script>
+		var data;
+        var vpWidth = verge.viewportW();
+        var haveEverPlayed = false;
+
+        function position_text() {
+            // line 1 centred: calculate from the midpoint
+            item = document.getElementById('line1');
+            width = item.offsetWidth;
+            item.style.left = ( (0.45*vpWidth) - width/2 ) + "px";
+
+            // line 2 left
+            item = document.getElementById('line2_l');
+            width = item.offsetWidth;
+            item.style.left = "0.5vw";
+
+            // centre: calculate from the midpoint
+            item = document.getElementById('line2_c');
+            width = item.offsetWidth;
+            item.style.left = ( (0.45*vpWidth) - width/2 ) + "px";
+
+            // right: calculate from the right
+            item = document.getElementById('line2_r');
+            width = item.offsetWidth;
+            item.style.left = ( (0.895*vpWidth) - width ) + "px";
+        }
+
+        function play() {
+			function delayed() {
+                var barWidth = 0.9 * vpWidth;
+
+				document.getElementById('bgUpper').style.width = 0.9 * vpWidth;
+				document.getElementById('bgLowerWhite').style.width = 0.9 * vpWidth;
+				// Start animating
+				var tl = new TimelineMax();
+                position_text();
+                // Reveal white bar
+                tl.to(".upper_white_box", 0.5, {css:{height: "6.9vh", top: "83.3vh"}});
+                // Animate white bar to left
+                tl.to(".upper_white_box", 1, {css:{left: "5.2vw"}});
+                // Expand (based on name width) white bar to right 
+                tl.to(".upper_white_box", 1, {css:{width: "90vw"}});
+                // Shrink white bar to right 
+                tl.to(".upper_white_box", 1, {css:{width: "0px", left: "95vw"}},"-=0.75");
+                // Reveal second bar
+                tl.to(".upper_second_box", 1, {css:{width: "90vw", left: "5.2vw"}},"-=1");
+
+                // Reset upper white for idempotence
+                tl.to(".upper_white_box", 0.1, {css:{height: "0px"}});
+                tl.to(".upper_white_box", 0.1, {css:{left: "28.6vw", top: "90.3vh", width: "10px"}});
+
+                // We don't animate the text on in this template.
+
+                // Show line 2 only if there is something there
+                if ((typeof data !== 'undefined') && data.do_lower) {
+                    console.log('doing line 2');
+                    // Animate lower white box
+                    //document.getElementById('bgLowerWhite').style.width = 0.9 * vpWidth;
+                    tl.to(".lower_white_box", 0.1, {css:{width: "90vw"}, ease:Linear.easeNone}, "-2");
+
+                    tl.to(".lower_white_box", 1, {css:{top: "90.3vh", height: "4.62vh"}},"-=1.25");
+
+                    tl.to(".line2_l", 1, {css:{top: "0px"}},"-=1.25");
+                    tl.to(".line2_c", 1, {css:{top: "0px"}},"-=1.25");
+                    tl.to(".line2_r", 1, {css:{top: "0px"}},"-=1.25");
+                }
+            }
+            // 40ms delayed for css font load, otherwise the width of the boxes might be wrong
+            // if you have another solution let me know.
+            haveEverPlayed = true;
+            setTimeout(delayed, 40);
+        }
+
+        function stop() {
+			var tl = new TimelineMax();
+			  // Animate bars off screen
+			  tl.to(".upper_second_box", 0.5, {css:{height: "0px",top: "90.3vh"}});
+			  tl.to(".lower_white_box", 0.5, {css:{height: "0px"}},"-=0.5");
+
+              // Reset for idempotence
+              tl.to(".upper_second_box", 0.1, {css:{width:"0px"}});
+              tl.to(".upper_second_box", 0.1, {css:{width:"0px", height:"7vh", top:"83.3vh"}});
+        }
+
+        function update(str) {
+			// Check if user input is empty
+			if (str == "" || str == "<templateData></templateData>") {
+				// Input empty, set example text
+				data = JSON.parse('{"line1":"Example 1 [line1]", "line2_l":"[line2_l]", "line2_c":"[line2_c]", "line2_r":"[line2_r]" }');
+			} else {
+				try {
+					// Input JSON, parse to data variable
+					data = JSON.parse(str);
+				} catch (e) {
+					// Input not JSON, set example text
+					data = JSON.parse('{"line1":"Data must be JSON formatted"}');
+				}
+			}
+
+            data.do_lower = false;
+            if (typeof data.line2_l !== 'undefined')
+                data.do_lower = true;
+            else 
+                data.line2_l = "";
+            if (typeof data.line2_c !== 'undefined')
+                data.do_lower = true;
+            else 
+                data.line2_c = "";
+            if (typeof data.line2_r !== 'undefined')
+                data.do_lower = true;
+            else 
+                data.line2_r = "";
+
+			var line1 = document.getElementById('line1');
+			if (line1.innerHTML == "") {
+				// Set line1 from user input
+				line1.innerHTML = data.line1;
+			} else {
+				// line1 set before, update line1
+				line1.innerHTML = data.line1;
+			}
+			if (line1.innerHTML == "") {
+                TweenMax.to(".upper_second_box", 0.5, {css:{height: "0px",top: "90.3vh"}});
+            } else {
+                TweenMax.to(".upper_second_box", 1, {css:{height: "7vh", left: "5.2vw"}},"-=1");
+            }
+
+            document.getElementById('line2_l').innerHTML = data.line2_l;
+            document.getElementById('line2_c').innerHTML = data.line2_c;
+            document.getElementById('line2_r').innerHTML = data.line2_r;
+
+            position_text();
+
+            if (data.do_lower && haveEverPlayed) {
+                TweenMax.to(".lower_white_box", 1, {css:{top: "90.3vh", height: "4.62vh"}});
+            } else {
+                TweenMax.to(".lower_white_box", 0.5, {css:{height: "0px"}});
+            }
+
+            if (data.colourA !== undefined) {
+                TweenMax.to("#line1", 0.1, {css:{'color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to("#line2", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to(".lower_white_box", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to(".upper_white_box", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
+            }
+            if (data.colourB !== undefined) {
+                TweenMax.to("#line1", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
+                TweenMax.to(".upper_second_box", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
+                TweenMax.to("#line2", 0.1, {css:{'color': data.colourB}, ease:Linear.easeNone});
+            }
+        }
+		function debugUpdate() {
+			// Used only if debuging (see below)
+			document.body.style.backgroundColor = "#ccc";
+			update('{"line1":"Blah vs Blob", "line2_l":"Notsuper Rugby", "line2_c":"Full Time", "line2_r":"Christchurch" }');
+		}
+		</script>		
+    </head>
+    <body>
+		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
+        <!--
+		<div class="debug">
+			<button type="button" onclick="debugUpdate()">UPDATE</button>
+			<button type="button" onclick="play()">PLAY</button>
+			<button type="button" onclick="stop()">STOP</button>
+		</div>
+		-->
+		<!-- DEBUG END -->
+        <div class="lowerthird_banner">
+		<div class="upper_white_box" id=""></div>
+		<div class="upper_second_box" id="bgUpper">
+			<div class="line1" id="line1"></div>
+		</div>
+		<div class="lower_white_box" id="bgLowerWhite">
+            <div class="line2" id="line2_l"></div>
+            <div class="line2" id="line2_c"></div>
+            <div class="line2" id="line2_r"></div>
+		</div>
+		</div>
+		<script src="js/TweenMax.js"></script>
+		<script src="js/TimelineMax.js"></script>
+		<script src="js/CSSPlugin.js"></script>
+    </body>
+</html>
