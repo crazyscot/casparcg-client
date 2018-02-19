@@ -29,7 +29,7 @@ html, body {
   width: 0px;
   top: 83.3vh;
   left: 5.2vw;
-  height: 7vh;
+  height: 3vh;
   display:inline-block;
   position:fixed;
   background-color:#eda129;
@@ -97,16 +97,16 @@ html, body {
 .score_second_box {
   top: 5vh;
   left: 5vw;
-  height: 7vh;
-  font-size: 4.5vh;
+  height: 3vh;
+  font-size: 2vh;
   color: #fff;
   background-color:#777;
 }
 .score_extra_box {
-    top: 12vh;
+    top: 8vh;
     left: 10vw;
-    height: 6vh;
-    font-size: 3.5vh;
+    height: 3vh;
+    font-size: 2vh;
     color: #000;
     background-color:#fff;
 }
