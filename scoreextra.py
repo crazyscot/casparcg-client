@@ -20,7 +20,7 @@ class ScoreExtra(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
     config_section='Score Extra'
     ui_label='Score Extra'
-    my_default_config={'Template': 'mediary/scoreextra.html', 'Layer': 104}
+    my_default_config={'Template': 'mediary/scoreextra', 'Layer': 104}
 
     def __init__(self, parent, config):
         '''
