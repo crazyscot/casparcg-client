@@ -49,8 +49,10 @@
                 tl.to(".upper_white_box", 1, {css:{width: "90vw"}});
                 // Shrink white bar to right 
                 tl.to(".upper_white_box", 1, {css:{width: "0px", left: "95vw"}},"-=0.75");
-                // Reveal second bar
-                tl.to(".upper_second_box", 1, {css:{width: "90vw", left: "5.2vw"}},"-=1");
+                // Reveal second bar if there's anything there
+                if ( (typeof data !== 'undefined') && data.line1 !== '' ) {
+                    tl.to(".upper_second_box", 1, {css:{width: "90vw", left: "5.2vw"}},"-=1");
+                }
 
                 // Reset upper white for idempotence
                 tl.to(".upper_white_box", 0.1, {css:{height: "0px"}});
@@ -60,7 +62,6 @@
 
                 // Show line 2 only if there is something there
                 if ((typeof data !== 'undefined') && data.do_lower) {
-                    console.log('doing line 2');
                     // Animate lower white box
                     //document.getElementById('bgLowerWhite').style.width = 0.9 * vpWidth;
                     tl.to(".lower_white_box", 0.1, {css:{width: "90vw"}, ease:Linear.easeNone}, "-2");
@@ -119,18 +120,31 @@
                 data.line2_r = "";
 
 			var line1 = document.getElementById('line1');
-			if (line1.innerHTML == "") {
-				// Set line1 from user input
-				line1.innerHTML = data.line1;
+			if (line1.innerHTML == "" && haveEverPlayed) {
+                if (data.line1 != "") {
+                    line1.innerHTML = data.line1;
+                    tl = new TimelineMax();
+                    tl.to(".upper_second_box", 0.1, {css:{width:"0px", height:"0px", top:"90.3vh", left:"5.2vw"}});
+                    tl.to(".upper_second_box", 0.1, {css:{width:"90vw"}});
+                    tl.to(".upper_second_box", 1.0, {css:{height: "7vh",top: "83.3vh"}});
+                }
 			} else {
-				// line1 set before, update line1
-				line1.innerHTML = data.line1;
+				// line1 set before, simply update line1
+                if (data.line1 == "") {
+                    tl = new TimelineMax();
+                    tl.to(".upper_second_box", 0.5, {css:{height: "0px",top: "90.3vh"}});
+                    tl.to(".upper_second_box", 0.1, {css:{width:"0px"}});
+                    tl.to(".upper_second_box", 0.1, {css:{width:"0px", height:"7vh", top:"83.3vh", left:"5.2vw"}});
+                    // need to delay clearing the text
+                    function later() {
+                        line1.innerHTML = data.line1;
+                        position_text();
+                    }
+                    setTimeout(later, 700);
+                } else {
+                    line1.innerHTML = data.line1;
+                }
 			}
-			if (line1.innerHTML == "") {
-                TweenMax.to(".upper_second_box", 0.5, {css:{height: "0px",top: "90.3vh"}});
-            } else {
-                TweenMax.to(".upper_second_box", 1, {css:{height: "7vh", left: "5.2vw"}},"-=1");
-            }
 
             document.getElementById('line2_l').innerHTML = data.line2_l;
             document.getElementById('line2_c').innerHTML = data.line2_c;
@@ -145,15 +159,15 @@
             }
 
             if (data.colourA !== undefined) {
-                TweenMax.to("#line1", 0.1, {css:{'color': data.colourA}, ease:Linear.easeNone});
-                TweenMax.to("#line2", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to(".line1", 0.1, {css:{'color': data.colourA}, ease:Linear.easeNone});
+                TweenMax.to(".line2", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
                 TweenMax.to(".lower_white_box", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
                 TweenMax.to(".upper_white_box", 0.1, {css:{'background-color': data.colourA}, ease:Linear.easeNone});
             }
             if (data.colourB !== undefined) {
-                TweenMax.to("#line1", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
+                TweenMax.to(".line1", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
                 TweenMax.to(".upper_second_box", 0.1, {css:{'background-color': data.colourB}, ease:Linear.easeNone});
-                TweenMax.to("#line2", 0.1, {css:{'color': data.colourB}, ease:Linear.easeNone});
+                TweenMax.to(".line2", 0.1, {css:{'color': data.colourB}, ease:Linear.easeNone});
             }
         }
 		function debugUpdate() {
