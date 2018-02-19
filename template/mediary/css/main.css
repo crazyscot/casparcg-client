@@ -165,6 +165,6 @@ html, body {
     height: 8vh;
     padding: 0.5vh 1vw;
 }
-.LTscore_second_box #team2, .LTscore_second_box #score2 {
-    left: 70vw;
+.LTscore_second_box div {
+    left: 200vw;
 }

@@ -32,22 +32,25 @@
                 var time = 0.5;
             }
             // Reveal second bar
-            tl.to(".LTscore_second_box", time, {css:{width: secondBarWidth +"px", left: "5.2vw"}},
+            tl.to(".LTscore_second_box", time, {css:{width: "89.6vw", left: "5.2vw"}},
                     (from_invisible ? "-=0.75" : "" ));
 
             // Note staggered landings.
-            var pos = 0.01*vpWidth;
+            pos = 0.47 * vpWidth - score1.offsetWidth - team1.offsetWidth;
             tl.to("#team1", time, {css:{left: pos+"px"}},
                     (from_invisible ? "-=1.25" : "-=0.5" ));
             pos += team1.offsetWidth;
-            tl.to("#score1", time, {css:{left: pos + "px"}},
+
+            tl.to("#score1", time, {css:{left: pos+"px"}},
                     (from_invisible ? "-=1" : "-=0.5" ));
-            pos += score1.offsetWidth + 0.01*vpWidth;
+
+            pos = 0.48 * vpWidth;
+            tl.to("#score2", time, {css:{left: pos+"px"}},
+                    (from_invisible ? "-=0.75" : "-=0.5" ));
+            pos += score2.offsetWidth;
             tl.to("#team2", time, {css:{left: pos+"px"}},
                     (from_invisible ? "-=0.75" : "-=0.5" ));
             pos += team2.offsetWidth;
-            tl.to("#score2", time, {css:{left: pos + "px"}},
-                    (from_invisible ? "-=0.75" : "-=0.5" ));
 		}
 
         function animateOn() {
