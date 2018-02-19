@@ -38,10 +38,8 @@ class ScoreExtra(wx.StaticBox, Widget):
             sizer.Add(txt)
 
         line1 = wx.BoxSizer(wx.HORIZONTAL)
-        self.text = wx.TextCtrl(self, 2, value='Text Goes Here')
-        line1.Add(self.text, 2, flag=wx.EXPAND)
 
-        ###
+        self.createControl(line1)
 
         # Then: Fade On, Fade Off, Update
         line1.AddStretchSpacer(1)
@@ -59,6 +57,10 @@ class ScoreExtra(wx.StaticBox, Widget):
 
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
+
+    def createControl(self, sizer):
+        self.text = wx.TextCtrl(self, 2, value='Text Goes Here')
+        sizer.Add(self.text, 2, flag=wx.EXPAND)
 
     def templateData(self):
         rv = amcp.jsondata({
