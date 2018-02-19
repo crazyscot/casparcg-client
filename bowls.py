@@ -19,6 +19,7 @@ import datetime
 from scoreextra import ScoreExtra
 import scorebug
 import lowerthird
+import lt_banner
 
 class BowlsEnds(ScoreExtra):
     my_configurations=[configurable.Template,configurable.Layer]
@@ -61,4 +62,4 @@ class BowlsEnds(ScoreExtra):
 
 if __name__=='__main__':
     import wxclient
-    wxclient.run_app([scorebug.ScoreBug, BowlsEnds, lowerthird.LowerThird])
+    wxclient.run_app([scorebug.ScoreBug, BowlsEnds, lowerthird.LowerThird, lt_banner.LowerThirdBanner])
