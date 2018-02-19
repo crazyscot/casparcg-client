@@ -59,8 +59,11 @@ class MainWindow(wx.Frame):
         self.Refresh()
 
 class MainPanel(wx.Panel):
-    # Master list of widgets
-    all_widgets = [lowerthird.LowerThird, scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer, scoreextra.ScoreExtra]
+    # Master list of widgets IN ORDER
+    all_widgets = [
+            scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer, scoreextra.ScoreExtra,
+            lowerthird.LowerThird,
+            ]
 
     def __init__(self, parent, widgets=None):
         '''
