@@ -168,7 +168,7 @@ class ListConfigItem(ConfigItem):
         return self.items[control.GetSelection()]
 
 
-Visible = BoolConfigItem('Visible', 'Show this widget in the interface? (Quit and reopen to take effect)')
+Visible = BoolConfigItem('Visible', 'Show this widget in the master client? (Quit and reopen to take effect)')
 
 Template = ConfigItem(label='Template', helptext='Name of the Caspar template (use the CasparCG client to determine this if unsure)')
 
