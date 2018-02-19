@@ -17,7 +17,7 @@ ScoresByCode = {
 class RugbyScoreBug(scorebug.ScoreBug):
     config_section='rugby'
     ui_label='Rugby score bug'
-    my_configurations=[configurable.Template,configurable.Layer, RugbyCode]
+    my_configurations=[scorebug.Template_bug, scorebug.Template_banner, configurable.Layer, RugbyCode]
     my_default_config={'Bug Template': 'mediary/scorebug', 'Banner Template': 'mediary/score_lowerthird', 'Layer': 102, RugbyCode.label: 'Union'}
 
     def createSecondLine(self,sizer):
