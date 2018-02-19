@@ -24,6 +24,7 @@ import wx # developed against wxpython 3.0
 import widget
 import timer
 import scoreextra
+import bowls
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title='Mediary\'s Caspar Client', configfile='config.ini', widgets=None):
@@ -62,6 +63,7 @@ class MainPanel(wx.Panel):
     # Master list of widgets IN ORDER
     all_widgets = [
             scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer, scoreextra.ScoreExtra,
+            bowls.BowlsEnds,
             lowerthird.LowerThird,
             ]
 
