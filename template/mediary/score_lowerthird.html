@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script>
+		var data;
+
+		function resizeAndRepo(from_invisible) {
+            var team1 = document.getElementById('team1');
+            var team2 = document.getElementById('team2');
+            var score1 = document.getElementById('score1');
+            var score2 = document.getElementById('score2');
+            var vpWidth = verge.viewportW();
+            // Get the width of the text
+            var secondBarWidth = team1.offsetWidth + team2.offsetWidth + score1.offsetWidth + score2.offsetWidth + 0.03*vpWidth;
+            // Start animating
+            var tl = new TimelineMax();
+            if (from_invisible) {
+                // Reveal white bar
+                tl.to(".LTscore_white_box", 0.5, {css:{height: "8vh", top: "83.3vh"}});
+                // Animate white bar to left
+                tl.to(".LTscore_white_box", 1, {css:{left: "5.2vw"}});
+                // Expand (based on width) white bar to right
+                tl.to(".LTscore_white_box", 1, {css:{width: secondBarWidth +"px"}});
+                // Shrink white bar to right
+                tl.to(".LTscore_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
+
+                var time = 1;
+            } else {
+                var time = 0.5;
+            }
+            // Reveal second bar
+            tl.to(".LTscore_second_box", time, {css:{width: secondBarWidth +"px", left: "5.2vw"}},
+                    (from_invisible ? "-=0.75" : "" ));
+
+            // Note staggered landings.
+            var pos = 0.01*vpWidth;
+            tl.to("#team1", time, {css:{left: pos+"px"}},
+                    (from_invisible ? "-=1.25" : "-=0.5" ));
+            pos += team1.offsetWidth;
+            tl.to("#score1", time, {css:{left: pos + "px"}},
+                    (from_invisible ? "-=1" : "-=0.5" ));
+            pos += score1.offsetWidth + 0.01*vpWidth;
+            tl.to("#team2", time, {css:{left: pos+"px"}},
+                    (from_invisible ? "-=0.75" : "-=0.5" ));
+            pos += team2.offsetWidth;
+            tl.to("#score2", time, {css:{left: pos + "px"}},
+                    (from_invisible ? "-=0.75" : "-=0.5" ));
+		}
+
+        function animateOn() {
+            resizeAndRepo(true);
+        }
+
+        function play() {
+			// 40ms delayed for css font load, otherwise the width of the boxes might be wrong
+			// if you have another solution let me know.
+			setTimeout(animateOn, 40);
+        }
+		
+        function stop() {
+			var tl = new TimelineMax();
+			  tl.to(".LTscore_second_box", 0.5, {css:{height: "0px",top: "93.3vh"}});
+        }
+
+        function update(str) {
+			// Check if user input is empty
+			if (str == "" || str == "<templateData></templateData>") {
+				// Input empty, set example text
+				data = JSON.parse('{"team1":"AAA", "score1":"12",'
+                    +'"team2":"BBB", "score2":"34",'
+                    +'"team1fg": "#ffffff", "team1bg": "#ff0000", '
+                    +'"team2fg": "#ffffff", "team2bg": "#00ff00"}');
+			} else {
+				try {
+					// Input JSON, parse to data variable
+					data = JSON.parse(str);
+				} catch (e) {
+					// Input not JSON, set example text
+				data = JSON.parse('{"team1":"data not JSON", "score1":"12",'
+                    +'"team2":"BBB", "score2":"34",'
+                    +'"team1fg": "#ffffff", "team1bg": "#ff0000", '
+                    +'"team2fg": "#ffffff", "team2bg": "#00ff00"}');
+				}
+			}
+
+            console.log('team1 is '+data.team1+', score '+data.score1);
+
+            var team1 = document.getElementById('team1');
+            var is_update = true;
+            if (team1.innerHTML == "") {
+                is_update = false;
+            }
+            document.getElementById('team1').innerHTML = data.team1;
+            document.getElementById('team2').innerHTML = data.team2;
+            document.getElementById('score1').innerHTML = data.score1;
+            document.getElementById('score2').innerHTML = data.score2;
+
+            if (is_update)
+                resizeAndRepo(false);
+
+            TweenMax.to("#team1", 0.1, { css:{'background-color': data.team1bg, 'color': data.team1fg}, ease:Linear.easeNone});
+            TweenMax.to("#team2", 0.1, { css:{'background-color': data.team2bg, 'color': data.team2fg}, ease:Linear.easeNone});
+        }
+		function debugUpdate() {
+			// Used only if debuging (see below)
+			document.body.style.backgroundColor = "#ccc";
+			update('{"name":"Debug name [name]", "title":"Debug title [title]"}');
+		}
+		</script>		
+    </head>
+    <body>
+		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
+		<!--
+		<div class="debug">
+			<button type="button" onclick="debugUpdate()">UPDATE</button>
+			<button type="button" onclick="play()">PLAY</button>
+			<button type="button" onclick="stop()">STOP</button>
+		</div>
+		-->
+		<!-- DEBUG END -->
+		<div class="LTscore_white_box"></div>
+		<div class="LTscore_second_box">
+            <div class="team" id="team1"></div><div class="score" id="score1">12</div>
+            <div class="team" id="team2">BBB</div><div class="score" id="score2">34</div>
+		</div>
+		<script src="js/verge.min.js"></script>
+		<script src="js/TweenMax.js"></script>
+		<script src="js/TimelineMax.js"></script>
+		<script src="js/CSSPlugin.js"></script>
+    </body>
+</html>
