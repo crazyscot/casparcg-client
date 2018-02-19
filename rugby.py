@@ -6,6 +6,7 @@ import configurable
 import lowerthird
 import scoreextra
 import timer
+import lt_banner
 
 RugbyCode = configurable.ListConfigItem('Code', 'Which rugby code\'s scoring rules', ['Union','League'])
 
@@ -55,4 +56,4 @@ class RugbyScoreBug(scorebug.ScoreBug):
 
 if __name__=='__main__':
     import wxclient
-    wxclient.run_app([RugbyScoreBug, timer.Timer, scoreextra.ScoreExtra, lowerthird.LowerThird])
+    wxclient.run_app([RugbyScoreBug, timer.Timer, scoreextra.ScoreExtra, lowerthird.LowerThird, lt_banner.LowerThirdBanner])
