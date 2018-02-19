@@ -168,9 +168,13 @@ class ConfigDialog(wx.Dialog):
         defaults = cls.default_config()
 
         for c in cls.configurations:
-            #print '>> CONFIG:', c.label
             inner.Add(wx.StaticText(sb, label=c.label),0)
-            current = defaults[c.label]
+            try:
+                current = defaults[c.label]
+            except KeyError as e:
+                print '>> MISSING DEFAULT CONFIG:', cls.__name__+'.'+c.label
+                print 'Active defaults is: ', defaults
+                raise e
             current = self.main.config.get(cls.config_section, c.label, current)
             ctrl = c.create_control(sb, current)
 
