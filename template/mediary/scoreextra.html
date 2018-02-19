@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script>
+		var data;
+        function play() {
+			function delayed() {
+				// Get the width of the line
+				var nameElement = document.getElementById('score_extra_id');
+                var vpWidth = verge.viewportW();
+				var BarWidth = nameElement.offsetWidth + 0.02 * vpWidth;
+				// Start animating
+				var tl = new TimelineMax();
+				  // Reveal bar
+				  tl.to(".score_extra_box", 1, {css:{width: BarWidth +"px", left: "5.0vw"}});
+				  // Animate field to left
+				  tl.to("#score_extra_id", 1, {css:{left: "1vw"}},"-=1");
+			}
+			// 40ms delayed for css font load, otherwise the width of the boxes might be wrong
+			// if you have another solution let me know.
+			setTimeout(delayed, 40);
+        }
+		
+        function stop() {
+			var tl = new TimelineMax();
+			  // Animate bars off screen
+			  tl.to(".score_extra_box", 0.5, {css:{height: "0px"}});
+              // Reset in case we go again without reloading
+              tl.to("#score_extra_id", 0.1, {css:{left: "28.6vw"}});
+			  tl.to(".score_extra_box", 0.1, {css:{width: "0px"}});
+			  tl.to(".score_extra_box", 0.1, {css:{height: "6vh"}});
+        }
+
+        function update(str) {
+			// Check if user input is empty
+			if (str == "" || str == "<templateData></templateData>") {
+				// Input empty, set example text
+				data = JSON.parse('{"line1":"Example [line1]"}');
+			} else {
+				try {
+					// Input JSON, parse to data variable
+					data = JSON.parse(str);
+				} catch (e) {
+					// Input not JSON, set example text
+                    data = JSON.parse('{"line1":"[line1] Data must be JSON formatted"}');
+				}
+			}
+			var line1 = document.getElementById('score_extra_id');
+			if (line1.innerHTML == "") {
+				// Set from user input
+				line1.innerHTML = data.line11;
+			} else {
+				// Set before, update name
+				line1.innerHTML = data.line1;
+				var element = document.getElementById('score_extra_id');
+				// Make sure it fits on bar (scale to width)
+                var vpWidth = verge.viewportW();
+				var BarWidth = element.offsetWidth + 0.02 * vpWidth;
+				TweenMax.to(".score_extra_box", 0.1, {css:{width: BarWidth + "px"}, ease:Linear.easeNone});
+			}
+        }
+		function debugUpdate() {
+			// Used only if debuging (see below)
+			document.body.style.backgroundColor = "#ccc";
+			update('{"line1":"line1 goes here"}');
+		}
+		</script>		
+    </head>
+    <body>
+		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
+        <!--
+		<div class="debug">
+			<button type="button" onclick="debugUpdate()">UPDATE</button>
+			<button type="button" onclick="play()">PLAY</button>
+			<button type="button" onclick="stop()">STOP</button>
+		</div>
+		-->
+		<!-- DEBUG END -->
+        <div class="score_extra_box">
+            <div id="score_extra_id"></div>
+        </div>
+        <script src="js/verge.min.js"></script>
+		<script src="js/TweenMax.js"></script>
+		<script src="js/TimelineMax.js"></script>
+		<script src="js/CSSPlugin.js"></script>
+    </body>
+</html>

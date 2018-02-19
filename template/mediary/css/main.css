@@ -73,6 +73,7 @@ html, body {
   top:0px;
   left:0px;
 }
+
 .score_white_box {
   width: 10px;
   left: 28.6vw;
@@ -83,22 +84,41 @@ html, body {
   background-color:#fff;
   z-index: 20;
 }
-.score_second_box {
+
+.score_second_box, .score_extra_box {
   width: 0px;
-  top: 5vh;
   left: 5vw;
-  height: 7vh;
   display:inline-block;
   position:fixed;
-  background-color:#777;
-  z-index: 10;
-  overflow: hidden;
-
-  font-family: Poppins-Bold;
-  font-size: 5vh;
-  color: #fff;
   z-index: 15;
+  overflow: hidden;
+  font-family: Poppins-Bold;
 }
+
+.score_second_box {
+  top: 5vh;
+  height: 7vh;
+  font-size: 4.5vh;
+  color: #fff;
+  background-color:#777;
+}
+.score_extra_box {
+    top: 12vh;
+    height: 6vh;
+    font-size: 3.5vh;
+    color: #000;
+    background-color:#fff;
+}
+
+#score_extra_id {
+  width: auto;
+  white-space: nowrap;
+  position: absolute;
+  left: 28.6vw;
+  z-index: 16;
+  padding: 0 1vw;
+}
+
 .score {
   background: white;
   color: black;
