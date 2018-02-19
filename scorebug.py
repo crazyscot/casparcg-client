@@ -127,13 +127,6 @@ class ScoreBug(wx.StaticBox, Widget):
         sizer.AddSpacer(10)
         sizer.Add(line2, 0, wx.EXPAND)
 
-    def addButton(self, line, label, fn, big=False):
-        btn = wx.Button(self, label=label)
-        if big: btn.SetFont(self.bigfont)
-        btn.Bind(wx.EVT_BUTTON, fn)
-        line.Add(btn)
-        return btn
-
     def templateData(self):
         rv = amcp.jsondata({
             'team1': str(self.team1ctrl.GetValue()),

@@ -10,6 +10,7 @@ Interface class for our Widgets
 import abc
 from configurable import Configurable, Layer, Template
 import amcp
+import wx
 
 class Widget(Configurable):
     __metaclass__ = abc.ABCMeta
@@ -59,3 +60,10 @@ class Widget(Configurable):
         # CG channel-layer UPDATE 1 data
         self.Refresh()
         self.parent.transact('CG %d-%d UPDATE 1 %s'%(self.channel(), self.layer(), self.templateData()))
+
+    def addButton(self, line, label, fn, big=False):
+        btn = wx.Button(self, label=label)
+        if big: btn.SetFont(self.bigfont)
+        btn.Bind(wx.EVT_BUTTON, fn)
+        line.Add(btn)
+        return btn

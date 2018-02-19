@@ -83,13 +83,6 @@ class Timer(wx.StaticBox, Widget):
         if sys.platform.startswith('linux'):
             sizer.AddSpacer(20) # sigh
 
-    def addButton(self, line, label, fn, big=False):
-        btn = wx.Button(self, label=label)
-        if big: btn.SetFont(self.bigfont)
-        btn.Bind(wx.EVT_BUTTON, fn)
-        line.Add(btn)
-        return btn
-
     def templateData(self):
         rv = amcp.jsondata({
             'time': self.f_set_time.GetValue(),
