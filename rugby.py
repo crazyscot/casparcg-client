@@ -18,7 +18,7 @@ class RugbyScoreBug(scorebug.ScoreBug):
     config_section='rugby'
     ui_label='Rugby score bug'
     my_configurations=[configurable.Template,configurable.Layer, RugbyCode]
-    my_default_config={'Template': 'mediary/scorebug', 'Layer': 102, RugbyCode.label: 'Union'}
+    my_default_config={'Bug Template': 'mediary/scorebug', 'Banner Template': 'mediary/score_lowerthird', 'Layer': 102, RugbyCode.label: 'Union'}
 
     def createSecondLine(self,sizer):
         line2 = wx.BoxSizer(wx.HORIZONTAL)

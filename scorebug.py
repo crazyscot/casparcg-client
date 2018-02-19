@@ -13,7 +13,7 @@ import amcp
 import colour
 import wx
 import sys
-from configurable import Configurable,FieldValidator,IntConfigItem
+from configurable import Configurable,FieldValidator,IntConfigItem,ConfigItem
 import configurable
 from widget import Widget
 
@@ -24,11 +24,17 @@ ITEM_BG1='team1bg'
 ITEM_FG2='team2fg'
 ITEM_BG2='team2bg'
 
+Template_bug = ConfigItem(label='Bug Template', helptext='Caspar template to use to put score up as a bug')
+Template_banner = ConfigItem(label='Banner Template', helptext='Caspar template to use to put score up as a banner')
+
 class ScoreBug(wx.StaticBox, Widget):
-    my_configurations=[configurable.Template,configurable.Layer]
+    my_configurations=[Template_bug,Template_banner,configurable.Layer]
     config_section='scorebug'
     ui_label='Score bug'
-    my_default_config={'Template': 'mediary/scorebug', 'Layer': 102}
+    my_default_config={'Bug Template': 'mediary/scorebug',
+            'Banner Template': 'mediary/score_lowerthird',
+            'Layer': 102,
+            }
 
     def __init__(self, parent, config):
         '''
@@ -53,21 +59,29 @@ class ScoreBug(wx.StaticBox, Widget):
         team1 = self.config.get(self.config_section, ITEM_TEAM1, 'AAA')
         self.team1ctrl = wx.TextCtrl(self, 2, value = team1)
         self.team1ctrl.SetFont(bigfont)
-        line1.Add(self.team1ctrl, 1)
+        line1.Add(self.team1ctrl, 3)
         self.score1ctrl = wx.TextCtrl(self, 1, value='0', validator=FieldValidator(allowLetters=False))
         self.score1ctrl.SetFont(bigfont)
-        line1.Add(self.score1ctrl, 1)
+        line1.Add(self.score1ctrl, 0, wx.EXPAND)
 
-        line1.AddStretchSpacer(1)
+        line1.AddSpacer(10)
+
+        self.bb_choices = ['Bug','Banner']
+        self.bb_choice = wx.Choice(self, choices=self.bb_choices)
+        self.bb_choice.SetSelection(0)
+        self.bb_choice.SetToolTip(wx.ToolTip('Select the template to use'))
+        line1.Add(self.bb_choice)
+
+        line1.AddSpacer(10)
 
         team2 = self.config.get(self.config_section, ITEM_TEAM2, 'BBB')
         self.team2ctrl = wx.TextCtrl(self, value = team2)
         self.team2ctrl.SetFont(bigfont)
-        line1.Add(self.team2ctrl, 1)
+        line1.Add(self.team2ctrl, 3)
         self.score2 = 0
         self.score2ctrl = wx.TextCtrl(self, 1, value='0', validator=FieldValidator(allowLetters=False))
         self.score2ctrl.SetFont(bigfont)
-        line1.Add(self.score2ctrl, 1)
+        line1.Add(self.score2ctrl, 0, wx.EXPAND)
 
         sizer.Add(line1, 0, wx.EXPAND)
 
@@ -173,6 +187,15 @@ class ScoreBug(wx.StaticBox, Widget):
             self.config.put(self.config_section, ITEM_BG2, self.team2cp.get_bg())
             self.config.write()
         self.update_field_colours()
+
+    def template(self):
+        sel = self.bb_choices[self.bb_choice.GetSelection()]
+        if sel=='Bug':
+            d = self.my_default_config[Template_bug.label]
+            return self.config.get(self.config_section, Template_bug.label, self.my_default_config[Template_bug.label])
+        else:
+            return self.config.get(self.config_section, Template_banner.label, self.my_default_config[Template_banner.label])
+
 
 if __name__=='__main__':
     import wxclient
