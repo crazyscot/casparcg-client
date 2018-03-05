@@ -84,9 +84,20 @@ class ScoreBug(wx.StaticBox, Widget):
         line1.Add(self.score2ctrl, 0, wx.EXPAND)
 
         sizer.Add(line1, 0, wx.EXPAND)
+        sizer.AddSpacer(10)
+
 
         # Second line: +1, -1, Update, +1, -1 (overridden in subclasses)
         self.createSecondLine(sizer)
+
+        # Line 1A: "Extra" data field
+        line1A = wx.BoxSizer(wx.HORIZONTAL)
+        line1A.AddStretchSpacer(1)
+        line1A.Add(wx.StaticText(self, wx.ID_ANY, 'Extra'))
+        self.extractrl = wx.TextCtrl(self)
+        line1A.Add(self.extractrl, 1, wx.EXPAND)
+        line1A.AddStretchSpacer(1)
+        sizer.Add(line1A, 0, wx.EXPAND)
 
         # Third line: Colour 1, Fade On, Fade Off, Update, Colour 2
         line3 = wx.BoxSizer(wx.HORIZONTAL)
@@ -151,6 +162,7 @@ class ScoreBug(wx.StaticBox, Widget):
             'team1bg': self.team1cp.get_bg(),
             'team2fg': self.team2cp.get_fg(),
             'team2bg': self.team2cp.get_bg(),
+            'extra': self.extractrl.GetValue(),
             })
         return rv
 
