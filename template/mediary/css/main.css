@@ -117,7 +117,7 @@ html, body {
   height: 8vh;
   font-size: 5vh;
 }
-.score_extra_box {
+#scoreextra .score_extra_box {
     top: 8vh;
     left: 10vw;
     height: 3vh;
@@ -180,14 +180,16 @@ html, body {
   color: #fff;
   z-index: 15;
 }
-.lowerthird_banner .line2 {
+.lowerthird_banner .line2, #score_lowerthird .line2 {
   width: auto;
   white-space: nowrap;
   position: absolute;
   left: 1vw;
   top: 0vh;
-  font-family: Poppins-Medium;
   font-size: 2.8vh;
-  color: #eda129;
   z-index: 8;
+}
+.lowerthird_banner .line2 {
+  font-family: Poppins-Medium;
+  color: #eda129;
 }
