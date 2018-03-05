@@ -102,6 +102,16 @@ html, body {
   font-family: Poppins-Bold;
 }
 
+#scorebug .score_extra_box {
+    left: 50vw;
+    font-family: Poppins-Medium;
+    position: relative;
+    width: auto;
+    display:inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .score_second_box, .LTscore_second_box{
   left: 5vw;
   color: #fff;

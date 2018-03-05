@@ -12,9 +12,10 @@
             var team2 = document.getElementById('team2');
             var score1 = document.getElementById('score1');
             var score2 = document.getElementById('score2');
+            var extra = document.getElementById('scorebug_extra');
             var vpWidth = verge.viewportW();
             // Get the width of the text
-            var secondBarWidth = team1.offsetWidth + team2.offsetWidth + score1.offsetWidth + score2.offsetWidth + 0.03*vpWidth;
+            var secondBarWidth = 0.04*vpWidth + team1.offsetWidth + score1.offsetWidth + score2.offsetWidth + team2.offsetWidth + extra.offsetWidth;
             // Start animating
             var tl = new TimelineMax();
             if (from_invisible) {
@@ -49,7 +50,11 @@
             pos += score2.offsetWidth;
             tl.to("#team2", time, {css:{left: pos+"px"}},
                     (from_invisible ? "-=0.75" : "-=0.5" ));
-            pos += team2.offsetWidth;
+            pos += team2.offsetWidth + 0.01*vpWidth;
+            
+            tl.to("#scorebug_extra", time, {css:{left: pos+"px"}},
+                    (from_invisible ? "-=0.75" : "-=0.5" ));
+            pos += extra.offsetWidth;
 		}
 
         function animateOn() {
@@ -99,6 +104,10 @@
             document.getElementById('team2').innerHTML = data.team2;
             document.getElementById('score1').innerHTML = data.score1;
             document.getElementById('score2').innerHTML = data.score2;
+            
+            if (typeof data.extra == 'undefined')
+                data.extra = "";
+            document.getElementById('scorebug_extra').innerHTML = data.extra;
 
             if (is_update)
                 resizeAndRepo(false);
@@ -109,11 +118,11 @@
 		function debugUpdate() {
 			// Used only if debuging (see below)
 			document.body.style.backgroundColor = "#ccc";
-			update('{"name":"Debug name [name]", "title":"Debug title [title]"}');
+			update('{"team1":"ABC", "team2":"DEF", "score1":"34", "score2":"56", "extra":"SECOND HALF", "team1fg": "#ffffff", "team1bg": "#ff0000", "team2fg": "#ffffff", "team2bg": "#00ff00"}');
 		}
 		</script>		
     </head>
-    <body>
+    <body id="scorebug">
 		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
 		<!--
 		<div class="debug">
@@ -127,6 +136,7 @@
 		<div class="score_second_box">
             <div class="team" id="team1"></div><div class="score" id="score1">12</div>
             <div class="score" id="score2">34</div><div class="team" id="team2">BBB</div>
+            <div class="score_extra_box" id="scorebug_extra"></div>
 		</div>
 		<script src="js/verge.min.js"></script>
 		<script src="js/TweenMax.js"></script>
