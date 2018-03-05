@@ -27,13 +27,13 @@
                 // Shrink white bar to right
                 tl.to(".LTscore_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
 
-                var time = 1;
+                var time = 0.75;
             } else {
                 var time = 0.5;
             }
             // Reveal second bar
             tl.to(".LTscore_second_box", time, {css:{width: "90vw", left: "5.2vw"}},
-                    (from_invisible ? "-=0.75" : "" ));
+                    (from_invisible ? "-=0.5" : "" ));
 
             // Note staggered landings.
             pos = 0.44 * vpWidth - score1.offsetWidth - team1.offsetWidth;
@@ -51,6 +51,39 @@
             tl.to("#team2", time, {css:{left: pos+"px"}},
                     (from_invisible ? "-=0.75" : "-=0.5" ));
             pos += team2.offsetWidth;
+            
+            // Show line 2 only if there is something there
+            if ((typeof data !== 'undefined') && data.do_lower) {
+                // line 2 left
+                item = document.getElementById('line2_l');
+                width = item.offsetWidth;
+                item.style.left = "0.5vw";
+
+                // centre: calculate from the midpoint
+                item = document.getElementById('line2_c');
+                width = item.offsetWidth;
+                posn = ( (0.45*vpWidth) - width/2 ) + "px";
+                item.style.left = posn;
+                tl.to("#line2_c", 0.1, {css:{left: posn}});
+
+                // right: calculate from the right
+                item = document.getElementById('line2_r');
+                width = item.offsetWidth;
+                item.style.left = ( (0.895*vpWidth) - width ) + "px";
+            
+                // Animate lower white box
+                //document.getElementById('bgLowerWhite').style.width = 0.9 * vpWidth;
+                tl.to(".score_extra_box", 0.1, {css:{left: "5.2vw", width: "90vw"}, ease:Linear.easeNone}, "-0");
+
+                tl.to(".score_extra_box", 1, {css:{top: "91.3vh", height: "4.62vh"}},"-=0.5");
+
+                tl.to(".line2_l", 1, {css:{top: "0px"}},"-=1.25");
+                tl.to(".line2_c", 1, {css:{top: "0px"}},"-=1.25");
+                tl.to(".line2_r", 1, {css:{top: "0px"}},"-=1.25");
+            } else {
+                // Animate it off
+                tl.to(".score_extra_box", 0.5, {css:{height: "0vh"}}, "-0.1");
+            }
 		}
 
         function animateOn() {
@@ -65,7 +98,8 @@
 		
         function stop() {
 			var tl = new TimelineMax();
-			  tl.to(".LTscore_second_box", 0.5, {css:{height: "0px",top: "93.3vh"}});
+			  tl.to(".LTscore_second_box", 0.5, {css:{height: "0px",top: "91.3vh"}});
+              tl.to(".score_extra_box", 0.4, {css:{height: "0vh"}}, "-0.1");
         }
 
         function update(str) {
@@ -75,7 +109,8 @@
 				data = JSON.parse('{"team1":"AAA", "score1":"12",'
                     +'"team2":"BBB", "score2":"34",'
                     +'"team1fg": "#ffffff", "team1bg": "#ff0000", '
-                    +'"team2fg": "#ffffff", "team2bg": "#00ff00"}');
+                    +'"team2fg": "#ffffff", "team2bg": "#00ff00",'
+                    +'"extra": "SECOND HALF"}');
 			} else {
 				try {
 					// Input JSON, parse to data variable
@@ -100,6 +135,14 @@
             document.getElementById('team2').innerHTML = data.team2;
             document.getElementById('score1').innerHTML = data.score1;
             document.getElementById('score2').innerHTML = data.score2;
+            
+            data.do_lower = false;
+            if (typeof data.extra !== 'undefined' && data.extra !== '')
+                data.do_lower = true;
+            else 
+                data.extra = "";
+               
+            document.getElementById('line2_c').innerHTML = data.extra;
 
             if (is_update)
                 resizeAndRepo(false);
@@ -110,11 +153,11 @@
 		function debugUpdate() {
 			// Used only if debuging (see below)
 			document.body.style.backgroundColor = "#ccc";
-			update('{"name":"Debug name [name]", "title":"Debug title [title]"}');
+			update('{"team1":"ABC", "team2":"DEF", "score1":"34", "score2":"56", "extra":"SECOND HALF", "team1fg": "#ffffff", "team1bg": "#ff0000", "team2fg": "#ffffff", "team2bg": "#00ff00"}');
 		}
 		</script>		
     </head>
-    <body>
+    <body id="score_lowerthird">
 		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
 		<!--
 		<div class="debug">
@@ -128,6 +171,11 @@
 		<div class="LTscore_second_box">
             <div class="team" id="team1"></div><div class="score" id="score1">12</div>
             <div class="team" id="team2">BBB</div><div class="score" id="score2">34</div>
+		</div>
+		<div class="score_extra_box" id="bgLowerWhite">
+            <div class="line2" id="line2_l"></div>
+            <div class="line2" id="line2_c">2nd half</div>
+            <div class="line2" id="line2_r"></div>
 		</div>
 		<script src="js/verge.min.js"></script>
 		<script src="js/TweenMax.js"></script>

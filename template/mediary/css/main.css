@@ -126,6 +126,11 @@ html, body {
     background-color:#fff;
 }
 
+#score_lowerthird .score_extra_box {
+    z-index: 8;
+    top: 91.3vh;
+}
+
 #score_extra_id {
   width: auto;
   white-space: nowrap;
@@ -192,4 +197,9 @@ html, body {
 .lowerthird_banner .line2 {
   font-family: Poppins-Medium;
   color: #eda129;
+}
+#score_lowerthird .line2 {
+  font-family: Poppins-Bold;
+  background-color: #eee;
+  padding: 0 1vw;
 }
