@@ -210,6 +210,7 @@ html, body {
 }
 #score_lowerthird .line2 {
   font-family: Poppins-Bold;
-  background-color: #eee;
+  background-color: #777;
+  color: #fff;
   padding: 0 1vw;
 }
