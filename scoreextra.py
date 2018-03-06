@@ -18,8 +18,8 @@ import datetime
 
 class ScoreExtra(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer]
-    config_section='Score Extra'
-    ui_label='Score Extra'
+    config_section='Beneath Score Bug'
+    ui_label='Beneath Score Bug (clashes with Timer)'
     my_default_config={'Template': 'mediary/scoreextra', 'Layer': 104}
 
     def __init__(self, parent, config):

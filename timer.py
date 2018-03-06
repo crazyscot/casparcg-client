@@ -36,7 +36,7 @@ def parse_time(f):
 class Timer(wx.StaticBox, Widget):
     my_configurations=[configurable.Template,configurable.Layer, CountMode, ZeroCut]
     config_section='timer'
-    ui_label='Timer'
+    ui_label='Timer (clashes with Beneath Score Bug)'
     my_default_config={'Template': 'mediary/timer/countdown_timer', 'Layer': 103, CountMode.label: True, ZeroCut.label: False}
 
     def __init__(self, parent, config):
