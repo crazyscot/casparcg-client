@@ -64,7 +64,6 @@ class MainPanel(wx.Panel):
     # Master list of widgets IN ORDER
     all_widgets = [
             scorebug.ScoreBug, rugby.RugbyScoreBug, timer.Timer, scoreextra.ScoreExtra,
-            bowls.BowlsEnds,
             lowerthird.LowerThird,
             lt_banner.LowerThirdBanner,
             ]
