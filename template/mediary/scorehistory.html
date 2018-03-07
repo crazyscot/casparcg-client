@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script>
+		var data;
+
+		function resizeAndRepo(from_invisible) {
+            var tl = new TimelineMax();
+                        
+            // Table cells are updated
+            // We must fix subscore column visibilities
+            for (i=1; i<6; i++) {
+                x1 = document.getElementById('t1ss'+i);
+                x2 = document.getElementById('t2ss'+i);
+                if ((x1.innerHTML == "") && (x2.innerHTML == "")) {
+                    // invisible
+                    x1.style.display='none';
+                    x2.style.display='none';
+                } else {
+                    // visible
+                    x1.style.display='table-cell';
+                    x2.style.display='table-cell';
+                }
+            }
+
+            mainWidth = document.getElementById('shtable').offsetWidth;
+            console.log("mw "+mainWidth);
+            vpWidth = verge.viewportW();
+
+            // We must fix 'ex' row visibility (anim on/off)
+            ex = document.getElementById('shextra');
+            if (data.ex == "") {
+                ex.style.display='none';
+            } else {
+                ex.style.display='table-cell';
+            }
+		}
+
+        function animateOn() {
+            resizeAndRepo(true);
+			tl = new TimelineMax();
+            tl.to(".score_histories", 1, {css:{opacity:1}});
+        }
+
+        function play() {
+			// 40ms delayed for css font load, otherwise the width of the boxes might be wrong
+			// if you have another solution let me know.
+			setTimeout(animateOn, 40);
+        }
+		
+        function stop() {
+            tl = new TimelineMax();
+            tl.to(".score_histories", 1, {css:{opacity:0}});
+        }
+
+        function update(str) {
+			// Check if user input is empty
+			if (str == "" || str == "<templateData></templateData>") {
+				// Input empty, set example text
+				data = JSON.parse('{"t1n":"AAA", "t1sc":"12",'
+                    +'"t2n":"BBB", "t2sc":"34",'
+                    +'"t1ss1":"4", "t2ss1":"1", "t1ss2":"0", "t2ss2":"3",'
+                    +'"t1fg": "#ffffff", "t1bg": "#ff0000", '
+                    +'"t2fg": "#ffffff", "t2bg": "#00ff00", '
+                    +'"ex": "3rd half" '
+                    +'}');
+			} else {
+				try {
+					// Input JSON, parse to data variable
+					data = JSON.parse(str);
+				} catch (e) {
+					// Input not JSON?
+                    data = JSON.parse('{"t1":"error: data not JSON", "t1sc":"0",'
+                        +'"t2":"...", "t2sc":"0",'
+                        +'"t1fg": "#ffffff", "t1bg": "#ff0000", '
+                        +'"t2fg": "#ffffff", "t2bg": "#00ff00"}');
+				}
+			}
+
+            var team1 = document.getElementById('t1n');
+            var is_update = true;
+            if (team1.innerHTML == "") {
+                is_update = false;
+            }
+            console.log(data);
+            passalongs = ['t1n', 't1sc', 't1ss1', 't1ss2', 't1ss3', 't1ss4', 't1ss5',
+                          't2n', 't2sc', 't2ss1', 't2ss2', 't2ss3', 't2ss4', 't2ss5',
+                          'ex'];
+            for (p in passalongs) {
+                vname = passalongs[p];
+                dat = data[vname];
+                if (dat === undefined) {
+                    dat = '';
+                }
+                document.getElementById(vname).innerHTML = dat;
+            }
+            
+            defaults = { 't1bg' : '#ff0000', 't1fg' : '#ffffff', 
+                         't2bg' : '#0000ff', 't2fg' : '#ffffff' }
+            for (d in defaults) {
+                if (data[d] === undefined) 
+                    data[d] = defaults[d];
+            }
+
+            if (is_update)
+                resizeAndRepo(false);
+
+            TweenMax.to("#t1n", 0.1, { css:{'background-color': data.t1bg, 'color': data.t1fg}, ease:Linear.easeNone});
+            TweenMax.to("#t2n", 0.1, { css:{'background-color': data.t2bg, 'color': data.t2fg}, ease:Linear.easeNone});
+        }
+		function debugUpdate() {
+			// Used only if debuging (see below)
+			document.body.style.backgroundColor = "#ccc";
+			update('');
+		}
+		</script>		
+    </head>
+    <body id="scorebug">
+		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
+		<!--
+		<div class="debug">
+			<button type="button" onclick="debugUpdate()">UPDATE</button>
+			<button type="button" onclick="play()">PLAY</button>
+			<button type="button" onclick="stop()">STOP</button>
+		</div>
+		-->
+		<!-- DEBUG END -->
+		<div class="score_white_box"></div>
+		<table class="score_histories" id="shtable">
+        <thead></thead>
+        <tbody>
+        <tr id="team1">
+        <td class="name" id="t1n"></td>
+        <td class="score" id="t1sc">0</td>
+        <td class="subscore ss1" id="t1ss1"></td>
+        <td class="subscore ss2" id="t1ss2"></td>
+        <td class="subscore ss3" id="t1ss3"></td>
+        <td class="subscore ss4" id="t1ss4"></td>
+        <td class="subscore ss5" id="t1ss5"></td>
+        </tr>
+        <tr id="team2">
+        <td class="name" id="t2n"></td>
+        <td class="score" id="t2sc">0</td>
+        <td class="subscore ss1" id="t2ss1"></td>
+        <td class="subscore ss2" id="t2ss2"></td>
+        <td class="subscore ss3" id="t2ss3"></td>
+        <td class="subscore ss4" id="t2ss4"></td>
+        <td class="subscore ss5" id="t2ss5"></td>
+        </tr>
+        </tbody></table>
+        <table class="score_histories" id="shextra"><tr><td id="ex"></td></tr></table>
+		<script src="js/verge.min.js"></script>
+		<script src="js/TweenMax.js"></script>
+		<script src="js/TimelineMax.js"></script>
+		<script src="js/CSSPlugin.js"></script>
+    </body>
+</html>

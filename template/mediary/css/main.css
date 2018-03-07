@@ -214,3 +214,45 @@ html, body {
   color: #fff;
   padding: 0 1vw;
 }
+.score_histories {
+    font-family: Poppins-Bold;
+    font-size: 2vh; /* repeated below */
+    position: absolute;
+    left: 5vw;
+    top: 5vh;
+    opacity: 0;
+}
+.score_histories table {
+    border-spacing: 10px;
+}
+.score_histories tr {
+    height: 2.5vh;
+}
+.score_histories .name, .score_histories .score {
+    position: inherit;
+    padding: 0 1vw;
+    font-size: 2vh; /* repeat, otherwise .name overrides it */
+}
+.score_histories .subscore {
+    color: #000;
+    background-color: #ccc;
+}
+.score_histories .score, .score_histories .subscore {
+    padding: 0 1vw;
+    font-family: droid_sans_monoregular;
+    height: inherit;
+    text-align: right;
+}
+.score_histories#shtable {
+}
+.score_histories#shextra {
+    font-family: Poppins-Medium;
+    top: 12.3vh;
+    left: 5.1vw;
+    background-color: #ccc;
+    color: #000;
+    border: 0px;
+    padding: 0 1vw;
+}
+#shtable td {
+}
