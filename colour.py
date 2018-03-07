@@ -14,12 +14,14 @@ class ColourPicker(wx.Button):
         Widget for triggering a colour picker
         Colours are stored internally as wx.Colour, converted by get()
     '''
-    def __init__(self, parent, label, initial):
+    def __init__(self, parent, label, initial, font=None, style=0):
         ''' Initial value should be an HTML #rrggbb triplet (though can be anything that wx.Colour.Set() accepts) '''
-        super(ColourPicker, self).__init__(parent, label=label)
+        super(ColourPicker, self).__init__(parent, label=label, style=style)
         self.current = wx.Colour()
         self.current.SetFromString(initial)
         self.parent = parent
+        if font:
+            self.SetFont(font)
         self.Bind(wx.EVT_BUTTON, self.do_pick)
 
     def do_pick(self, event):
@@ -40,18 +42,18 @@ class PairedColourPicker(wx.Panel):
     '''
         Widget for choosing a pair of colours for text.
     '''
-    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, label_patch=' A on B ', label_inverse=' B on A ', buttonAlabel='Colour A', buttonBlabel='Colour B'):
+    def __init__(self, parent, initfg='#ffff00', initbg='#0000ff', notifyfn=None, label_patch=' A on B ', label_inverse=' B on A ', buttonAlabel='Colour A', buttonBlabel='Colour B', font=None, sizerFlags = wx.HORIZONTAL, sizerSpace = 10, buttonStyle=0):
         super(PairedColourPicker, self).__init__(parent)
         self.parent = parent
         self.notifyfn = notifyfn
         self.patch = self.patch2 = None
 
-        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer = wx.BoxSizer(sizerFlags)
         self.SetSizer(sizer)
-        self.fg = ColourPicker(self, buttonAlabel, initfg )
-        self.bg = ColourPicker(self, buttonBlabel, initbg )
+        self.fg = ColourPicker(self, buttonAlabel, initfg, font, buttonStyle)
+        self.bg = ColourPicker(self, buttonBlabel, initbg, font, buttonStyle)
         sizer.Add(self.fg)
-        sizer.AddSpacer(10)
+        sizer.AddSpacer(sizerSpace)
         sizer.Add(self.bg)
 
         if label_patch is not None:
