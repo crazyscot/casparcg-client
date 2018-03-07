@@ -14,12 +14,14 @@ class ColourPicker(wx.Button):
         Widget for triggering a colour picker
         Colours are stored internally as wx.Colour, converted by get()
     '''
-    def __init__(self, parent, label, initial):
+    def __init__(self, parent, label, initial, font=None, style=0):
         ''' Initial value should be an HTML #rrggbb triplet (though can be anything that wx.Colour.Set() accepts) '''
-        super(ColourPicker, self).__init__(parent, label=label)
+        super(ColourPicker, self).__init__(parent, label=label, style=style)
         self.current = wx.Colour()
         self.current.SetFromString(initial)
         self.parent = parent
+        if font:
+            self.SetFont(font)
         self.Bind(wx.EVT_BUTTON, self.do_pick)
 
     def do_pick(self, event):
