@@ -23,9 +23,9 @@
                 // Animate white bar to left
                 tl.to(".LTscore_white_box", 1, {css:{left: "5.2vw"}});
                 // Expand (based on width) white bar to right
-                tl.to(".LTscore_white_box", 1, {css:{width: secondBarWidth +"px"}});
+                tl.to(".LTscore_white_box", 1, {css:{width: "90vw"}});
                 // Shrink white bar to right
-                tl.to(".LTscore_white_box", 1, {css:{width: "0px", left: secondBarWidth + 100 +"px"}},"-=0.75");
+                tl.to(".LTscore_white_box", 1, {css:{width: "0px", left: "95vw"}},"-=0.75");
 
                 var time = 0.75;
             } else {
@@ -33,7 +33,7 @@
             }
             // Reveal second bar
             tl.to(".LTscore_second_box", time, {css:{width: "90vw", left: "5.2vw"}},
-                    (from_invisible ? "-=0.5" : "" ));
+                    (from_invisible ? "-=1" : "" ));
 
             // Note staggered landings.
             pos = 0.44 * vpWidth - score1.offsetWidth - team1.offsetWidth;

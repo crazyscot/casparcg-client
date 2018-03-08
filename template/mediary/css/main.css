@@ -119,8 +119,8 @@ html, body {
 }
 .score_second_box {
   top: 5vh;
-  height: 3vh;
-  font-size: 2vh;
+  height: 5vh;
+  font-size: 3.5vh;
 }
 .LTscore_second_box {
   top: 83.3vh;
@@ -128,10 +128,10 @@ html, body {
   font-size: 5vh;
 }
 #scoreextra .score_extra_box {
-    top: 8vh;
+    top: 10vh;
     left: 10vw;
-    height: 3vh;
-    font-size: 2vh;
+    height: 5vh;
+    font-size: 3.5vh;
     color: #000;
     background-color:#fff;
 }
@@ -216,7 +216,7 @@ html, body {
 }
 .score_histories {
     font-family: Poppins-Bold;
-    font-size: 2vh; /* repeated below */
+    font-size: 3vh; /* repeated below */
     position: absolute;
     left: 5vw;
     top: 5vh;
@@ -226,12 +226,12 @@ html, body {
     border-spacing: 10px;
 }
 .score_histories tr {
-    height: 2.5vh;
+    height: 4vh;
 }
 .score_histories .name, .score_histories .score {
     position: inherit;
     padding: 0 1vw;
-    font-size: 2vh; /* repeat, otherwise .name overrides it */
+    font-size: 3vh; /* repeat, otherwise .name overrides it */
 }
 .score_histories .subscore {
     color: #000;
@@ -247,9 +247,9 @@ html, body {
 }
 .score_histories#shextra {
     font-family: Poppins-Medium;
-    top: 12.3vh;
+    top: 15.3vh;
     left: 5.1vw;
-    background-color: #ccc;
+    background-color: #fff;
     color: #000;
     border: 0px;
     padding: 0 1vw;
