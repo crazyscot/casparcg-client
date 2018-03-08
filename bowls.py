@@ -20,7 +20,8 @@ from scoreextra import ScoreExtra
 import scorebug
 import lowerthird
 import lt_banner
+import history
 
 if __name__=='__main__':
     import wxclient
-    wxclient.run_app([scorebug.ScoreBug, lowerthird.LowerThird, lt_banner.LowerThirdBanner])
+    wxclient.run_app([history.ScoreHistory1, lowerthird.LowerThird, lt_banner.LowerThirdBanner])
