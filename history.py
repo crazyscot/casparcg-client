@@ -25,8 +25,9 @@ ITEM_FG2='team2fg'
 ITEM_BG2='team2bg'
 
 class TeamHistoryLine(object):
-    def __init__(self, parent, sizer, name='XYZ', initfg='#ffffff', initbg='#0000ff'):
+    def __init__(self, parent, sizer, name='XYZ', initfg='#ffffff', initbg='#0000ff', nboxes=5):
         self.parent = parent
+        self.nboxes = nboxes
         self.bigfont = wx.Font(18, wx.DEFAULT, wx.NORMAL, wx.BOLD)
         self.smallfont = wx.Font(8, wx.DEFAULT, wx.NORMAL, wx.NORMAL)
         line = wx.BoxSizer(wx.HORIZONTAL)
@@ -48,9 +49,9 @@ class TeamHistoryLine(object):
         # colour/size?
         line.AddSpacer(10)
 
-        # History fields (x5) (different colour)
+        # History fields (xN) (different colour)
         self.history = []
-        for i in range(5):
+        for i in range(self.nboxes):
             self.history.append(wx.TextCtrl(parent, value='', style=wx.TE_RIGHT))
             line.Add(self.history[i], 1)
 
@@ -75,7 +76,7 @@ class TeamHistoryLine(object):
         rv['%sn'%p] = self.name.GetValue()
         # t1sc/t2sc MAIN SCORE
         rv['%ssc'%p] = self.score.GetValue()
-        for i in range(5):
+        for i in range(self.nboxes):
             # t1ssN/t2ssN SUB SCORE / SETS SCORE
             rv['%sss%d'%(p,i+1)] = self.history[i].GetValue()
         # t1bg t2bg t1fg t2fg COLOURS
@@ -91,7 +92,7 @@ class ScoreHistory(wx.StaticBox, Widget):
             'Layer': 102,
             }
 
-    def __init__(self, parent, config):
+    def __init__(self, parent, config, nboxes=5):
         '''
             Required: parent object, config object
         '''
@@ -110,13 +111,13 @@ class ScoreHistory(wx.StaticBox, Widget):
         fg = self.config.get(self.config_section, ITEM_FG1, '#ffffff')
         bg = self.config.get(self.config_section, ITEM_BG1, '#ff0000')
         team = self.config.get(self.config_section, ITEM_TEAM1, 'Team 1')
-        self.team1 = TeamHistoryLine(self, sizer, team, initbg=bg, initfg=fg)
+        self.team1 = TeamHistoryLine(self, sizer, team, initbg=bg, initfg=fg, nboxes=nboxes)
 
         # Second line: Team 2
         fg = self.config.get(self.config_section, ITEM_FG2, '#ffffff')
         bg = self.config.get(self.config_section, ITEM_BG2, '#0000ff')
         team = self.config.get(self.config_section, ITEM_TEAM2, 'Team 2')
-        self.team2 = TeamHistoryLine(self, sizer, team, initbg=bg, initfg=fg)
+        self.team2 = TeamHistoryLine(self, sizer, team, initbg=bg, initfg=fg, nboxes=nboxes)
 
         # Third line: Free Text
         line3 = wx.BoxSizer(wx.HORIZONTAL)
@@ -169,6 +170,16 @@ class ScoreHistory(wx.StaticBox, Widget):
         self.config.put(self.config_section, ITEM_FG2, self.team2.picker.get_fg())
         self.config.put(self.config_section, ITEM_BG2, self.team2.picker.get_bg())
         self.config.write()
+
+class ScoreHistory1(ScoreHistory):
+    '''
+        ScoreHistory using only 1 box (e.g. for bowls)
+    '''
+    def __init__(self, parent, config):
+        '''
+            Required: parent object, config object
+        '''
+        super(ScoreHistory1, self).__init__(parent, config, nboxes=1)
 
 if __name__=='__main__':
     import wxclient
