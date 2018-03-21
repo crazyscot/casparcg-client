@@ -106,4 +106,4 @@ class LowerThird(wx.StaticBox, Widget):
 
 if __name__=='__main__':
     import wxclient
-    wxclient.run_app([lowerthird])
+    wxclient.run_app([LowerThird])
