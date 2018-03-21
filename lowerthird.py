@@ -41,9 +41,9 @@ class LowerThird(wx.StaticBox, Widget):
             txt = wx.StaticText(self, wx.ID_ANY, '') # seems to be needed on Windows, otherwise stuff smashes the staticbox label
             sizer.Add(txt)
 
-        self.line1 = wx.TextCtrl(self, value='Name Goes Here')
+        self.line1 = wx.TextCtrl(self, value='')
         sizer.Add(self.line1, flag=wx.EXPAND)
-        self.line2 = wx.TextCtrl(self, value='Title Goes Here (optional)')
+        self.line2 = wx.TextCtrl(self, value='')
         sizer.Add(self.line2, flag=wx.EXPAND)
 
         bFadeOn = wx.Button(self, label='TAKE')
