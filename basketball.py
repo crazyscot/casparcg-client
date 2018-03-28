@@ -9,6 +9,13 @@ import timer
 import lt_banner
 
 class BasketballScore(scorebug.ScoreBug):
+    '''
+    Basketball scoring widget.
+
+    This is a customisation of the ScoreBug widget, with
+    one-touch controls for +1, +2 and +3 points for each team.
+    The +2 controls are in large text, as they're most commonly used.
+    '''
     config_section='basketball'
     ui_label='Basketball'
 
@@ -34,4 +41,5 @@ class BasketballScore(scorebug.ScoreBug):
 
 if __name__=='__main__':
     import wxclient
+    # This is the set of widgets to load when this script is invoked directly.
     wxclient.run_app([BasketballScore, timer.Timer, scoreextra.ScoreExtra, lowerthird.LowerThird, lt_banner.LowerThirdBanner])
