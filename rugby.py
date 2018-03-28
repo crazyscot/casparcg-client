@@ -8,12 +8,13 @@ import scoreextra
 import timer
 import lt_banner
 
-RugbyCode = configurable.ListConfigItem('Code', 'Which rugby code\'s scoring rules', ['Union','League'])
-
 ScoresByCode = {
+        # This table maps events to their scores. Occasionally the laws of rugby change, so this might have to be updated.
         'Union': { 'try': 5, 'convertedtry': 7, 'penalty': 3, 'dropgoal': 3 },
         'League': { 'try': 4, 'convertedtry': 6, 'penalty': 2, 'dropgoal': 1 },
 }
+
+RugbyCode = configurable.ListConfigItem('Code', 'Which rugby code\'s scoring rules', ScoresByCode.keys())
 
 class RugbyScoreBug(scorebug.ScoreBug):
     config_section='rugby'
