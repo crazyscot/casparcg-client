@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+        <script src="js/verge.min.js"></script>
+		<script>
+		var data;
+        var tl;
+        function play() {
+			function delayed() {
+                duration_initial_fade_to_black = 1;
+                duration_credits_crawl = 20;
+                
+				tl = new TimelineMax();
+                tl.to("#credits", duration_initial_fade_to_black, {css:{opacity:"1"}});
+                
+                crawlHeight = document.getElementById("credits").offsetHeight;
+                vpHeight = verge.viewportH();
+                finalPos = "-" + ((100 * crawlHeight/vpHeight) - 100) + "vh";
+                //console.log("crawl height is "+crawlHeight+"("+(crawlHeight/vpHeight)+"vw)");
+                //console.log("finalPos is "+finalPos);
+                tl.to("#credits", duration_credits_crawl, {css:{top:finalPos}}); 
+			}
+			// 40ms delayed for css font load
+			setTimeout(delayed, 40);
+        }
+		
+        function pause() {
+            if (tl.paused()) 
+                tl.play();
+            else
+                tl.pause();
+        }
+		</script>		
+    </head>
+    <body>
+		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
+		<!--
+		<div class="debug" style="z-index:1;">
+			<button type="button" onclick="play()">START</button>
+			<button type="button" onclick="pause()">PAUSE/RESUME</button>
+		</div>
+		-->
+		<!-- DEBUG END -->
+        <div class="credits" id="credits">
+        <div class="fullheight"> </div>
+        <h1>Cast</h1>
+        <table class="cast gutter centred">
+        <thead>
+        <th class="row-33"></th>
+        <th class="row-33"></th>
+        <th class="row-33"></th>
+        </thead>
+        <tbody>
+        <tr><td>Fred Smith</td><td>John Doe</td><td>Jane Jones</td></tr>
+        <tr><td>Fred aSmith</td><td>John Doe</td><td>Jane Jones</td></tr>
+        <tr><td>Fred adSmith</td><td>John Doe</td><td>Jane Jones</td></tr>
+        <tr><td>Fred Smith</td><td>John Doe</td><td>Jane Jonsadsadases</td></tr>
+        <tr><td>Fred Smith</td><td>John Doe</td><td>Jane Jones</td></tr>
+        <tr><td>Fred Smith</td><td>John Dodsadsae</td><td>Jane Jones</td></tr>
+        </tbody>
+        </table>
+        
+        <h1>Big Screen Crew</h1>
+        <table class="crew gutter firstright">
+        <tbody>
+        <tr><td>Camera</td><td>Fred Smith</td></tr>
+        <tr><td></td><td>John Doe</td></tr>
+        <tr><td></td><td>Jane Jones</td></tr>
+        <tr><td></td><td>Ivan Obviouslymadeupname</td></tr>
+        <!--<tr><td>&nbsp;</td></tr>-->
+        <tr><td>CG &amp; Vision Control</td><td>Robert Johnson</td></tr>
+        <tr><td>Director's Assistant</td><td>Mary Williams</td></tr>
+        <tr><td>Director</td><td>David Taylor</td></tr>        
+        </tbody>
+        </table>
+
+        <div class="fullheight"> </div>
+        <div class="halfheight"> </div>
+
+        </div>
+
+		<script src="js/TweenMax.js"></script>
+		<script src="js/TimelineMax.js"></script>
+		<script src="js/CSSPlugin.js"></script>
+    </body>
+</html>
