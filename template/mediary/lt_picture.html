@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script>
+		var data;
+        function play() {
+			function delayed() {
+				var tl = new TimelineMax();
+                tl.to(".lt_picture_box", 1, {css:{left: "10vw", width:"80vw", opacity: 1}, ease:Power3.easeInOut} ); /* 192 -> 1728 = 1536 */
+			}
+			// 40ms delayed for css font load
+			setTimeout(delayed, 40);
+        }
+		
+        function stop() {
+			var tl = new TimelineMax();
+              tl.to(".lt_picture_box", 1, {css:{width:"0px", left:"50vw", opacity:0}, ease:Power3.easeInOut} );
+        }
+
+        function update(str) {
+			// Check if user input is empty
+			if (str == "" || str == "<templateData></templateData>") {
+				// Input empty, set example text
+				data = JSON.parse('{"name":"Example name [name]", "title":"Example title [title]"}');
+			} else {
+				try {
+					// Input JSON, parse to data variable
+					data = JSON.parse(str);
+				} catch (e) {
+					// Input not JSON, set example text
+					data = JSON.parse('{"name":"[name] Data must be JSON formatted", "title":"[title]"}');
+				}
+			}
+			var name = document.getElementById('nameid');
+            name.innerHTML = data.name;
+			var title = document.getElementById('titleid');
+			title.innerHTML = data.title;
+            
+            if (data.colourA !== undefined) {
+                /* Colour of Name */
+                TweenMax.to("#nameid", 0.1, {css:{'color': data.colourA}, ease:Linear.easeNone});
+            }
+            if (data.colourB !== undefined) {
+                /* Colour of Title */
+                TweenMax.to("#titleid", 0.1, {css:{'color': data.colourB}, ease:Linear.easeNone});
+            }
+            if (data.fontsize !== undefined) {
+                /* Font Size */
+                TweenMax.to("#nameid", 0.05, {css:{'font-size':data.fontsize}});
+                TweenMax.to("#titleid", 0.05, {css:{'font-size':data.fontsize}});
+            }
+            if (data.left !== undefined) {
+                /* Left alignment of the name and title */
+                TweenMax.to("#nameid", 0.05, {css:{left:data.left}});
+                TweenMax.to("#titleid", 0.05, {css:{left:data.left}});
+            }
+            if (data.bgimage !== undefined) {
+                /* Background image for the box ... should be correct aspect ratio
+                   to fill the box (80% VW by 26.7% VH).
+                   The file should live in template/mediary (seems you don't need to express as ../file.png) */
+                val = "url('" + data.bgimage + "')";
+                //console.log(val);
+                var box = document.getElementById('bgUpperSecond');
+                box.style.backgroundImage = val;
+                
+            }
+        }
+		function debugUpdate() {
+			// Used only if debugging (see below)
+			document.body.style.backgroundColor = "#ccc";
+			update('{"name":"Debug name [name]", "title":"Debug title [title]"}');
+		}
+		</script>		
+    </head>
+    <body>
+		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
+		<!--
+		<div class="debug">
+			<button type="button" onclick="debugUpdate()">UPDATE</button>
+			<button type="button" onclick="play()">PLAY</button>
+			<button type="button" onclick="stop()">STOP</button>
+		</div>
+		-->
+		<!-- DEBUG END -->
+		<div class="lt_picture_box" id="bgUpperSecond">
+            <div class="lt_picture_caption">
+                <div class="name" id="nameid"></div>
+                <div class="title" id="titleid"></div>
+            </div>
+		</div>
+		<script src="js/TweenMax.js"></script>
+		<script src="js/TimelineMax.js"></script>
+		<script src="js/CSSPlugin.js"></script>
+    </body>
+</html>

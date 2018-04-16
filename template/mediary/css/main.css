@@ -256,3 +256,82 @@ html, body {
 }
 #shtable td {
 }
+
+.lt_picture_box {
+    position: absolute;
+    top: 66.7vh;
+    left: 50vw; /* becomes 10bw */
+    height: 26.7vh;
+    width: 0px; /* becomes 80vw */
+    background-color: white;
+    background-image: url("../lt_generic_logo.png"); /* may be overridden.. param bgimage (mind the syntax) */
+    background-size: cover;
+    opacity: 0;
+    overflow: hidden;
+}
+.lt_picture_box div {
+    color: black; /* may be overridden.. param colourA for name, colourB for title */
+    font-size: 8vh; /* may be overridden by param "fontsize" */
+    left: 20%; /* may be overridden by param "left" */
+    top: 5%;
+}
+.lt_picture_box .title {
+    font-family: Poppins-Medium;
+    top: 50%;
+}
+
+
+#credits {
+    position: absolute;
+    overflow: hidden;
+    width: 80%;
+    padding: 0 10vw 0 10vw;
+    opacity: 0; /* will animate */
+    background-color: black;
+    display: inline-block;
+}
+
+.credits {
+    font-family: Poppins-Medium;
+    top: 0vh; /* will animate */
+    font-size: 3vh;
+    color: white;
+    xbackground-color: black;
+}
+.credits h1 {
+    font-family: Poppins-Bold;
+    font-size: 6vh;
+    width: 100%;
+    text-align: center;
+}
+
+.credits table {
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+
+.row-33 {
+    width: 33%;
+}
+
+.credits .gutter {
+    border-collapse: separate;
+    border-spacing: 50px 0;
+}
+
+.credits .gutter td {
+    padding: 0 10px;
+}
+
+.credits .centred {
+    text-align: center;
+}
+.credits .right {
+    text-align: right;
+}
+
+.credits .firstright td:first-child { text-align: right; }
+
+.fullheight { height: 100vh; }
+.halfheight { height: 50vh; }
