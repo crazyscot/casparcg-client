@@ -256,3 +256,26 @@ html, body {
 }
 #shtable td {
 }
+
+.lt_picture_box {
+    position: absolute;
+    top: 66.7vh;
+    left: 50vw; /* becomes 10bw */
+    height: 26.7vh;
+    width: 0px; /* becomes 80vw */
+    background-color: white;
+    background-image: url("../lt_generic_logo.png"); /* may be overridden.. param bgimage (mind the syntax) */
+    background-size: cover;
+    opacity: 0;
+    overflow: hidden;
+}
+.lt_picture_box div {
+    color: black; /* may be overridden.. param colourA for name, colourB for title */
+    font-size: 8vh; /* may be overridden by param "fontsize" */
+    left: 20%; /* may be overridden by param "left" */
+    top: 5%;
+}
+.lt_picture_box .title {
+    font-family: Poppins-Medium;
+    top: 50%;
+}
