@@ -315,9 +315,13 @@ html, body {
     width: 33%;
 }
 
+.row-50 {
+    width: 50%;
+}
+
 .credits .gutter {
     border-collapse: separate;
-    border-spacing: 50px 0;
+    border-spacing: 10px 0;
 }
 
 .credits .gutter td {
@@ -335,3 +339,9 @@ html, body {
 
 .fullheight { height: 100vh; }
 .halfheight { height: 50vh; }
+.quarterheight { height: 25vh; }
+
+.desaturate { filter: grayscale(100%); -webkit-filter: grayscale(100%);} /* caspar 2.1 requires the older syntax */
+.noborder { border: 0px; border-collapse: collapse; -webkit-border-vertical-spacing: 0px; }
+
+.logo { height: 8vw; padding: 1vh 1vw;}

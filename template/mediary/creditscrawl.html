@@ -11,76 +11,110 @@
         function play() {
 			function delayed() {
                 duration_initial_fade_to_black = 1;
-                duration_credits_crawl = 20;
-                
-				tl = new TimelineMax();
+                duration_credits_crawl = 30;
+
+                tl = new TimelineMax();
                 tl.to("#credits", duration_initial_fade_to_black, {css:{opacity:"1"}});
-                
+
                 crawlHeight = document.getElementById("credits").offsetHeight;
                 vpHeight = verge.viewportH();
                 finalPos = "-" + ((100 * crawlHeight/vpHeight) - 100) + "vh";
                 //console.log("crawl height is "+crawlHeight+"("+(crawlHeight/vpHeight)+"vw)");
                 //console.log("finalPos is "+finalPos);
-                tl.to("#credits", duration_credits_crawl, {css:{top:finalPos}}); 
+                tl.to("#credits", duration_credits_crawl, {css:{top:finalPos}});
 			}
 			// 40ms delayed for css font load
 			setTimeout(delayed, 40);
         }
-		
+
         function pause() {
-            if (tl.paused()) 
+            if (tl.paused())
                 tl.play();
             else
                 tl.pause();
         }
-		</script>		
+
+        function stop() {
+            var tl = new TimelineMax();
+            tl.to("#credits", duration_initial_fade_to_black, {css:{opacity:"0"}});
+        }
+
+		</script>
     </head>
     <body>
 		<!-- DEBUG MODE UNCOMMENT FOR USE IN BROWSER -->
-		<!--
+		<!----
 		<div class="debug" style="z-index:1;">
 			<button type="button" onclick="play()">START</button>
 			<button type="button" onclick="pause()">PAUSE/RESUME</button>
 		</div>
-		-->
+		<!---->
 		<!-- DEBUG END -->
         <div class="credits" id="credits">
         <div class="fullheight"> </div>
-        <h1>Cast</h1>
-        <table class="cast gutter centred">
-        <thead>
-        <th class="row-33"></th>
-        <th class="row-33"></th>
-        <th class="row-33"></th>
-        </thead>
-        <tbody>
-        <tr><td>Fred Smith</td><td>John Doe</td><td>Jane Jones</td></tr>
-        <tr><td>Fred aSmith</td><td>John Doe</td><td>Jane Jones</td></tr>
-        <tr><td>Fred adSmith</td><td>John Doe</td><td>Jane Jones</td></tr>
-        <tr><td>Fred Smith</td><td>John Doe</td><td>Jane Jonsadsadases</td></tr>
-        <tr><td>Fred Smith</td><td>John Doe</td><td>Jane Jones</td></tr>
-        <tr><td>Fred Smith</td><td>John Dodsadsae</td><td>Jane Jones</td></tr>
-        </tbody>
-        </table>
-        
-        <h1>Big Screen Crew</h1>
+
+        <h1>&ldquo;The War To End All Wars&rdquo;</h1>
+
         <table class="crew gutter firstright">
         <tbody>
-        <tr><td>Camera</td><td>Fred Smith</td></tr>
-        <tr><td></td><td>John Doe</td></tr>
-        <tr><td></td><td>Jane Jones</td></tr>
-        <tr><td></td><td>Ivan Obviouslymadeupname</td></tr>
-        <!--<tr><td>&nbsp;</td></tr>-->
-        <tr><td>CG &amp; Vision Control</td><td>Robert Johnson</td></tr>
-        <tr><td>Director's Assistant</td><td>Mary Williams</td></tr>
-        <tr><td>Director</td><td>David Taylor</td></tr>        
+        <tr><td>Role 1</td><td>Talent 1</td></tr>
+        <tr><td>Role 2</td><td>Talent 2</td></tr>
+        <tr><td>Role 3</td><td>Talent 3</td></tr>
+        <tr><td>Role 4</td><td>Talent 4</td></tr>
+
         </tbody>
         </table>
 
-        <div class="fullheight"> </div>
-        <div class="halfheight"> </div>
+        <!-- For a general cast in columns without roles try something
+             like this. You can use 3 columns if you prefer (use class row-33).
+          -->
+        <!--
+        <table class="cast gutter centred">
+        <thead>
+        <th class="row-50"></th>
+        <th class="row-50"></th>
+        </thead>
+        <tbody>
+        <tr><td>Fred Smith</td><td>John Doe</td></tr>
+        <tr><td>John Doe</td><td>Jane Jonsadsadases</td></tr>
+        <tr><td>Fred Smith</td><td>John Doe</td></tr>
+        <tr><td>John Dodsadsae</td><td>Jane Jones</td></tr>
+        </tbody>
+        </table>
+        -->
 
-        </div>
+        <div style="height: 10vh;"></div>
+        <h1>Recording Crew</h1>
+        <table class="crew gutter firstright">
+        <tbody>
+        <tr><td>Camera</td><td>...</td></tr>
+        <tr><td></td><td>...</td></tr>
+        <tr><td></td><td>...</td></tr>
+        <tr><td></td><td>...</td></tr>
+        <tr><td>Sound</td><td>...</td></tr>
+        <tr><td>Vision Switcher</td><td>...</td></tr>
+        <!--<tr><td>&nbsp;</td></tr>-->
+        <tr><td>Graphics/Vision Control</td><td>...</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>Director's Assistant</td><td>...</td></tr>
+        <tr><td>Director</td><td>...</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>Stock images courtesy of</td><td>...</td></tr>
+        <tr><td></td><td>...</td></tr>
+        <tr><td>Facilities provided by</td><td>...</td></tr>
+        <tr><td></td><td>...</td></tr>
+        <!-- You might put facility provider logos here. -->
+        <!-- NOTE that any images used in HTML have to be in the relevant
+             templates directory. So Caspar will not be able to see them
+             directly (for full-screen playout) unless you make a copy
+             in the media directory. -->
+        </tbody>
+        </table>
+
+
+        <!-- Finish on a whole screenful of black, let it all scroll off the top -->
+        <!--<div class="halfheight"> </div>-->
+        <div class="fullheight"> </div>
 
 		<script src="js/TweenMax.js"></script>
 		<script src="js/TimelineMax.js"></script>
