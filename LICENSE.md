@@ -1,11 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2018 Mediary Ltd  
-
-**Note:**
-
-* The compiled countdown timer in `template/mediary/timer` is a separate package with its own license file. See <https://github.com/crazyscot/casparcg-countdown-timer>.
-* The fonts in `template/mediary/fonts` are separate entities with their own license files.
+Copyright (c) 2018 Mediary Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
