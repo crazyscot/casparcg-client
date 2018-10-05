@@ -134,16 +134,7 @@ alive and well. It reports to the status bar.
 Text fields are interpreted by the server as HTML. This means you can use
 special characters, or the standard HTML entity codes for those characters.
 
-You can use any HTML character - fractions, macrons, other accents, even
-characters from other writing systems and emoji, provided the font supports it.
-
-For example:
-
-*            `&frac12; ` The one-half fraction (½)
-*            `&amacr;  `&nbsp;&nbsp;&nbsp; Lower-case 'a' with macron (ā)
-*            `&Amacr;  `&nbsp;&nbsp;&nbsp; Capital 'a' with macron (Ā)
-*            `&eacute; `   Lower-case 'e' with acute accent (é)
-*            `&#9835;  `&nbsp;&nbsp;&nbsp;   Musical notes symbol (♫)
+You can use any HTML character - fractions (&frac12;), macrons (&amacr; &Amacr;), other accents (&eacute; &ccedil; &agrave;), symbols (&#9835), even characters from other writing systems and emoji if the font supports it.
 
 For a list of HTML entity codes, refer to
 <https://www.w3schools.com/charsets/ref_utf_latin1_supplement.asp>
