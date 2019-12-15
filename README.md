@@ -6,6 +6,7 @@ Mediary's Caspar Client
 This is a lightweight broadcast graphics package for the [CasparCG](http://casparcg.com/) playout engine. It was created with live sports in mind but could be useful in many situations as a low cost option to create on-screen graphics in real time.
 
 If you like this and find it useful, please consider buying me a coffee - hit the Sponsor button at the top of the page.
+
 If you need support or customisations, get in touch with my company [Mediary](https://mediary.nz/) to discuss a commercial engagement.
 
 ### Features
