@@ -9,6 +9,8 @@ If you like this and find it useful, please consider buying me a coffee - hit th
 
 If you need support or customisations, get in touch with my company [Mediary](https://mediary.nz/) to discuss a commercial engagement.
 
+**NOTE:** Experimental Python3 support is present on the [python3 branch](https://github.com/crazyscot/casparcg-client/tree/python3).
+
 ### Features
 
 * Generic lower thirds - one line, two lines, and extended two line banner
@@ -38,7 +40,9 @@ we use JSON format data, which doesn't work properly in 2.0.7.
 
 ### Software prerequisites for the client
 
-** Python 2.7**
+**NOTE:** Experimental Python3 support is present on the [python3 branch](https://github.com/crazyscot/casparcg-client/tree/python3).
+
+**Python 2.7**
 
 <https://www.python.org/downloads/release/python-2714/>
 
@@ -48,7 +52,7 @@ Look for "Windows x86 or Windows x86-64 MSI installer".
   `.py` files with Python. That makes it much easier to launch the client:
   you can double click, easily set up a shortcut, etc.
 
-** wxPython **
+**wxPython**
 
 <https://sourceforge.net/projects/wxpython/files/wxPython/3.0.2.0/>
 
