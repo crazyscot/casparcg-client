@@ -99,10 +99,10 @@ class BoolConfigItem(ConfigItem):
         return str(control.IsChecked())
 
 
-class FieldValidator(wx.PyValidator):
+class FieldValidator(wx.Validator):
     ''' A configurable validator for text controls '''
     def __init__(self, allowDigits=True, allowLetters=True, allowColon=False):
-        wx.PyValidator.__init__(self)
+        wx.Validator.__init__(self)
         self.Bind(wx.EVT_CHAR, self.onChar)
         self.allowDigits=allowDigits
         self.allowLetters=allowLetters

@@ -18,7 +18,7 @@ class ColourPicker(wx.Button):
         ''' Initial value should be an HTML #rrggbb triplet (though can be anything that wx.Colour.Set() accepts) '''
         super(ColourPicker, self).__init__(parent, label=label, style=style)
         self.current = wx.Colour()
-        self.current.SetFromString(initial)
+        self.current.Set(initial)
         self.parent = parent
         if font:
             self.SetFont(font)

@@ -40,7 +40,7 @@ class MainWindow(wx.Frame):
         self.config = config.config(configfile)
         self.server = amcp.Connection(self.config, self)
 
-        icon = wx.EmptyIcon()
+        icon = wx.Icon()
         icon.CopyFromBitmap(wx.Bitmap('mediary-caspar.ico'))
         self.SetIcon(icon)
 
