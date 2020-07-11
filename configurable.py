@@ -124,7 +124,7 @@ class FieldValidator(wx.Validator):
 
         if keycode < 256:
             key = chr(keycode)
-            if key in string.letters:
+            if key in string.ascii_letters:
                 if not self.allowLetters: return
             elif key in string.digits:
                 if not self.allowDigits: return
