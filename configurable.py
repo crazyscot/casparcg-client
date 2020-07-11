@@ -7,7 +7,6 @@
 Interface class for configurable wx widgets and various helper types
 '''
 
-from abc import ABCMeta, abstractproperty
 import wx
 import string
 
@@ -22,7 +21,6 @@ class Configurable(object):
     '''
     Interface class for widgets which play with our config dialog mechanism
     '''
-    __metaclass__=ABCMeta
 
     @classproperty
     def configurations(cls):
@@ -30,7 +28,6 @@ class Configurable(object):
         rv.extend((Visible,))
         return rv
 
-    @abstractproperty
     def my_configurations(self):
         '''
             Returns this class's list of Items.
@@ -41,16 +38,14 @@ class Configurable(object):
             NOTE: Do not include 'Visible', that is implicit.
             NOTE: All items must have distinct labels.
         '''
-        pass
+        raise Error('abstract property')
 
-    @abstractproperty
     def config_section(self):
         '''
             The name of the section in the INI file to use for this widget.
         '''
-        pass
+        raise Error('abstract property')
 
-    @abstractproperty
     def my_default_config(self):
         '''
             A dictionary of default data for this configuration.
@@ -60,7 +55,7 @@ class Configurable(object):
             def MyClass(...):
                default_config = { 'Template' : 'lowerthird', 'Layer': 42 }
         '''
-        pass
+        raise Error('abstract property')
 
     @classmethod
     def default_config(self):

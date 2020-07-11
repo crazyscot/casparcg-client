@@ -7,20 +7,16 @@
 Interface class for our Widgets
 '''
 
-import abc
 from configurable import Configurable, Layer, Template
 import amcp
 import wx
 
 class Widget(Configurable):
-    __metaclass__ = abc.ABCMeta
-
-    @abc.abstractproperty
     def ui_label(self):
         '''
             The label to use in the UI, as a string
         '''
-        pass
+        raise Error('abstract property')
 
     @classmethod
     def is_visible(cls, config):
@@ -33,9 +29,8 @@ class Widget(Configurable):
     def template(self):
         return self.config.get(self.config_section, Template.label, self.my_default_config[Template.label])
 
-    @abc.abstractmethod
     def templateData(self):
-        pass
+        raise Error('abstract method')
 
     def validate(self):
         return True
