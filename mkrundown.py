@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ''' Quick script to turn a list of items into a rundown for Caspar's own client '''
 
