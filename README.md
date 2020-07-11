@@ -34,13 +34,13 @@ we use JSON format data, which doesn't work properly in 2.0.7.
 1. Wire the server up to your mixer in whatever way makes sense for your systems.  
    Before continuing, be sure it is working correctly - double check the output resolution, frame rate and interlacing.
 1. Copy the `mediary` template directory into `CasparCG Server\template` .
-1. On the system which is to run the client, install Python 2.7 and wxPython 3.0.
+1. On the system which is to run the client, install Python 3 and wxPython 4.0.
 
 ### Software prerequisites for the client
 
-** Python 2.7**
+**Python 3**
 
-<https://www.python.org/downloads/release/python-2714/>
+<https://www.python.org/downloads/release/python-383/>
 
 Look for "Windows x86 or Windows x86-64 MSI installer".
 
@@ -48,19 +48,15 @@ Look for "Windows x86 or Windows x86-64 MSI installer".
   `.py` files with Python. That makes it much easier to launch the client:
   you can double click, easily set up a shortcut, etc.
 
-** wxPython **
+**wxPython 4**
 
-<https://sourceforge.net/projects/wxpython/files/wxPython/3.0.2.0/>
+On OSX and Windows, ask python to install wxPython:
 
-Look for one of:
+````
+pip install -U wxPython
+````
 
-  - wxPython3.0-win**32**-3.0.2.0-py27.exe
-  - wxPython3.0-win**64**-3.0.2.0-py27.exe
-
-If you're running 64-bit windows, you can install either the 32-bit or 64-bit
-versions of Python and wxPython BUT you must use the same for both packages.
-
-**On Linux, these can usually be found pre-packaged.**  On Ubuntu and Debian systems, `apt-get install python-wxgtk3.0` will likely do the trick.
+On Linux, the above might work... or it might take a long time as it recompiles everything. Your distribution may pre-package it for you; on Ubuntu and Debian systems, `apt-get install python3-wxgtk4.0` will likely do the trick.
 
 ---
 
