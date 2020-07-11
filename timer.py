@@ -21,7 +21,7 @@ ZeroCut = configurable.BoolConfigItem('Clear on zero', 'Automatically clear the 
 def parse_time(f):
     ''' Interprets a user field in format MM:SS or HH:MM:SS '''
     parts=f.split(':')
-    if len(parts) not in range(2,4): # i.e. 2 or 3 parts expected
+    if len(parts) not in list(range(2,4)): # i.e. 2 or 3 parts expected
         raise Exception('Clock format must be MM:SS or HH:MM:SS')
     try:
         HH = int(parts[-3])

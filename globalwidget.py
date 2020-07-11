@@ -113,7 +113,7 @@ class GlobalWidget(wx.StaticBox, Widget):
 
     def do_ping(self,event):
         dat = self.parent.transact('VERSION')
-        print dat
+        print(dat)
         if dat:
             self.parent.status('PING: As of %s, server reported version %s'%(datetime.datetime.now(),dat))
 
@@ -172,8 +172,8 @@ class ConfigDialog(wx.Dialog):
             try:
                 current = defaults[c.label]
             except KeyError as e:
-                print '>> MISSING DEFAULT CONFIG:', cls.__name__+'.'+c.label
-                print 'Active defaults is: ', defaults
+                print('>> MISSING DEFAULT CONFIG:', cls.__name__+'.'+c.label)
+                print('Active defaults is: ', defaults)
                 raise e
             current = self.main.config.get(cls.config_section, c.label, current)
             ctrl = c.create_control(sb, current)

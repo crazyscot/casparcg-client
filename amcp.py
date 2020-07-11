@@ -9,7 +9,7 @@
 '''
 
 import socket
-import ConfigParser
+import configparser
 import json
 import globalwidget
 
