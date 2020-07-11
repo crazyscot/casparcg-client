@@ -15,7 +15,7 @@ from configurable import ConfigItem, IntConfigItem, classproperty
 from widget import Widget
 from wx.lib.wordwrap import wordwrap
 
-VERSION='0.2.2+'
+VERSION='0.2.3'
 
 Server=ConfigItem('Server', 'IP address or host name of the CasparCG server to connect to')
 Port=IntConfigItem('Port', 'Port to connect to (usually 5250)')
