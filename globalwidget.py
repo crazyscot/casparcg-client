@@ -8,7 +8,9 @@ Global widget for the client.
 Contains ALL OFF and global configuration functions.
 '''
 
+import amcp # not used directly but resolves a circular initialisation issue in some cases
 import wx
+import wx.adv
 import datetime
 import sys
 from configurable import ConfigItem, IntConfigItem, classproperty
@@ -93,7 +95,7 @@ class GlobalWidget(wx.StaticBox, Widget):
             dlg.Destroy()
 
     def do_about(self, event):
-        info = wx.AboutDialogInfo()
+        info = wx.adv.AboutDialogInfo()
         info.Name = "Mediary's Caspar Client"
         try:
             icon = wx.Icon('mediary-logo.xpm')
@@ -109,11 +111,11 @@ class GlobalWidget(wx.StaticBox, Widget):
         info.WebSite = ("https://mediary.nz/", "website")
         #info.Developers = ["Ross Younger"]
         #info.License = wordwrap("...", 500, wx.ClientDC(self.parent))
-        wx.AboutBox(info)
+        wx.adv.AboutBox(info)
 
     def do_ping(self,event):
         dat = self.parent.transact('VERSION')
-        print dat
+        print(dat)
         if dat:
             self.parent.status('PING: As of %s, server reported version %s'%(datetime.datetime.now(),dat))
 
@@ -172,8 +174,8 @@ class ConfigDialog(wx.Dialog):
             try:
                 current = defaults[c.label]
             except KeyError as e:
-                print '>> MISSING DEFAULT CONFIG:', cls.__name__+'.'+c.label
-                print 'Active defaults is: ', defaults
+                print('>> MISSING DEFAULT CONFIG:', cls.__name__+'.'+c.label)
+                print('Active defaults is: ', defaults)
                 raise e
             current = self.main.config.get(cls.config_section, c.label, current)
             ctrl = c.create_control(sb, current)

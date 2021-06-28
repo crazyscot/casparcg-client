@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ''' Quick script to turn a list of items into a rundown for Caspar's own client '''
 
@@ -46,7 +46,7 @@ ITEMTAIL = '''
 
 TAIL='''</items>'''
 
-print HEAD
+print(HEAD)
 for i in items:
     it = ITEMHEAD
     it = it.replace('%DEVICE%', DEVICE)
@@ -54,12 +54,12 @@ for i in items:
     it = it.replace('%LAYER%', str(LAYER))
     title = i[0] or 'Template'
     it = it.replace('%label%', i[0])
-    print it
+    print(it)
 
     for k,v in zip(fields,i[1:]):
         it = FIELD
         it = it.replace('%id%', k)
         it = it.replace('%value%', str(v))
-        print it
-    print ITEMTAIL
-print TAIL
+        print(it)
+    print(ITEMTAIL)
+print(TAIL)

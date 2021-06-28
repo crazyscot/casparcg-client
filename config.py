@@ -7,7 +7,7 @@
 Helper class that wraps a ConfigParser
 '''
 
-from ConfigParser import *
+from configparser import *
 
 SERVER='server'
 CHANNEL='channel'

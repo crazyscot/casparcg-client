@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
 # This file is part of Mediary's Caspar Client.
 # Copyright (C) 2018 Mediary Limited. All rights reserved.
@@ -40,7 +40,7 @@ class MainWindow(wx.Frame):
         self.config = config.config(configfile)
         self.server = amcp.Connection(self.config, self)
 
-        icon = wx.EmptyIcon()
+        icon = wx.Icon()
         icon.CopyFromBitmap(wx.Bitmap('mediary-caspar.ico'))
         self.SetIcon(icon)
 

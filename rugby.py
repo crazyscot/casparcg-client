@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import scorebug
 import wx
@@ -14,7 +14,7 @@ ScoresByCode = {
         'League': { 'try': 4, 'convertedtry': 6, 'penalty': 2, 'dropgoal': 1 },
 }
 
-RugbyCode = configurable.ListConfigItem('Code', 'Which rugby code\'s scoring rules', ScoresByCode.keys())
+RugbyCode = configurable.ListConfigItem('Code', 'Which rugby code\'s scoring rules', list(ScoresByCode.keys()))
 
 class RugbyScoreBug(scorebug.ScoreBug):
     config_section='rugby'
