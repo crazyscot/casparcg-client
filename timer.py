@@ -96,6 +96,6 @@ class Timer(wx.StaticBox, Widget):
             dt = parse_time( self.f_set_time.GetValue() )
         except Exception as e:
             self.parent.blink_status()
-            self.parent.status(e.message)
+            self.parent.status(str(e))
             return False
         return True
