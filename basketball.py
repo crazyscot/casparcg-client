@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+#
+# This file is part of Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
 
 import scorebug
 import wx

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+#
+# This file is a tool for use with Mediary's Caspar Client.
+# Copyright (C) 2018 Mediary Limited. All rights reserved.
+#
 
 ''' Quick script to turn a list of items into a rundown for Caspar's own client '''
 
