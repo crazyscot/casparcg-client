@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+#
+# This file was contributed to Mediary's Caspar Client by Jason Bowles,
+# under the same license terms as the rest of the package.
+# https://github.com/crazyscot/casparcg-client/pull/10
+#
 
 import scorebug
 import wx
