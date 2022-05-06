@@ -22,10 +22,12 @@ class ScoreExtra(wx.StaticBox, Widget):
     ui_label='Beneath Score Bug (clashes with Timer)'
     my_default_config={'Template': 'mediary/scoreextra', 'Layer': 104}
 
-    def __init__(self, parent, config):
+    def __init__(self, parent, config, uiLabel=None):
         '''
             Required: parent object, config object
         '''
+        if uiLabel:
+            self.ui_label = uiLabel # allow the label to be overridden
         super(ScoreExtra, self).__init__(parent, label=self.ui_label)
         self.parent = parent
         self.config = config

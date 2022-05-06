@@ -12,7 +12,7 @@ To make this work:
     * Install the templates to the caspar server's template directory
 '''
 
-
+import os
 import amcp
 import traceback
 import config
@@ -41,7 +41,7 @@ class MainWindow(wx.Frame):
         self.server = amcp.Connection(self.config, self)
 
         icon = wx.Icon()
-        icon.CopyFromBitmap(wx.Bitmap('mediary-caspar.ico'))
+        icon.CopyFromBitmap(wx.Bitmap(os.path.join(os.path.dirname(__file__),'mediary-caspar.ico')))
         self.SetIcon(icon)
 
         self.panel = MainPanel(self, widgets)

@@ -17,8 +17,10 @@ class ColourPicker(wx.Button):
     def __init__(self, parent, label, initial, font=None, style=0):
         ''' Initial value should be an HTML #rrggbb triplet (though can be anything that wx.Colour.Set() accepts) '''
         super(ColourPicker, self).__init__(parent, label=label, style=style)
+        self.htmlColor = initial
         self.current = wx.Colour()
-        self.current.Set(initial)
+        #self.current.Set(initial)
+        self.updateColor()
         self.parent = parent
         if font:
             self.SetFont(font)
@@ -30,9 +32,15 @@ class ColourPicker(wx.Button):
         data.SetColour(self.current)
         dlg = wx.ColourDialog(self, data)
         if dlg.ShowModal() == wx.ID_OK:
-            self.current = dlg.GetColourData().Colour
+            self.htmlColor = dlg.GetColourData().Colour.GetAsString(wx.C2S_HTML_SYNTAX)
+            self.updateColor()
             self.parent.update_patch()
         dlg.Destroy()
+    
+    def updateColor(self,newColor=None):
+        if newColor is None:
+            newColor = self.htmlColor
+        self.current.Set(newColor)
 
     def get(self):
         ''' Returns the internal wxColour as an RGB triplet '''
@@ -46,7 +54,8 @@ class PairedColourPicker(wx.Panel):
         super(PairedColourPicker, self).__init__(parent)
         self.parent = parent
         self.notifyfn = notifyfn
-        self.patch = self.patch2 = None
+        self.patch = None
+        self.patch2 = None
 
         sizer = wx.BoxSizer(sizerFlags)
         self.SetSizer(sizer)
