@@ -62,7 +62,7 @@ On Linux, the above might work... or it might take a long time as it recompiles 
 
 ## Launching the client
 
-The client is actually a collection of related Python scripts. Just run the appropriate one (list below).
+The client is actually a collection of related [Python](https://www.scaler.com/topics/python-libraries/) scripts. Just run the appropriate one (list below).
 
 This is much easier if you have set up file associations to open `.py` files
 with Python, as it means you can just double click. Alternatively, you can set up desktop shortcuts to run the clients, e.g. `python basketball.py`
